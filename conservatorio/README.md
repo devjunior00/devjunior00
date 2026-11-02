@@ -34,6 +34,12 @@ python3 -m http.server 8000
 
 O progresso fica salvo no navegador. Aberto no Claude, ele também fica salvo na sua conta.
 
+## Abrir fora do Claude (GitHub Pages)
+
+`app.html` é a versão completa para abrir direto no navegador, inclusive em iPhones com iOS mais antigo. O `index.html` da raiz do repositório redireciona para ela. Para publicar: no GitHub, **Settings → Pages → Deploy from a branch**, escolha a branch e a pasta `/ (root)`. Depois de mudar o `index.html`, gere de novo com `python3 conservatorio/gerar-app.py`.
+
+Fora do Claude, o professor por IA e a leitura de hinos por foto não funcionam; o progresso fica salvo no aparelho.
+
 ## Arquivos
 
 | Arquivo | Conteúdo |
