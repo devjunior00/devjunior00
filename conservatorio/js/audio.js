@@ -18,6 +18,7 @@
     clarinete: { onda: 'square', filtro: 1800, q: 1, ataque: 0.03 },
     trompete: { onda: 'sawtooth', filtro: 3200, q: 4, ataque: 0.03 },
     trombone: { onda: 'sawtooth', filtro: 1400, q: 3, ataque: 0.05 },
+    flauta: { onda: 'triangle', filtro: 2600, q: 0.7, ataque: 0.05 },
     puro: { onda: 'sine', filtro: 8000, q: 0.5, ataque: 0.01 },
   };
   let timbreAtual = 'sax';

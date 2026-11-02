@@ -61,6 +61,17 @@
     },
   };
 
+  MELODIAS.coral4 = {
+    titulo: 'Coral a quatro vozes', fonte: 'Exercício original deste app, no formato SATB dos hinários (soprano, contralto, tenor e baixo)', compasso: '4/4', tom: 'C', tomConcerto: 'F', ref: 'maior', nivel: 'intermediario', concerto: true,
+    vozes: {
+      s: '"C" G4:8 E4:8 "F" F4:8 "C" E4:8 "G7" D4:8 "C" E4:8 "F" F4:8 "G" G4:8 "C" G4:8 "Am" A4:8 "Dm" A4:8 "G" B4:8 "C" C5:8 "G7" B4:8 "C" C5:16',
+      a: 'E4:8 C4:8 C4:8 C4:8 B3:8 C4:8 C4:8 D4:8 E4:8 E4:8 F4:8 D4:8 E4:8 F4:8 E4:16',
+      t: 'C4:8 G3:8 A3:8 G3:8 G3:8 G3:8 A3:8 B3:8 C4:8 C4:8 D4:8 B3:8 G3:8 G3:8 G3:16',
+      b: 'C3:8 C3:8 F2:8 C3:8 G2:8 C3:8 F2:8 G2:8 C3:8 A2:8 D3:8 G2:8 C3:8 G2:8 C3:16',
+    },
+  };
+  const NOME_VOZ = { s: 'soprano', a: 'contralto', t: 'tenor', b: 'baixo' };
+
   // transpõe cifra (raiz e baixo) pelo mesmo intervalo da melodia
   function transporCifra(c, iv) {
     if (!c) return c;
@@ -75,8 +86,9 @@
   }
 
   // devolve {tonica, tonicaMaior, notas} em leitura do instrumento
-  function paraInstrumento(id, inst) {
+  function paraInstrumento(id, inst, voz) {
     const mel = MELODIAS[id];
+    if (mel.concerto) return concertoPara(mel, inst, voz || 's');
     const notas = ler(mel.notas);
     const ton = M.parse(mel.tom + '4');
     let iv = { l: 0, s: 0 };
@@ -92,5 +104,32 @@
     };
   }
 
-  window.Melodias = { MELODIAS, ler, paraInstrumento, transporCifra };
+  // melodia escrita em som de concerto: cada instrumento recebe sua parte transposta e na oitava que cabe
+  function concertoPara(mel, inst, voz) {
+    const L = M.LETRAS;
+    const t0 = M.parse(mel.tom + '4'), tc = M.parse((mel.tomConcerto || mel.tom) + '4');
+    let ivC = { l: L.indexOf(tc.l) - L.indexOf(t0.l), s: M.midi(tc) - M.midi(t0) };
+    if (ivC.s < 0) ivC = { l: ivC.l + 7, s: ivC.s + 12 };
+    const notas = ler(mel.vozes ? mel.vozes[voz] : mel.notas).map((x) => ({ n: x.n ? M.transpor(x.n, ivC) : null, d: x.d, cifra: x.cifra }));
+    const r = M.tomEscrito(tc, mel.ref, inst);
+    // prefere a oitava real; muda só se sair da região confortável (nível intermediário) do instrumento
+    const [lo, hi] = ((inst.conf && inst.conf.intermediario) || inst.faixa).map((x) => M.midi(M.parse(x)));
+    let melhor = null;
+    [0, 12, -12, 24, -24].forEach((k) => {
+      const iv = { l: r.iv.l + 7 * Math.sign(k) * Math.abs(k / 12), s: r.iv.s + k };
+      const alt = notas.filter((x) => x.n).map((x) => M.midi(M.transpor(x.n, iv)));
+      const fora = alt.filter((m) => m < lo || m > hi).length;
+      const med = (Math.min(...alt) + Math.max(...alt)) / 2, dist = Math.abs(med - (lo + hi) / 2);
+      if (!melhor || fora < melhor.fora || (fora === melhor.fora && melhor.k !== 0 && (Math.abs(k) < Math.abs(melhor.k) || (Math.abs(k) === Math.abs(melhor.k) && dist < melhor.dist)))) melhor = { iv, fora, k, dist };
+    });
+    const iv = melhor.iv;
+    const tonica = M.transpor(Object.assign({}, tc), iv);
+    return {
+      mel: Object.assign({}, mel, { titulo: mel.titulo + (mel.vozes ? ' — voz de ' + NOME_VOZ[voz] : '') }), tonica, tonicaMaior: M.tonicaMaiorDe(tonica, mel.ref), anacruse: mel.anacruse || 0,
+      concerto: { tom: tc, oitava: melhor.k },
+      notas: notas.map((x) => ({ n: x.n ? M.transpor(x.n, iv) : null, d: x.d, x: x.cifra ? transporCifra(x.cifra, iv) : null })),
+    };
+  }
+
+  window.Melodias = { MELODIAS, ler, paraInstrumento, transporCifra, NOME_VOZ };
 })();

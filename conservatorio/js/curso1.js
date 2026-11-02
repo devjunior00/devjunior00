@@ -411,7 +411,7 @@ window.Curso.aula = function (a) {
     pra: (I, H) => `<p>Use um espelho. Monte a embocadura, toque uma nota média por 8 tempos e observe se algo se mexe (queixo, bochechas, cantos). Uma embocadura correta parece “calma” por fora.</p>` + por(I, {
       palheta: `<p><b>Teste da pressão:</b> toque a nota mais grave confortável em <i>piano</i>. Se não sair, você está mordendo. Depois toque uma nota aguda confortável: se ela ficar baixa e fina, falta firmeza nos cantos — e não na mandíbula.</p>`,
       metal: `<p><b>Teste da pressão:</b> toque uma nota média e vá aliviando a pressão do bocal até o som quase parar. Esse é o mínimo necessário; toque com só um pouco mais que isso.</p>`,
-    }) + H.pauta({ tipo: 'notas', notas: I.transp.s ? (I.sub === 'clarinete' ? 'G4:16 F4:16 E4:16 D4:16 C4:16' : I.sub === 'trompete' ? 'C4:16 D4:16 E4:16 D4:16 C4:16' : 'B4:16 A4:16 G4:16 A4:16 B4:16') : 'F3:16 Eb3:16 D3:16 Eb3:16 F3:16', tom: I.transp.s ? 'C' : 'Bb', titulo: 'Notas longas para observar a embocadura no espelho', bpm: 60 }),
+    }) + H.pauta({ tipo: 'notas', notas: !I.grave ? (I.sub === 'clarinete' ? 'G4:16 F4:16 E4:16 D4:16 C4:16' : I.sub === 'trompete' ? 'C4:16 D4:16 E4:16 D4:16 C4:16' : 'B4:16 A4:16 G4:16 A4:16 B4:16') : 'F3:16 Eb3:16 D3:16 Eb3:16 F3:16', tom: !I.grave ? 'C' : 'Bb', titulo: 'Notas longas para observar a embocadura no espelho', bpm: 60 }),
     exs: (I) => I.familia === 'metal' ? [
       { nome: 'Buzz no espelho', dur: '5 min', obj: 'Embocadura estável.', passos: ['Buzz no bocal em frente ao espelho, 4 tempos.', 'Observe: cantos firmes? bochechas paradas?', '8 repetições.'], crit: 'Nada se mexe além dos lábios vibrando.' },
       { nome: 'Pressão mínima', dur: '5 min', obj: 'Aprender a tocar sem pressão excessiva.', passos: ['Nota média, alivie a pressão até quase parar.', 'Volte só um pouco.', 'Repita em 3 notas.'], crit: 'Consegue sustentar 8 tempos com pressão leve.' },
@@ -449,7 +449,7 @@ window.Curso.aula = function (a) {
       <p>O desafio: ao mudar a dinâmica, a <b>afinação tende a mudar</b>. ${'Nos instrumentos de palheta, o piano tende a subir e o forte a descer; nos metais é comum o contrário em alguns registros.'} Por isso se treina com afinador.</p>
       <p><b>Homogeneidade</b> é fazer todas as notas soarem com o mesmo “corpo” e cor, do grave ao agudo — como um cantor que não muda de voz ao subir.</p>`,
     pra: (I, H) => `<p>Escolha 5 notas confortáveis. Para cada uma: 4 tempos em <i>p</i>, 4 tempos crescendo até <i>f</i>, 4 tempos diminuindo até <i>p</i> (♩ = 60). Use o <a href="#afinador">afinador</a> (ou grave e analise o arquivo): a meta é o ponteiro parado do início ao fim.</p>` +
-      H.pauta({ tipo: 'notas', notas: I.transp.s ? (I.sub === 'clarinete' ? 'C4:16 D4:16 E4:16 F4:16 G4:16 F4:16 E4:16 D4:16 C4:16' : 'G4:16 F4:16 E4:16 D4:16 C4:16 D4:16 E4:16 F4:16 G4:16') : 'F3:16 Eb3:16 D3:16 C3:16 Bb2:16 C3:16 D3:16 Eb3:16 F3:16', tom: I.transp.s ? 'C' : 'Bb', titulo: 'Notas longas em sequência (cada nota: p < f > p)', bpm: 60 }),
+      H.pauta({ tipo: 'notas', notas: !I.grave ? (I.sub === 'clarinete' ? 'C4:16 D4:16 E4:16 F4:16 G4:16 F4:16 E4:16 D4:16 C4:16' : 'G4:16 F4:16 E4:16 D4:16 C4:16 D4:16 E4:16 F4:16 G4:16') : 'F3:16 Eb3:16 D3:16 C3:16 Bb2:16 C3:16 D3:16 Eb3:16 F3:16', tom: !I.grave ? 'C' : 'Bb', titulo: 'Notas longas em sequência (cada nota: p < f > p)', bpm: 60 }),
     exs: [
       { nome: 'Nota longa com afinador', dur: '5 min', bpm: 60, obj: 'Altura estável.', passos: ['Uma nota, 8 tempos em mf.', 'Olhe o afinador só no fim (para treinar o ouvido), depois confira durante.', '5 notas diferentes.'], crit: 'Ponteiro dentro de ±10 cents durante toda a nota.' },
       { nome: 'Crescendo–diminuendo', dur: '5 min', bpm: 60, obj: 'Controle de dinâmica sem desafinar.', passos: ['p (4) < f (4) > p (4).', 'O final em p deve ser tão estável quanto o início.', '5 notas.'], crit: 'Afinação dentro de ±15 cents nas três dinâmicas.' },
@@ -476,7 +476,7 @@ window.Curso.aula = function (a) {
       <p>O princípio mais importante: <b>a língua não empurra o ar</b>. O ar está sempre pronto e pressionado (apoio); a língua funciona como uma válvula que <b>libera</b> o ar. Pense na língua “saindo do caminho”, não “batendo”.</p>
       ${por(I, { palheta: '<p><b>Onde a língua toca (palheta):</b> a ponta da língua (ou logo atrás da ponta) toca levemente a <b>ponta da palheta</b>, por baixo. Para atacar, a língua se afasta, como ao dizer “tu” ou “du”. Toque o mínimo de palheta, com o mínimo de força.</p>', metal: '<p><b>Onde a língua toca (metais):</b> a ponta da língua toca atrás dos dentes de cima (ou no limite entre dentes e gengiva), como ao dizer “tu”. Ela não entra entre os lábios. No grave, “tô” ou “dô”; no agudo, “ti”.</p>' })}
       <p><b>“Tu”</b> dá um ataque mais definido; <b>“du”</b> dá um ataque mais suave. Evite o <b>ataque de garganta</b> (“hu” ou golpe de glote): ele soa como uma tosse e prende o ar.</p>`,
-    pra: (I, H) => H.pauta({ tipo: 'notas', notas: (I.transp.s ? (I.sub === 'clarinete' ? 'G4:4 G4:4 G4:4 G4:4 F4:4 F4:4 F4:4 F4:4 E4:4 E4:4 E4:4 E4:4 F4:16' : 'G4:4 G4:4 G4:4 G4:4 A4:4 A4:4 A4:4 A4:4 B4:4 B4:4 B4:4 B4:4 A4:16') : 'F3:4 F3:4 F3:4 F3:4 Eb3:4 Eb3:4 Eb3:4 Eb3:4 D3:4 D3:4 D3:4 D3:4 Eb3:16'), tom: I.transp.s ? 'C' : 'Bb', titulo: 'Notas repetidas com “tu” (uma respiração por linha)', bpm: 60 }) +
+    pra: (I, H) => H.pauta({ tipo: 'notas', notas: (!I.grave ? (I.sub === 'clarinete' ? 'G4:4 G4:4 G4:4 G4:4 F4:4 F4:4 F4:4 F4:4 E4:4 E4:4 E4:4 E4:4 F4:16' : 'G4:4 G4:4 G4:4 G4:4 A4:4 A4:4 A4:4 A4:4 B4:4 B4:4 B4:4 B4:4 A4:16') : 'F3:4 F3:4 F3:4 F3:4 Eb3:4 Eb3:4 Eb3:4 Eb3:4 D3:4 D3:4 D3:4 D3:4 Eb3:16'), tom: !I.grave ? 'C' : 'Bb', titulo: 'Notas repetidas com “tu” (uma respiração por linha)', bpm: 60 }) +
       '<p>Mantenha o som “ligado por baixo”: entre as notas, a língua interrompe por um instante, mas o ar continua pressionado. O resultado soa como um colar de pérolas: notas separadas, sobre um fio contínuo.</p>',
     exs: [
       { nome: 'Sopro + língua sem instrumento', dur: '2 min', obj: 'Ar contínuo com a língua interrompendo.', passos: ['Sopre na palma da mão um ar constante.', 'Sem parar o ar, diga “tu-tu-tu-tu”.', 'O ar na mão deve continuar sentido entre os “tu”.'], crit: 'Sente o ar contínuo.' },
@@ -575,7 +575,7 @@ window.Curso.aula = function (a) {
     }),
     pra: (I, H) => {
       const notas = por(I, { sax: ['B4', 'A4', 'G4', 'C5', 'F4', 'E4', 'D4'], clarinete: ['G4', 'F4', 'E4', 'D4', 'C4'], trompete: ['C4', 'D4', 'E4', 'F4', 'G4'], trombone: ['Bb2', 'C3', 'D3', 'Eb3', 'F3'] });
-      return H.dedos(I, notas) + H.pauta({ tipo: 'notas', notas: I.transp.s ? 'C4:8 D4:8 E4:8 F4:8 G4:16 F4:8 E4:8 D4:8 C4:8 r:16' : 'Bb2:8 C3:8 D3:8 Eb3:8 F3:16 Eb3:8 D3:8 C3:8 Bb2:8 r:16', tom: I.transp.s ? 'C' : 'Bb', titulo: 'Cinco notas: subir e descer', bpm: 60 });
+      return H.dedos(I, notas) + H.pauta({ tipo: 'notas', notas: !I.grave ? 'C4:8 D4:8 E4:8 F4:8 G4:16 F4:8 E4:8 D4:8 C4:8 r:16' : 'Bb2:8 C3:8 D3:8 Eb3:8 F3:16 Eb3:8 D3:8 C3:8 Bb2:8 r:16', tom: !I.grave ? 'C' : 'Bb', titulo: 'Cinco notas: subir e descer', bpm: 60 });
     },
     ex: (I, H) => H.pauta({ tipo: 'mel', id: 'ode' }) + H.pauta({ tipo: 'mel', id: 'coral' }),
     exs: (I) => [
@@ -623,7 +623,7 @@ window.Curso.aula = function (a) {
       });
     },
     pra: (I, H) => `<p>Use a aba <a href="#dedilhado">${I.sub === 'trombone' ? 'Posições' : I.sub === 'trompete' ? 'Pistos' : 'Dedilhados'}</a> como tabela completa. Estude a extensão <b>por regiões</b>, adicionando 1–2 notas novas por semana.</p>` +
-      H.pauta({ tipo: 'escala', escala: 'cromatica', tonica: I.transp.s ? 'C4' : 'Bb2', oitavas: 1, dur: 4, titulo: 'Escala cromática de uma oitava (toda a sequência de semitons)', bpm: 60 }) +
+      H.pauta({ tipo: 'escala', escala: 'cromatica', tonica: !I.grave ? 'C4' : 'Bb2', oitavas: 1, dur: 4, titulo: 'Escala cromática de uma oitava (toda a sequência de semitons)', bpm: 60 }) +
       por(I, {
         sax: H.pauta({ tipo: 'notas', notas: 'C#5:8 D5:8 C#5:8 D5:8 C5:8 D5:8 B4:8 D5:8 C#5:4 D5:4 C#5:4 D5:4 C#5:16', tom: 'C', titulo: 'Passagem Dó♯ ↔ Ré (ligado)', bpm: 60 }),
         clarinete: H.pauta({ tipo: 'notas', notas: 'G4:8 B4:8 A4:8 B4:8 Bb4:8 C5:8 A4:8 C5:8 G4:4 A4:4 B4:4 C5:4 D5:16', tom: 'C', titulo: 'Passagem do registro (dedos da mão direita abaixados nas notas da garganta)', bpm: 50 }),

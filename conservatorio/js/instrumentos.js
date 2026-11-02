@@ -45,7 +45,7 @@
       transp: { l: 0, s: 0 }, clave: 'bass',
       transpTexto: 'na clave de Fá, lê em sons reais (não transpõe)',
       exemploTransp: 'Dó escrito soa Dó',
-      faixa: ['E2', 'F5'], conf: { iniciante: ['Bb2', 'Bb3'], basico: ['F2', 'D4'], intermediario: ['E2', 'F4'], avancado: ['E2', 'F5'] },
+      faixa: ['E2', 'F5'], conf: { iniciante: ['Bb2', 'Bb3'], basico: ['F2', 'D4'], intermediario: ['E2', 'G4'], avancado: ['E2', 'F5'] },
       afinar: { escrita: 'Bb3', obs: 'Afine o Si♭ na 1ª posição e o Fá (1ª posição) com a bomba de afinação. As demais notas se corrigem com a vara, ouvindo.' },
       primeiraEscala: 'Bb', bocal: 'bocal',
     },
@@ -280,6 +280,7 @@
     fF: 'Fá de frente', fs: 'Fá♯ agudo', T: 'polegar (furo)', R: 'chave de registro', A: 'chave de Lá', Gs: 'chave de Sol♯ (garganta)', lE: 'Mi/Si (mínimo esq.)', lF: 'Fá/Dó (mínimo esq.)',
     lFs: 'Fá♯/Dó♯ (mínimo esq.)', lCs: 'Dó♯/Sol♯ (mínimo esq.)', rFs: 'Fá♯/Dó♯ (mínimo dir.)', rE: 'Mi/Si (mínimo dir.)', rF: 'Fá/Dó (mínimo dir.)', rAb: 'Sol♯/Ré♯ (mínimo dir.)',
     s1: 'lateral 1', s2: 'lateral 2', s3: 'lateral 3', s4: 'lateral 4 (Mi♭/Si♭)',
+    fT: 'polegar (chave de Si)', fTb: 'polegar (alavanca de Si♭)', fGs: 'Sol♯ (mínimo esq.)', fEb: 'Mi♭ (mínimo dir.)', fCs: 'Dó♯ grave (mínimo dir.)', fC: 'Dó grave (mínimo dir.)', fTr1: 'trinado de Ré', fTr2: 'trinado de Ré♯',
   };
   const descChaves = (k) => (k.length ? k.map((c) => NOMES_CHAVE[c] || ('dedo ' + c)).join(' + ') : 'nenhuma chave (todas soltas)');
 
@@ -288,24 +289,31 @@
     const m = M.midi(notaEscrita);
     if (inst.sub === 'sax') {
       const d = saxDedilhado(notaEscrita); if (!d) return null;
-      return { svg: svgSax(d.k), texto: descChaves(d.k), alts: d.alts.map((a) => ({ svg: svgSax(a.k), texto: descChaves(a.k), nota: a.nota })), obs: d.obs };
+      return { svg: svgSax(d.k), k: d.k, texto: descChaves(d.k), alts: d.alts.map((a) => ({ svg: svgSax(a.k), k: a.k, texto: descChaves(a.k), nota: a.nota })), obs: d.obs };
     }
     if (inst.sub === 'clarinete') {
       const d = CLARINETE && CLARINETE[m]; if (!d) return null;
-      return { svg: svgClarinete(d.k), texto: descChaves(d.k), alts: (d.alts || []).map((a) => ({ svg: svgClarinete(a.k), texto: descChaves(a.k), nota: a.nota })), obs: d.obs || '' };
+      return { svg: svgClarinete(d.k), k: d.k, texto: descChaves(d.k), alts: (d.alts || []).map((a) => ({ svg: svgClarinete(a.k), k: a.k, texto: descChaves(a.k), nota: a.nota })), obs: d.obs || '' };
+    }
+    if (inst.sub === 'flauta') {
+      const d = FLAUTA && FLAUTA.dedilhado(m); if (!d) return null;
+      return { svg: FLAUTA.svg(d.k), k: d.k, texto: descChaves(d.k), alts: d.alts.map((a) => ({ svg: FLAUTA.svg(a.k), k: a.k, texto: descChaves(a.k), nota: a.nota })), obs: d.obs };
     }
     if (inst.sub === 'trompete') {
       const d = TROMPETE[m]; if (!d) return null;
-      return { svg: svgTrompete(d[0]), texto: d[0] === '0' ? 'solto (0)' : d[0].split('').join('-'), alts: d.slice(1).map((v) => ({ svg: svgTrompete(v), texto: v.split('').join('-'), nota: 'alternativa' })), obs: TROMPETE_OBS[m] || '' };
+      return { svg: svgTrompete(d[0]), k: d[0], texto: d[0] === '0' ? 'solto (0)' : d[0].split('').join('-'), alts: d.slice(1).map((v) => ({ svg: svgTrompete(v), texto: v.split('').join('-'), nota: 'alternativa' })), obs: TROMPETE_OBS[m] || '' };
     }
     if (inst.sub === 'trombone') {
       const d = TROMBONE[m]; if (!d) return null;
-      return { svg: svgTrombone(d), texto: d[0] + 'ª posição', alts: [], obs: TROMBONE_OBS[m] || '' };
+      return { svg: svgTrombone(d), k: d, texto: d[0] + 'ª posição', alts: [], obs: TROMBONE_OBS[m] || '' };
     }
     return null;
   }
 
   function registrarClarinete(tab) { CLARINETE = tab; }
+  let FLAUTA = null;
+  function registrarFlauta(f) { FLAUTA = f; }
 
-  window.Inst = { INSTRUMENTOS, OUTROS, dedilhado, registrarClarinete, svgTrompete, svgTrombone, svgSax, svgClarinete, descChaves };
+  Object.values(INSTRUMENTOS).forEach((i) => { i.grave = i.clave === 'bass'; });
+  window.Inst = { INSTRUMENTOS, OUTROS, dedilhado, registrarClarinete, registrarFlauta, svgTrompete, svgTrombone, svgSax, svgClarinete, descChaves };
 })();

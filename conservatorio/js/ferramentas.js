@@ -12,6 +12,7 @@
   let limpeza = [];
   const Ferr = {
     sair() { limpeza.forEach((f) => { try { f(); } catch (e) { /* ignora */ } }); limpeza = []; },
+    _limpar(f) { limpeza.push(f); },
   };
 
   // ======================= AFINADOR =======================
@@ -191,8 +192,9 @@
     const titulo = I.sub === 'trombone' ? 'Posições da vara' : I.sub === 'trompete' ? 'Pistos do trompete' : 'Dedilhados';
     const notas = notasFaixa(I);
     const bemol = I.sub === 'trombone' || I.sub === 'trompete';
-    let sel = M.midi(M.parse(I.transp.s ? 'C5' : 'Bb2'));
+    let sel = M.midi(M.parse(!I.grave ? 'C5' : 'Bb2'));
     if (I.sub === 'clarinete') sel = M.midi(M.parse('C4'));
+    if (I.sub === 'flauta') sel = M.midi(M.parse('B4'));
     el.innerHTML = `<div class="vista">${cab(I.nome, titulo, I.sub === 'trombone'
       ? 'Notas reais na clave de Fá. A 1ª posição é a vara toda fechada; cada posição seguinte abaixa meio tom. Quase toda nota tem mais de uma posição: escolha a que deixa a vara mais perto da próxima nota.'
       : `Todas as notas são <b>escritas</b> (como aparecem na partitura do ${esc(I.nomeMin)}). Toque uma nota para ver ${I.sub === 'trompete' ? 'os pistos' : 'o diagrama'} e as alternativas.`)}
@@ -210,6 +212,7 @@
           ${I.transp.s ? `<span class="sutil">soa ${M.nomeBR(c)}${c.o} (${M.nomeInt(c)}${c.o}) de concerto</span>` : ''}
           <div style="width:100%;max-width:${I.sub === 'trombone' || I.sub === 'trompete' ? 380 : 320}px">${d.svg}</div>
           <p style="text-align:center"><b>${esc(d.texto)}</b></p>
+          <ul class="dedos-txt">${window.Visual.palavras(I, d).map((p) => `<li>${p}</li>`).join('')}</ul>
           <button class="btn peq" type="button" id="dd-ouvir">▶ Ouvir</button></div>
         <div class="cartao pilha"><div class="pauta" id="dd-pauta"></div>
           ${d.obs ? `<p class="aviso">${esc(d.obs)}</p>` : ''}
@@ -230,7 +233,7 @@
     const I = inst;
     E.escalas = E.escalas || {};
     const reg = (E.escalas[I.id] = E.escalas[I.id] || {});
-    const st = { modo: 'escala', ton: I.transp.s ? 'C' : 'Bb', ref: 'escrita', escala: 'maior', acorde: 'M', inv: 0, padrao: 'reta', oit: 1, dur: 4, bpm: 60 };
+    const st = { modo: 'escala', ton: !I.grave ? 'C' : 'Bb', ref: 'escrita', escala: 'maior', acorde: 'M', inv: 0, padrao: 'reta', oit: 1, dur: 4, bpm: 60 };
     el.innerHTML = `<div class="vista">${cab('Técnica', 'Escalas e arpejos', `Gera qualquer escala, modo, arpejo ou padrão já transposto para a leitura do ${esc(I.nomeMin)}, dentro da extensão do instrumento.`)}
       <div class="cartao pilha">
         <div class="linha" style="align-items:flex-end">
@@ -447,14 +450,14 @@
 
   // ======================= ROTINA DE ESTUDO =======================
   function blocosRotina(min, nivel, I) {
-    const metal = I.familia === 'metal';
+    const metal = I.familia === 'metal', flauta = I.familia === 'flauta';
     const B = {
-      resp: ['Respiração e aquecimento', metal ? 'Respiração 4-4-8 (inspira 4, segura 4, solta 8) × 4; buzz no bocal em sirenes suaves.' : 'Respiração 4-4-8 × 4; sopro em “sss” contínuo; notas na boquilha sozinha (ou boquilha + barrilete, no clarinete).', 'Ar contínuo, sem tensão nos ombros; som de bocal/boquilha estável.'],
+      resp: ['Respiração e aquecimento', metal ? 'Respiração 4-4-8 (inspira 4, segura 4, solta 8) × 4; buzz no bocal em sirenes suaves.' : flauta ? 'Respiração 4-4-8 × 4; notas longas só na cabeça da flauta (aberta e tampada).' : 'Respiração 4-4-8 × 4; sopro em “sss” contínuo; notas na boquilha sozinha (ou boquilha + barrilete, no clarinete).', 'Ar contínuo, sem tensão nos ombros; som de bocal/boquilha estável.'],
       longas: ['Notas longas', nivel === 'iniciante' ? 'Uma nota por respiração, ♩ = 60, 4 tempos cada, nas notas que você já domina.' : 'Notas longas em crescendo–diminuendo (pp → ff → pp), 8 tempos, ♩ = 60, por toda a extensão estudada.', 'Altura parada no afinador (±10 cents) do início ao fim da nota.'],
       afin: ['Afinação', 'Nota de referência (aba Afinador): toque junto e elimine os batimentos. Confira 5 notas no afinador.', 'Batimentos eliminados em até 3 segundos.'],
       art: ['Articulação', nivel === 'iniciante' ? 'Uma nota, 4 semínimas por respiração com “tu”, ♩ = 60.' : 'Escala em staccato, legato e tenuto; grupos de 4 colcheias com “tu-tu-tu-tu”.' + (nivel === 'avancado' ? ' Dupla articulação (tu-ku) e tripla (tu-tu-ku).' : ''), 'Início das notas limpo, sem “ataque de garganta” nem atraso.'],
       esc: ['Escalas e arpejos', nivel === 'iniciante' ? 'As notas novas da aula, subindo e descendo devagar.' : nivel === 'intermediario' ? 'Escala do dia (siga o ciclo das quintas) maior e menores, com arpejo; padrão por terças.' : 'Escala do dia em todos os padrões; arpejos de tétrades; escala cromática em toda a extensão.', 'Sem erros em 3 repetições seguidas no andamento escolhido.'],
-      tec: [metal ? 'Flexibilidade labial' : 'Técnica', metal ? 'Ligaduras labiais entre harmônicos (mesma posição/pistos), devagar.' : (nivel === 'avancado' ? 'Harmônicos (overtones), estudo técnico do método do momento, passagens difíceis em laço.' : 'Mudanças de dedos difíceis em laço (ex.: passagem de registro), 10 repetições lentas.'), 'Passagem limpa a ♩ = 60 antes de acelerar.'],
+      tec: [metal ? 'Flexibilidade labial' : 'Técnica', metal ? 'Ligaduras labiais entre harmônicos (mesma posição/pistos), devagar.' : flauta ? 'Harmônicos sobre o Dó grave e oitavas com o mesmo dedilhado; passagens difíceis em laço.' : (nivel === 'avancado' ? 'Harmônicos (overtones), estudo técnico do método do momento, passagens difíceis em laço.' : 'Mudanças de dedos difíceis em laço (ex.: passagem de registro), 10 repetições lentas.'), 'Passagem limpa a ♩ = 60 antes de acelerar.'],
       leit: ['Leitura à primeira vista', 'Um trecho novo por dia (hinário, método, apostila). Antes de tocar: armadura, compasso, ritmo e saltos (30 s de varredura). Toque sem parar.', 'Pulso mantido do início ao fim, mesmo com erros.'],
       ouv: ['Percepção', 'Aba Treino auditivo: intervalos ou ditado melódico.', 'Acerto acima de 80% no nível escolhido.'],
       rep: ['Repertório', 'Peça ou música em estudo: trechos difíceis primeiro, depois do início ao fim.', 'Uma passada inteira gravada, sem parar.'],

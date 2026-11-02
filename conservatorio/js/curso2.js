@@ -3,8 +3,8 @@
   'use strict';
   const C = window.Curso;
   const por = (I, m) => window.H.por(I, m);
-  const ton = (I) => (I.transp.s ? 'C4' : 'Bb2');
-  const nomeTon = (I) => (I.transp.s ? 'Dó' : 'Si♭');
+  const ton = (I) => (!I.grave ? 'C4' : 'Bb2');
+  const nomeTon = (I) => (!I.grave ? 'Dó' : 'Si♭');
 
   // =====================================================================
   C.mod({ n: 5, nivel: 'basico', titulo: 'Escalas e tonalidades', desc: 'Tons e semitons, acidentes, escala maior, ciclo das quintas, armaduras, escalas menores e intervalos.' });
@@ -45,12 +45,12 @@
       ${H.tabela(['Grau', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII'], [['Nome', 'Tônica', 'Supertônica', 'Mediante', 'Subdominante', 'Dominante', 'Superdominante', 'Sensível'], ['Em Dó', 'Dó', 'Ré', 'Mi', 'Fá', 'Sol', 'Lá', 'Si'], ['Em Sol', 'Sol', 'Lá', 'Si', 'Dó', 'Ré', 'Mi', 'Fá♯']])}
       <p>A <b>sensível</b> (VII) fica a meio tom da tônica e “pede” resolução — é o que dá o sentido de conclusão.</p>`,
     pra: (I, H) => H.pauta({ tipo: 'escala', escala: 'maior', tonica: ton(I), oitavas: 2, dur: 4, bpm: 60 }) +
-      H.pauta({ tipo: 'escala', escala: 'maior', tonica: I.transp.s ? 'G4' : 'F3', oitavas: 1, dur: 4, bpm: 60 }) +
-      H.pauta({ tipo: 'escala', escala: 'maior', tonica: I.transp.s ? 'F4' : 'Eb3', oitavas: 1, dur: 4, bpm: 60 }) +
+      H.pauta({ tipo: 'escala', escala: 'maior', tonica: !I.grave ? 'G4' : 'F3', oitavas: 1, dur: 4, bpm: 60 }) +
+      H.pauta({ tipo: 'escala', escala: 'maior', tonica: !I.grave ? 'F4' : 'Eb3', oitavas: 1, dur: 4, bpm: 60 }) +
       `<p>Estude as escalas <b>de memória</b>, sem olhar a partitura, pensando no nome das notas. Use a aba <a href="#escalas">Escalas</a> para gerar qualquer outra.</p>`,
     exs: (I) => [
       { nome: 'Construção no papel', dur: '10 min', obj: 'Aplicar a fórmula.', passos: ['Escreva as escalas de Sol, Ré, Fá e Si♭ maior aplicando T-T-S-T-T-T-S.', 'Confira na aba Escalas.'], crit: '4 escalas corretas.' },
-      { nome: `Escalas de ${nomeTon(I)}, ${I.transp.s ? 'Sol e Fá' : 'Fá e Mi♭'} maior`, dur: '15 min/dia', bpm: 60, obj: 'Tocar de memória.', passos: ['Semínimas, ligado, depois articulado.', 'Suba 4 BPM a cada 3 execuções limpas.', 'Depois colcheias.'], crit: 'As três escalas, de memória, em colcheias a ♩ = 100.' },
+      { nome: `Escalas de ${nomeTon(I)}, ${!I.grave ? 'Sol e Fá' : 'Fá e Mi♭'} maior`, dur: '15 min/dia', bpm: 60, obj: 'Tocar de memória.', passos: ['Semínimas, ligado, depois articulado.', 'Suba 4 BPM a cada 3 execuções limpas.', 'Depois colcheias.'], crit: 'As três escalas, de memória, em colcheias a ♩ = 100.' },
     ],
     met: [['Escala em semínimas', 60, 120], ['Escala em colcheias', 60, 100]],
     err: [['Esquecer o acidente no meio da escala.', 'Antes de tocar, diga a armadura (“Sol maior: Fá♯”).'], ['Repetir letras (ex.: Sol♭ e Sol na mesma escala).', 'Cada letra aparece uma vez.'], ['Correr e perder a regularidade.', 'Regularidade > velocidade.']],
@@ -110,7 +110,7 @@
       <p><b>Homônimas</b> são escalas com a mesma tônica e modos diferentes (Dó maior e Dó menor).</p>
       ${H.tabela(['Tipo', 'Lá menor', 'Graus alterados'], [['Natural', 'Lá Si Dó Ré Mi Fá Sol', '—'], ['Harmônica', 'Lá Si Dó Ré Mi Fá <b>Sol♯</b>', '7º elevado'], ['Melódica (subindo)', 'Lá Si Dó Ré Mi <b>Fá♯ Sol♯</b>', '6º e 7º elevados']])}`,
     pra: (I, H) => {
-      const t = I.transp.s ? 'A4' : 'G2';
+      const t = !I.grave ? 'A4' : 'G2';
       return ['menorNat', 'menorHarm', 'menorMel'].map((e) => H.pauta({ tipo: 'escala', escala: e, tonica: t, oitavas: 1, dur: 4, bpm: 60 })).join('');
     },
     exs: [
@@ -200,7 +200,7 @@
     teo: (I) => `<p>A língua simples (“tu-tu-tu”) tem um limite de velocidade. A <b>dupla articulação</b> alterna a ponta da língua (“tu”) com o meio/fundo da língua no céu da boca (“ku”), dobrando a velocidade possível. A <b>tripla</b> usa “tu-tu-ku” ou “tu-ku-tu”, para grupos de 3 (tercinas, 6/8).</p>
       <p>${I.familia === 'metal' ? 'Nos metais, a dupla e a tripla são técnicas essenciais (presentes no Arban desde o século XIX).' : 'Nos instrumentos de palheta, a dupla é mais difícil porque o “ku” não toca a palheta. Saxofonistas e clarinetistas avançados a usam em passagens muito rápidas; por isso ela aparece aqui como técnica de longo prazo.'}</p>
       <p>O segredo é deixar o “ku” <b>igual ao “tu”</b> em ataque e volume.</p>`,
-    pra: (I, H) => H.pauta({ tipo: 'notas', notas: I.transp.s ? 'G4:2 G4:2 G4:2 G4:2 G4:2 G4:2 G4:2 G4:2 A4:2 A4:2 A4:2 A4:2 A4:2 A4:2 A4:2 A4:2 G4:2 G4:2 G4:2 G4:2 G4:2 G4:2 G4:2 G4:2 G4:16' : 'F3:2 F3:2 F3:2 F3:2 F3:2 F3:2 F3:2 F3:2 G3:2 G3:2 G3:2 G3:2 G3:2 G3:2 G3:2 G3:2 F3:2 F3:2 F3:2 F3:2 F3:2 F3:2 F3:2 F3:2 F3:16', tom: I.transp.s ? 'C' : 'Bb', titulo: 'Colcheias repetidas: tu-ku-tu-ku', bpm: 60 }),
+    pra: (I, H) => H.pauta({ tipo: 'notas', notas: !I.grave ? 'G4:2 G4:2 G4:2 G4:2 G4:2 G4:2 G4:2 G4:2 A4:2 A4:2 A4:2 A4:2 A4:2 A4:2 A4:2 A4:2 G4:2 G4:2 G4:2 G4:2 G4:2 G4:2 G4:2 G4:2 G4:16' : 'F3:2 F3:2 F3:2 F3:2 F3:2 F3:2 F3:2 F3:2 G3:2 G3:2 G3:2 G3:2 G3:2 G3:2 G3:2 G3:2 F3:2 F3:2 F3:2 F3:2 F3:2 F3:2 F3:2 F3:2 F3:16', tom: !I.grave ? 'C' : 'Bb', titulo: 'Colcheias repetidas: tu-ku-tu-ku', bpm: 60 }),
     exs: [
       { nome: 'Só o “ku”', dur: '3 min', bpm: 60, obj: 'Fortalecer a sílaba fraca.', passos: ['Toque 8 notas só com “ku”.', 'Até soar quase igual ao “tu”.'], crit: '“Ku” com ataque limpo.' },
       { nome: 'Tu-ku lento', dur: '5 min', bpm: 60, obj: 'Igualdade.', passos: ['Colcheias “tu-ku” a ♩ = 60.', 'Suba 4 BPM por dia.'], crit: 'Indistinguível do “tu-tu” na gravação.' },
@@ -339,7 +339,7 @@
       ['Grupeto', '∾', 'Nota de cima – nota – nota de baixo – nota.'],
       ['Glissando', 'linha ondulada/reta entre notas', I.sub === 'trombone' ? 'Natural no trombone: deslize a vara mantendo o ar.' : I.familia === 'metal' ? 'Meio-pistos e lábio; ou série rápida de notas.' : I.sub === 'clarinete' ? 'Com dedos deslizando e garganta (ex.: abertura da “Rhapsody in Blue”).' : 'Com cromática rápida ou garganta (“bend”) no sax.'],
     ]) + `<p>Ornamentos dependem do <b>estilo</b>: no Barroco seguem convenções específicas; no choro, as apojaturas e mordentes são parte da linguagem; no gospel e no soul, o equivalente são os <b>bends, falls e scoops</b> (módulo 12).</p>`,
-    pra: (I, H) => H.pauta({ tipo: 'notas', notas: I.transp.s ? 'E4:2 F4:2 E4:2 F4:2 E4:2 F4:2 E4:2 F4:2 E4:8 G4:2 F4:2 E4:2 F4:2 G4:8 C5:16' : 'D3:2 Eb3:2 D3:2 Eb3:2 D3:2 Eb3:2 D3:2 Eb3:2 D3:8 F3:2 Eb3:2 D3:2 Eb3:2 F3:8 Bb3:16', tom: I.transp.s ? 'C' : 'Bb', titulo: 'Trinado medido (escrito) e grupeto', bpm: 60 }) + `<p>Estude o trinado primeiro <b>medido</b> (colcheias, semicolcheias) e só depois livre. Use o dedilhado de trinado mais confortável (aba ${I.sub === 'trombone' ? 'Posições: trinado labial entre harmônicos vizinhos' : 'Dedilhados → alternativas'}).</p>`,
+    pra: (I, H) => H.pauta({ tipo: 'notas', notas: !I.grave ? 'E4:2 F4:2 E4:2 F4:2 E4:2 F4:2 E4:2 F4:2 E4:8 G4:2 F4:2 E4:2 F4:2 G4:8 C5:16' : 'D3:2 Eb3:2 D3:2 Eb3:2 D3:2 Eb3:2 D3:2 Eb3:2 D3:8 F3:2 Eb3:2 D3:2 Eb3:2 F3:8 Bb3:16', tom: !I.grave ? 'C' : 'Bb', titulo: 'Trinado medido (escrito) e grupeto', bpm: 60 }) + `<p>Estude o trinado primeiro <b>medido</b> (colcheias, semicolcheias) e só depois livre. Use o dedilhado de trinado mais confortável (aba ${I.sub === 'trombone' ? 'Posições: trinado labial entre harmônicos vizinhos' : 'Dedilhados → alternativas'}).</p>`,
     exs: [{ nome: 'Trinado medido', dur: '10 min/dia', bpm: 60, obj: 'Trinado regular.', passos: ['Escolha 3 pares de notas.', 'Alternância em colcheias, tercinas e semicolcheias.', 'Depois livre, acelerando.'], crit: 'Trinado regular em semicolcheias a ♩ = 100.' }],
     err: [['Trinado irregular (dedos tensos).', 'Medido primeiro, relaxado; acelere aos poucos.'], ['Apojatura breve lenta demais.', 'Ela é quase simultânea à nota principal.'], ['Ornamentar fora de estilo.', 'Ouça gravações do estilo antes de decidir.']],
     tempo: '30 minutos e 10 minutos por dia.',
@@ -389,7 +389,7 @@
     teo: (I, H) => `<p><b>Acorde</b> é a combinação de 3 ou mais notas soando juntas. A <b>tríade</b> empilha duas terças (1-3-5); a <b>tétrade</b> acrescenta a 7ª (1-3-5-7).</p>
       ${H.tabela(['Cifra', 'Nome', 'Notas (em Dó)'], [['C', 'Dó maior', 'Dó Mi Sol'], ['Cm', 'Dó menor', 'Dó Mi♭ Sol'], ['C° ou Cdim', 'Dó diminuto', 'Dó Mi♭ Sol♭'], ['C+ ou C(♯5)', 'Dó aumentado', 'Dó Mi Sol♯'], ['C7M (Cmaj7, CΔ)', 'Dó com 7ª maior', 'Dó Mi Sol Si'], ['C7', 'Dó com 7ª (dominante)', 'Dó Mi Sol Si♭'], ['Cm7', 'Dó menor com 7ª', 'Dó Mi♭ Sol Si♭'], ['Cm7(♭5) ou Cø', 'meio-diminuto', 'Dó Mi♭ Sol♭ Si♭'], ['C°7', 'diminuto com 7ª diminuta', 'Dó Mi♭ Sol♭ Lá'], ['C6, Cm6', 'com 6ª', 'Dó Mi Sol Lá'], ['Csus4', 'com 4ª suspensa', 'Dó Fá Sol'], ['C/E', 'Dó com Mi no baixo (inversão)', 'baixo Mi']])}
       <p class="aviso">${I.transp.s ? `<b>Cifras também transpõem!</b> Se o teclado toca C7, para você é <b>${window.Musica.nomeInt(window.Musica.concertoParaEscrita(window.Musica.parse('C4'), I))}7</b>. Partituras para ${I.tom} já trazem a cifra transposta; cifras de site/folheto de louvor estão em concerto.` : 'No trombone, a cifra que você lê é a mesma do teclado e do violão.'}</p>`,
-    pra: (I, H) => ['M7', 'd7', 'm7', 'm7b5'].map((a) => H.pauta({ tipo: 'arpejo', acorde: a, tonica: I.transp.s ? 'C4' : 'C3', dur: 2, bpm: 80 })).join(''),
+    pra: (I, H) => ['M7', 'd7', 'm7', 'm7b5'].map((a) => H.pauta({ tipo: 'arpejo', acorde: a, tonica: !I.grave ? 'C4' : 'C3', dur: 2, bpm: 80 })).join(''),
     exs: [{ nome: 'Cifra → arpejo', dur: '15 min', bpm: 60, obj: 'Ler cifras como arpejos.', passos: ['Pegue uma cifra de música (transponha se necessário).', 'Toque o arpejo de cada acorde, na ordem, 1 compasso cada.'], crit: 'Arpeja uma sequência de 8 acordes sem parar a ♩ = 72.' }],
     err: [['Confundir C7 com C7M.', '7 sozinho = 7ª menor (dominante). 7M/maj7/Δ = 7ª maior.'], ['Não transpor cifras de concerto.', 'Converta sempre (aba Transpositor aceita cifras).']],
     tempo: '45 minutos.',
@@ -461,7 +461,7 @@
       <p><b>Substituição de trítono:</b> um dominante pode ser trocado pelo dominante a um trítono de distância — G7 ↔ D♭7 — porque compartilham o trítono (Si–Fá = Dó♭–Fá). Resultado: baixo cromático (Dm7 – D♭7 – C).</p>
       <p><b>Harmonia gospel (práticas comuns):</b> números de grau (sistema Nashville: “1-4-5”); passagens <b>1 → 1/3 → 4</b> (C – C/E – F); <b>4 → 4♯° → 1/5</b> (F – F♯° – C/G); cadências <b>2-5-1</b>; acordes com 9 e sus; “turnarounds” que voltam ao 1; modulações ascendentes no final.</p>
       <p><b>Rearmonizar</b> é trocar acordes de uma melodia mantendo a melodia. Técnicas: inserir II–V antes de um acorde-alvo, dominantes secundárias, substituição de trítono, acordes de passagem diminutos, empréstimo modal.</p>`,
-    pra: (I, H) => H.pauta({ tipo: 'arpejo', acorde: 'd7', tonica: I.transp.s ? 'G4' : 'G2', dur: 2, titulo: 'G7 (escrito) — base para as tensões 9 e 13', bpm: 80 }) + '<p>Toque a escala <b>mixolídia</b> sobre o dominante (todas as tensões naturais) e depois as alteradas (♭9, ♯9) usando a <b>diminuta semitom–tom</b> (aba Escalas).</p>' + H.pauta({ tipo: 'escala', escala: 'dimST', tonica: I.transp.s ? 'G4' : 'G2', oitavas: 1, dur: 2, bpm: 72 }),
+    pra: (I, H) => H.pauta({ tipo: 'arpejo', acorde: 'd7', tonica: !I.grave ? 'G4' : 'G2', dur: 2, titulo: 'G7 (escrito) — base para as tensões 9 e 13', bpm: 80 }) + '<p>Toque a escala <b>mixolídia</b> sobre o dominante (todas as tensões naturais) e depois as alteradas (♭9, ♯9) usando a <b>diminuta semitom–tom</b> (aba Escalas).</p>' + H.pauta({ tipo: 'escala', escala: 'dimST', tonica: !I.grave ? 'G4' : 'G2', oitavas: 1, dur: 2, bpm: 72 }),
     exs: [{ nome: 'Rearmonize um hino', dur: '30 min', obj: 'Aplicar as técnicas.', passos: ['Escolha um hino simples (I–IV–V).', 'Insira um II–V antes do IV e do V.', 'Coloque um IVm antes do acorde final.', 'Toque os arpejos da nova harmonia.'], crit: 'Hino com pelo menos 3 recursos de rearmonização.' }],
     err: [['Usar tensão que choca (ex.: 11 natural no 7M).', 'Consulte a tabela de tensões disponíveis.'], ['Rearmonizar a ponto de esconder a melodia.', 'A melodia manda: o acorde precisa conter ou suportar a nota da melodia.']],
     tempo: '60 minutos.',
@@ -595,7 +595,7 @@
       trompete: '<p><b>Vibrato no trompete</b> pode ser feito com a <b>mão direita</b> (balançar levemente o instrumento pelos pistos — o mais comum no jazz e na música popular), com o <b>lábio/mandíbula</b> ou com o ar. Use com moderação: no repertório orquestral, pouco ou nenhum.</p><p><b>Cores:</b> surdinas (straight, cup, harmon — o som de Miles Davis), flutter tongue (frullato), meio-pistos.</p>',
       trombone: '<p><b>Vibrato no trombone</b>: com a <b>vara</b> (pequeno movimento de vai-e-vem — o vibrato clássico das big bands, Tommy Dorsey), com a mandíbula ou com o ar. Erudito: pouco ou nenhum na orquestra; mais em solos.</p><p><b>Cores:</b> surdinas (straight, cup, plunger — o “wah-wah”), glissando, frullato.</p>',
     }) + '<p>Vibrato não pode esconder afinação ruim nem ser constante e igual em tudo: ele é <b>expressão</b>. Comece notas sem vibrato e acrescente na metade (“vibrato tardio”), como cantores fazem.</p>',
-    pra: (I, H) => H.pauta({ tipo: 'notas', notas: I.transp.s ? 'G4:16 G4:16 A4:16 G4:16' : 'F3:16 F3:16 G3:16 F3:16', tom: I.transp.s ? 'C' : 'Bb', titulo: 'Notas para o vibrato medido', bpm: 72 }) + '<p><b>Vibrato medido:</b> metrônomo a ♩ = 72. Faça 2 ondulações por tempo (colcheias), depois 3 (tercinas), depois 4 (semicolcheias). Depois volte ao 3 e deixe-o natural.</p>',
+    pra: (I, H) => H.pauta({ tipo: 'notas', notas: !I.grave ? 'G4:16 G4:16 A4:16 G4:16' : 'F3:16 F3:16 G3:16 F3:16', tom: !I.grave ? 'C' : 'Bb', titulo: 'Notas para o vibrato medido', bpm: 72 }) + '<p><b>Vibrato medido:</b> metrônomo a ♩ = 72. Faça 2 ondulações por tempo (colcheias), depois 3 (tercinas), depois 4 (semicolcheias). Depois volte ao 3 e deixe-o natural.</p>',
     exs: (I) => [
       { nome: 'Vibrato medido', dur: '10 min/dia', bpm: 72, obj: 'Controle da velocidade e profundidade.', passos: ['2, 3 e 4 ondulações por tempo.', 'Profundidade pequena: a nota não pode desafinar.'], crit: 'Ondulações regulares nos três ritmos (confira com o afinador: oscilação simétrica).' },
       { nome: I.familia === 'metal' ? 'Cores' : 'Subtone', dur: '5 min/dia', obj: 'Ampliar a paleta.', passos: I.familia === 'metal' ? ['Se tiver surdina, toque uma melodia lenta com ela.', 'Experimente frullato (“trrr” com a língua).'] : ['No registro grave, notas longas em subtone.', 'Alterne som normal / subtone na mesma nota.'], crit: I.familia === 'metal' ? 'Melodia com surdina afinada.' : 'Subtone sem perder a afinação.' },

@@ -70,11 +70,17 @@
       const n = M.parse(s), c = M.escritaParaConcerto(n, I);
       return I.transp.s ? `${M.nomeBR(n)} escrito (soa ${M.nomeBR(c)})` : M.nomeBR(n);
     },
+    // cartão da nota: pauta + nome + desenho de onde pôr os dedos + explicação em palavras + som
     dedos(I, lista) {
-      return `<div class="dedos-grade">${lista.map((s) => {
+      return `<div class="cartoes-nota">${lista.map((s) => {
         const n = M.parse(s), d = IN.dedilhado(I, n);
         if (!d) return '';
-        return `<figure class="cartao" style="padding:10px;margin:0;display:flex;flex-direction:column;gap:6px;align-items:center"><b>${M.nomeBR(n)}${n.o}</b>${d.svg}<figcaption class="peq sutil" style="text-align:center">${esc(d.texto)}</figcaption></figure>`;
+        const c = M.escritaParaConcerto(n, I);
+        const pos = window.Visual.posicao ? window.Visual.posicao(n, I.clave) : '';
+        return `<figure class="nota-card"><div class="nota-topo"><div class="nota-mini" data-nota="${esc(s)}"></div><div class="nota-id"><b>${M.nomeBR(n)}<small>${n.o}</small></b><span>${M.nomeInt(n)} · ${pos}</span>${I.transp.s ? `<span class="sutil">soa ${M.nomeBR(c)}</span>` : ''}</div></div>
+          <div class="nota-dedos">${d.svg}</div>
+          <ul class="dedos-txt">${window.Visual.palavras(I, d).map((p) => `<li>${p}</li>`).join('')}</ul>
+          <button class="btn peq sec" type="button" data-ouvir="${M.midi(n) - I.transp.s}">▶ Ouvir a nota</button></figure>`;
       }).join('')}</div>`;
     },
     link(rota, txt) { return `<a href="#${rota}">${txt}</a>`; },
@@ -83,28 +89,32 @@
   window.H = H;
 
   // ---------------- topo ----------------
-  const ABAS = [
-    ['curso', 'Curso'], ['afinador', 'Afinador'], ['metronomo', 'Metrônomo'], ['dedilhado', I_ABA()], ['escalas', 'Escalas e arpejos'],
-    ['transpositor', 'Transpositor'], ['ouvido', 'Treino auditivo'], ['rotina', 'Rotina de estudo'], ['avaliacao', 'Avaliação'],
-    ['repertorio', 'Repertório'], ['professor', 'Professor'],
-  ];
-  function I_ABA() { return 'Dedilhados'; }
+  const ABAS = [['curso', 'Curso', '<path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2zM4 19V5M8 7h7" />'], ['leitura', 'Partitura', '<path d="M9 18V5l11-2v13M9 18a3 3 0 1 1-3-3 3 3 0 0 1 3 3zm11-2a3 3 0 1 1-3-3 3 3 0 0 1 3 3z" />'],
+    ['ferramentas', 'Ferramentas', '<path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0" /><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/>'],
+    ['gospel', 'Gospel', '<path d="M12 3v18M7 8h10M5 21h14" />'], ['avaliacao', 'Progresso', '<path d="M5 20V10M12 20V4M19 20v-7" />'], ['professor', 'Professor', '<path d="M4 5h16v11H9l-5 4z" />']];
+  const FERRAMENTAS = ['afinador', 'metronomo', 'dedilhado', 'escalas', 'transpositor', 'ouvido', 'rotina', 'repertorio'];
+  function abaAtual() {
+    const h = (location.hash.slice(1) || 'curso');
+    if (h.startsWith('aula-')) { const id = h.slice(5); return id.startsWith('13-') ? 'gospel' : 'curso'; }
+    if (FERRAMENTAS.includes(h)) return 'ferramentas';
+    return h;
+  }
 
   function desenhaTopo() {
     const I = inst();
-    $('#instrs').innerHTML = Object.values(IN.INSTRUMENTOS).map((x) =>
-      `<button class="instr" type="button" data-inst="${x.id}" aria-pressed="${x.id === I.id}">${x.curto} <small>${x.tomInt === 'C' ? 'Dó' : x.tom}</small></button>`).join('');
-    $('#marca-inst').textContent = I.nomeMin + (I.sub === 'sax' ? ' em ' + I.tom : '');
-    const aba = (location.hash.slice(1) || 'curso').split('-')[0];
-    $('#abas').innerHTML = ABAS.map(([id, nome]) => {
-      const n = id === 'dedilhado' ? (I.sub === 'trombone' ? 'Posições' : I.sub === 'trompete' ? 'Pistos' : 'Dedilhados') : nome;
-      return `<a class="aba" href="#${id}" ${(aba === id || (aba === 'aula' && id === 'curso')) ? 'aria-current="page"' : ''}>${n}</a>`;
-    }).join('');
+    const arte = I.id === 'soprano' ? 'soprano' : I.sub;
+    $('#instrs').innerHTML = `<a class="troca" href="#inicio" aria-label="Trocar de instrumento"><span class="troca-arte">${window.Visual.ilustracao(arte)}</span><span class="troca-txt"><b>${esc(I.curto)}</b><small>${I.transp.s ? 'em ' + I.tom : 'em Dó'} · trocar</small></span></a>`;
+    const aba = abaAtual();
+    const itens = (cls) => ABAS.map(([id, nome, ic]) => `<a class="${cls}" href="#${id}" ${aba === id ? 'aria-current="page"' : ''}><svg viewBox="0 0 24 24" class="ico" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${ic}</svg><span>${nome}</span></a>`).join('');
+    $('#abas').innerHTML = itens('aba');
+    $('#barra').innerHTML = itens('barra-item').replace(/<a class="barra-item" href="#avaliacao"[\s\S]*?<\/a>/, '');
     A.setTimbre(I.timbre);
   }
   document.addEventListener('click', (ev) => {
     const b = ev.target.closest('[data-inst]');
     if (b) { E.inst = b.dataset.inst; salvar(); desenhaTopo(); rota(); return; }
+    const o = ev.target.closest('[data-ouvir]');
+    if (o) { A.tocarSequencia([{ midi: +o.dataset.ouvir, d: 8 }], 60); return; }
     const m = ev.target.closest('[data-met]');
     if (m) { metronomoRapido(+m.dataset.met, m); }
   });
@@ -123,6 +133,9 @@
     const faixa = I.faixa.map((x) => M.midi(M.parse(x)));
     let notas = [], tonicaMaior = { l: 'C', a: 0, o: 4 }, titulo = cfg.titulo || '', info = '', anacruse = 0;
     const dur = cfg.dur || 4;
+    if (cfg.tipo === 'abc') {
+      return { abc: I.grave && cfg.abcGrave ? cfg.abcGrave : cfg.abc, notas: [], titulo, info: '', bpm: 0 };
+    }
     if (cfg.tipo === 'escala' || cfg.tipo === 'arpejo') {
       let t = M.parse(cfg.tonica || (I.primeiraEscala + '4'));
       if (cfg.concerto) t = M.concertoParaEscrita(t, I);
@@ -157,7 +170,7 @@
         info = tomInfo(t, I);
       }
     } else if (cfg.tipo === 'mel') {
-      const r = window.Melodias.paraInstrumento(cfg.id, I);
+      const r = window.Melodias.paraInstrumento(cfg.id, I, cfg.voz);
       notas = r.notas; tonicaMaior = r.tonicaMaior; anacruse = r.anacruse;
       titulo = r.mel.titulo; info = r.mel.fonte + ' · ' + tomInfo(r.tonica, I, r.mel.ref);
       cfg = Object.assign({ compasso: r.mel.compasso, bpm: r.mel.swing ? 100 : 80, swing: r.mel.swing }, cfg);
@@ -177,18 +190,19 @@
     return 'escrito em ' + M.nomeBR(t) + ' · soa ' + M.nomeBR(c) + ' (concerto)';
   }
 
-  function renderPautas(raiz) {
+  let renderPautas = function (raiz) {
     const I = inst();
     $$('.pauta', raiz).forEach((el) => {
       let cfg; try { cfg = JSON.parse(el.dataset.cfg); } catch (e) { return; }
       const p = geraPauta(cfg, I);
       el.innerHTML = `<div class="pauta-cab"><div class="pilha" style="gap:0"><b>${esc(p.titulo)}</b>${p.info ? `<span class="peq sutil">${esc(p.info)}</span>` : ''}</div>
-        <div class="pauta-ctl"><button class="btn peq" type="button" data-tocar>▶ Ouvir</button><button class="btn peq sec" type="button" data-parar>■</button>
-        <label class="peq sutil">♩ = <input type="number" min="30" max="240" value="${p.bpm}" data-bpm aria-label="Andamento"></label></div></div><div class="abc"></div>`;
+        ${p.notas.length ? `<div class="pauta-ctl"><button class="btn peq" type="button" data-tocar>▶ Ouvir</button><button class="btn peq sec" type="button" data-parar aria-label="Parar">■</button>
+        <label class="peq sutil">♩ = <input type="number" min="30" max="240" value="${p.bpm}" data-bpm aria-label="Andamento"></label></div>` : ''}</div><div class="abc"></div>`;
       const alvo = $('.abc', el);
       if (window.ABCJS) {
         try { window.ABCJS.renderAbc(alvo, p.abc, { responsive: 'resize', staffwidth: 680, paddingleft: 0, paddingright: 0, foregroundColor: 'currentColor', add_classes: true }); } catch (e) { alvo.textContent = 'Não foi possível desenhar a partitura.'; }
       } else alvo.innerHTML = `<pre class="peq">${esc(p.abc)}</pre><p class="peq sutil">A biblioteca de partituras não carregou (sem internet?). O texto acima está em notação ABC.</p>`;
+      if (!p.notas.length) return;
       $('[data-tocar]', el).onclick = () => {
         const bpm = +$('[data-bpm]', el).value || 72;
         const ev = [];
@@ -202,6 +216,17 @@
       $('[data-parar]', el).onclick = () => A.parar();
     });
   }
+  function renderMinis(raiz) {
+    const I = inst();
+    $$('.nota-mini', raiz).forEach((el) => {
+      if (!window.ABCJS) { el.textContent = el.dataset.nota; return; }
+      const n = M.parse(el.dataset.nota);
+      const abc = M.abc({ notas: [{ n, d: 16 }], clave: I.clave, compasso: '4/4' }).replace('M:4/4\n', 'M:none\n').replace(' |]', '');
+      try { window.ABCJS.renderAbc(el, abc, { staffwidth: 70, scale: 0.9, paddingtop: 0, paddingbottom: 0, paddingleft: 0, paddingright: 0, foregroundColor: 'currentColor' }); } catch (e) { el.textContent = el.dataset.nota; }
+    });
+  }
+  const renderPautasBase = renderPautas;
+  renderPautas = function (raiz) { renderPautasBase(raiz); renderMinis(raiz); };
   window.renderPautas = renderPautas;
   window.geraPauta = geraPauta;
 
@@ -230,24 +255,34 @@
     const prox = proximaAula();
     const ult = E.avaliacoes.filter((a) => a.inst === I.id).slice(-1)[0];
     const media = ult ? (Object.values(ult.notas).reduce((a, b) => a + b, 0) / Object.values(ult.notas).length).toFixed(1) : '—';
-    const dc = M.parse(I.transp.s ? 'C4' : 'Bb2');
+    const dc = M.parse(!I.grave ? 'C4' : 'Bb2');
     const sc = M.escritaParaConcerto(dc, I);
+    const arte = I.id === 'soprano' ? 'soprano' : I.sub;
+    const NIV = ['iniciante', 'basico', 'intermediario', 'intAvancado', 'avancado', 'profissional'];
+    const jornada = NIV.map((n) => { const ids = C.modulos.filter((m) => m.nivel === n).flatMap((m) => m.aulas); const f = ids.filter((a) => E.aulas[a] && E.aulas[a].ok).length; return [n, ids.length ? f / ids.length : 0, ids.length]; });
     el.innerHTML = `<div class="vista">
-      <section class="abertura">
-        <div class="pilha" style="gap:16px;justify-content:center">
-          <span class="rotulo">${esc(I.nome)} · curso completo em 16 módulos</span>
-          <h1>Do primeiro som <em>ao palco</em>.</h1>
-          <p style="max-width:58ch">Teoria desde a origem, técnica com critérios de aprovação, harmonia, ouvido, improvisação, estilos e prática de igreja. Cada aula traz explicação, prática no instrumento, exercícios com metrônomo, erros comuns, teste e tarefa. Você só avança quando domina o conteúdo.</p>
-          <div class="linha">${prox ? `<a class="btn ouro" href="#aula-${prox.id}">${feitas ? 'Continuar' : 'Começar'}: ${esc(prox.titulo)}</a>` : '<span class="chip ok">Curso concluído</span>'}<a class="btn sec" href="#rotina">Rotina de hoje</a></div>
-          <span class="peq sutil" id="status-nuvem">${nuvem ? 'Progresso salvo na sua conta' : 'Progresso salvo neste navegador'}</span>
+      <section class="heroi">
+        <div class="heroi-arte">${window.Visual.ilustracao(arte)}</div>
+        <div class="heroi-txt">
+          <span class="rotulo">${esc(I.nome)} · ${Object.keys(C.aulas).length} aulas em 16 módulos</span>
+          <h1>Do primeiro sopro <em>ao palco</em>.</h1>
+          <p>Um conservatório no seu bolso. Você começa montando o instrumento e tirando o primeiro som; aprende a ler partitura desde a primeira nota; e avança — teoria, técnica, harmonia, ouvido, improvisação, estilos e música para a igreja — até o nível profissional. Cada aula tem prática no instrumento, exercícios com metrônomo, teste e critérios claros: você só passa quando domina.</p>
+          <div class="linha">${prox ? `<a class="btn ouro grande" href="#aula-${prox.id}">${feitas ? 'Continuar' : 'Começar'}: ${esc(prox.titulo)}</a>` : '<span class="chip ok">Curso concluído</span>'}<a class="btn sec" href="#leitura">Ler partitura</a><a class="btn sec" href="#rotina">Rotina de hoje</a></div>
+          <span class="peq sutil" id="status-nuvem">${nuvem ? 'Progresso salvo na sua conta' : 'Progresso salvo neste aparelho'}</span>
         </div>
+      </section>
+      <section class="jornada" aria-label="Sua jornada">${jornada.map(([n, f, t], i) => `<div class="etapa ${f >= 1 ? 'feita' : f > 0 ? 'andando' : ''}"><span class="etapa-n">${i + 1}</span><b>${NIVEIS[n]}</b><div class="barra"><i style="width:${Math.round(f * 100)}%"></i></div><small>${Math.round(f * t)}/${t} aulas</small></div>`).join('')}</section>
+      <section class="abertura">
         <div class="cartao transp-card">
-          <span class="rotulo">Transposição do seu instrumento</span>
+          <span class="rotulo">Como o seu instrumento lê</span>
           ${I.transp.s ? `<div class="transp-par"><div><div class="nota">${M.nomeBR(dc)}</div><span class="peq sutil">você lê</span></div><div class="seta">→</div><div><div class="nota">${M.nomeBR(sc)}</div><span class="peq sutil">o público ouve</span></div></div>
           <p class="peq">O ${esc(I.nomeMin)} é um instrumento transpositor em ${I.tom}: ${esc(I.transpTexto)}. ${esc(I.exemploTransp)}. Para tocar junto com piano, teclado ou violão, a parte precisa estar escrita para ${I.tom}.</p>`
             : `<div class="transp-par"><div><div class="nota">${M.nomeBR(dc)}</div><span class="peq sutil">você lê</span></div><div class="seta">=</div><div><div class="nota">${M.nomeBR(sc)}</div><span class="peq sutil">o público ouve</span></div></div>
-          <p class="peq">O trombone de vara é afinado em Si♭ (a série harmônica da 1ª posição é de Si♭), mas na clave de Fá lê em sons reais: não transpõe. Em algumas bandas e igrejas a parte vem em Si♭ na clave de Sol, soando uma 9ª maior abaixo — o módulo 3 ensina a ler as duas.</p>`}
-          ${H.pauta({ tipo: 'notas', notas: I.transp.s ? 'C4:4 D4:4 E4:4 F4:4 G4:16' : 'Bb2:4 C3:4 D3:4 Eb3:4 F3:16', tom: I.transp.s ? 'C' : 'Bb', titulo: 'Primeiras cinco notas' + (I.transp.s ? ' (escritas)' : ''), bpm: 72 })}
+          <p class="peq">${I.sub === 'trombone' ? 'O trombone de vara é afinado em Si♭ (a série harmônica da 1ª posição é de Si♭), mas na clave de Fá lê em sons reais: não transpõe. Em algumas bandas e igrejas a parte vem em Si♭ na clave de Sol, soando uma 9ª maior abaixo — o módulo 1 ensina a ler as duas.' : 'A flauta é um instrumento em Dó: lê e soa a mesma nota, como o piano e a voz. Você pode tocar direto de hinários e partituras de canto.'}</p>`}
+        </div>
+        <div class="cartao pilha">
+          <span class="rotulo">Suas primeiras notas</span>
+          ${H.dedos(I, I.sub === 'sax' ? ['B4', 'A4', 'G4'] : I.sub === 'clarinete' ? ['G4', 'F4', 'E4'] : I.sub === 'flauta' ? ['B4', 'A4', 'G4'] : I.sub === 'trompete' ? ['C4', 'D4', 'E4'] : ['Bb2', 'C3', 'D3'])}
         </div>
       </section>
       <section class="stats cartao">
@@ -282,7 +317,8 @@
 
   function vistaAula(el, id) {
     const I = inst();
-    const a = C.aulas[id];
+    const base = C.aulas[id];
+    const a = base && Object.assign({}, base, ((C.sobre || {})[I.id] || {})[id] || {});
     if (!a) { el.innerHTML = '<div class="vista"><p>Aula não encontrada. <a href="#curso">Voltar ao curso</a></p></div>'; return; }
     E.ultimaAula = id; salvar();
     const mod = C.modulos.find((m) => m.n === a.mod);
@@ -296,7 +332,7 @@
     const blocos = {
       obj: `<p>${v(a.obj, I)}</p>`,
       apr: `<ul>${(v(a.apr, I) || []).map((x) => `<li>${x}</li>`).join('')}</ul>`,
-      teo: v(a.teo, I),
+      teo: v(a.teo, I) + (id === '1-2' && I.sub !== 'flauta' ? `<div class="ilustra-grande">${window.Visual.ilustracao(I.id === 'soprano' ? 'soprano' : I.sub, { rotulos: true })}</div>` : ''),
       pra: v(a.pra, I),
       ex: v(a.ex, I),
       exs: (v(a.exs, I) || []).map((x, i) => `<div class="exercicio"><h4><span class="n">${i + 1}</span>${x.nome}</h4>
@@ -391,7 +427,7 @@
       conversa.push({ role: 'assistant', content: 'Pensando…' });
       desenha();
       const aula = E.ultimaAula && C.aulas[E.ultimaAula];
-      const sistema = `Você é um professor particular exigente, didático e paciente de ${I.nome} (instrumento ${I.transp.s ? 'transpositor em ' + I.tom + ', ' + I.transpTexto : 'em Dó, clave de Fá'}). Responda em português do Brasil. Nunca confunda dedilhados ou transposições com outros instrumentos. Avalie com honestidade, sem elogios sem fundamento. Quando sugerir exercícios, dê objetivo, duração, andamento (BPM) e critério para saber se melhorou. Diferencie exercícios criados por você de estudos publicados; não invente atribuições a autores de métodos. ${aula ? 'O aluno está na aula "' + aula.titulo + '".' : ''} Aulas aprovadas: ${Object.values(E.aulas).filter((x) => x.ok).length}.`;
+      const sistema = `Você é um professor particular exigente, didático e paciente de ${I.nome} (instrumento ${I.transp.s ? 'transpositor em ' + I.tom + ', ' + I.transpTexto : 'em Dó, que lê em sons reais na clave de ' + (I.grave ? 'Fá' : 'Sol')}). Responda em português do Brasil. Nunca confunda dedilhados ou transposições com outros instrumentos. Avalie com honestidade, sem elogios sem fundamento. Quando sugerir exercícios, dê objetivo, duração, andamento (BPM) e critério para saber se melhorou. Diferencie exercícios criados por você de estudos publicados; não invente atribuições a autores de métodos. ${aula ? 'O aluno está na aula "' + aula.titulo + '".' : ''} Aulas aprovadas: ${Object.values(E.aulas).filter((x) => x.ok).length}.`;
       const msgs = conversa.slice(0, -1).map((m, i) => (i === 0 ? { role: 'user', content: sistema + '\n\nPergunta do aluno: ' + m.content } : m));
       try {
         const r = await sample(msgs, { onText: ({ text }) => { conversa[conversa.length - 1].content = text; desenha(); } });
@@ -404,6 +440,9 @@
   }
 
   // ---------------- rotas ----------------
+  function ctx() {
+    return { E, inst: inst(), salvar, H, esc, escolher(id) { E.inst = id; E.escolhido = true; salvar(); location.hash = 'curso'; rota(); } };
+  }
   function rota() {
     A.droneDesliga && A.droneDesliga();
     if (window.Ferr && window.Ferr.sair) window.Ferr.sair();
@@ -412,7 +451,8 @@
     desenhaTopo();
     if (h.startsWith('aula-')) vistaAula(el, h.slice(5));
     else if (h === 'professor') vistaProfessor(el);
-    else if (window.Ferr && window.Ferr[h]) window.Ferr[h](el, { E, inst: inst(), salvar, H, esc });
+    else if ((!E.escolhido && !h.startsWith('aula-') && h === 'curso') || h === 'inicio') window.Ferr.inicio(el, ctx());
+    else if (window.Ferr && window.Ferr[h]) window.Ferr[h](el, ctx());
     else vistaCurso(el);
     if (!h.startsWith('aula-') || !rota._mesmaAula) window.scrollTo(0, 0);
   }

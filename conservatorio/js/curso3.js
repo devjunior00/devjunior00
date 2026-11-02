@@ -3,7 +3,7 @@
   'use strict';
   const C = window.Curso;
   const por = (I, m) => window.H.por(I, m);
-  const ton = (I) => (I.transp.s ? 'C4' : 'Bb2');
+  const ton = (I) => (!I.grave ? 'C4' : 'Bb2');
 
   // =====================================================================
   C.mod({ n: 11, nivel: 'intAvancado', titulo: 'Improvisação', desc: 'Do motivo de 3 notas ao II–V–I: pentatônicas, blues, notas-guia, aproximações, cromatismo, enclosures e outside.' });
@@ -63,7 +63,7 @@
     teo: (I, H) => `<p>“Tocar as mudanças” é fazer o ouvinte <b>ouvir a harmonia</b> no seu solo. A técnica básica: colocar <b>notas do acorde nos tempos fortes</b> e usar notas de passagem nos fracos.</p>
       ${H.tabela(['Acorde', 'Escala (modo)', 'Notas de destaque'], [['IIm7', 'dórico', '3ª (♭3) e 7ª'], ['V7', 'mixolídio (ou alteradas)', '3ª e ♭7 (o trítono)'], ['I7M', 'jônio (maior) ou lídio', '3ª e 7ª, 9ª'], ['IIm7(♭5) (menor)', 'lócrio', '♭3 e ♭5'], ['V7(♭9) (menor)', 'menor harmônica a partir do I (frígio dominante)', '3ª e ♭9']])}
       <p><b>Notas-guia:</b> ligar a 3ª e a 7ª de cada acorde pelo caminho mais curto cria uma linha que “desenha” a harmonia. A partir dela, enfeite com ritmo e notas de passagem.</p>`,
-    pra: (I, H) => H.pauta({ tipo: 'mel', id: 'guia' }) + ['dorico', 'mixolidio'].map((e, i) => H.pauta({ tipo: 'escala', escala: e, tonica: I.transp.s ? ['D4', 'G4'][i] : ['D3', 'G2'][i], oitavas: 1, dur: 2, bpm: 90 })).join(''),
+    pra: (I, H) => H.pauta({ tipo: 'mel', id: 'guia' }) + ['dorico', 'mixolidio'].map((e, i) => H.pauta({ tipo: 'escala', escala: e, tonica: !I.grave ? ['D4', 'G4'][i] : ['D3', 'G2'][i], oitavas: 1, dur: 2, bpm: 90 })).join(''),
     exs: [
       { nome: 'Arpejos no ritmo', dur: '10 min', bpm: 100, obj: 'Ouvir a harmonia nos dedos.', passos: ['Sobre um playback de II–V–I, toque só arpejos (1-3-5-7) em colcheias.', 'Depois comece de outras notas (3, 5, 7).'], crit: 'Muda de arpejo exatamente na troca de acorde.' },
       { nome: 'Notas-guia + ritmo', dur: '10 min', bpm: 100, obj: 'Solos melódicos.', passos: ['Toque a linha de notas-guia.', 'Repita mudando o ritmo e acrescentando 1–2 notas.'], crit: '4 versões diferentes, todas mostrando a harmonia.' },
@@ -89,7 +89,7 @@
       <p><b>Escala bebop dominante:</b> mixolídio + 7ª maior de passagem (8 notas). Em colcheias, ela coloca as notas do acorde nos tempos fortes.</p>
       <p><b>Outside:</b> sair da tonalidade de propósito e voltar — por exemplo, tocar meio tom acima (side-slipping) por um tempo e resolver. Funciona quando a ideia é clara e a volta é segura.</p>
       <p><b>Transcrever</b> é a forma mais eficaz de aprender a linguagem (aula 9.4). Solos para transcrever: ${por(I, { alto: 'Charlie Parker (“Now’s the Time”, “Billie’s Bounce”), Cannonball Adderley (“Autumn Leaves”), Paul Desmond (“Take Five”)', soprano: 'Sidney Bechet, John Coltrane (“My Favorite Things”), Wayne Shorter', clarinete: 'Benny Goodman, Artie Shaw, Paulo Moura, Abel Ferreira', trompete: 'Louis Armstrong (“West End Blues”), Miles Davis (“So What”), Clifford Brown (“Joy Spring”), Chet Baker', trombone: 'J. J. Johnson, Curtis Fuller (“Blue Train”), Raul de Souza' })}.</p>`,
-    pra: (I, H) => H.pauta({ tipo: 'escala', escala: 'bebopDom', tonica: I.transp.s ? 'G4' : 'F2', oitavas: 1, dur: 2, bpm: 100, porLinha: 3 }) + H.pauta({ tipo: 'notas', notas: I.transp.s ? 'F4:2 D#4:2 E4:4 r:4 D5:2 B4:2 C5:4 r:4' : 'F3:2 D#3:2 E3:4 r:4 D4:2 B3:2 C4:4 r:4', tom: 'C', titulo: 'Enclosures (alvo: Mi e Dó)', bpm: 90 }),
+    pra: (I, H) => H.pauta({ tipo: 'escala', escala: 'bebopDom', tonica: !I.grave ? 'G4' : 'F2', oitavas: 1, dur: 2, bpm: 100, porLinha: 3 }) + H.pauta({ tipo: 'notas', notas: !I.grave ? 'F4:2 D#4:2 E4:4 r:4 D5:2 B4:2 C5:4 r:4' : 'F3:2 D#3:2 E3:4 r:4 D4:2 B3:2 C4:4 r:4', tom: 'C', titulo: 'Enclosures (alvo: Mi e Dó)', bpm: 90 }),
     exs: [
       { nome: 'Enclosures em todas as notas do acorde', dur: '10 min', bpm: 90, obj: 'Vocabulário bebop.', passos: ['Escolha um acorde (ex.: C7M).', 'Faça enclosure em cada nota: 1, 3, 5, 7.', 'Transponha para outras tonalidades.'], crit: 'Enclosures em 4 tonalidades a ♩ = 120.' },
       { nome: 'Transcrição de solo', dur: '20 min/dia', obj: 'Linguagem real.', passos: ['Escolha um solo da lista.', 'Transcreva um chorus em 2–3 semanas.', 'Analise: onde há aproximações, enclosures, arpejos?', 'Use 3 frases do solo nos seus improvisos.'], crit: 'Um chorus transcrito, tocado junto com a gravação, com 3 frases incorporadas.' },
@@ -148,7 +148,7 @@
       ['Growl', 'som rouco', 'cantar/rosnar ao mesmo tempo que toca'],
       ['Shake', 'trinado largo', I.familia === 'metal' ? 'balançar o instrumento (lip trill)' : 'trinado de 3ª menor rápido'],
     ]) + '<p><b>Soul e funk:</b> notas curtas, precisas e “em cima” do tempo; o naipe toca junto como um só instrumento (mesmo ataque, mesmo corte). Referências: Tower of Power, Earth, Wind & Fire, James Brown, Maceo Parker (sax alto), Banda Black Rio (Brasil).</p><p><b>Pop:</b> som limpo e brilhante, solos melódicos e cantáveis (David Sanborn no alto, Kenny G no soprano), muito uso de microfone.</p>',
-    pra: (I, H) => H.pauta({ tipo: 'notas', notas: I.transp.s ? 'r:2 G4:2 r:2 Bb4:2 r:2 C5:1 r:1 r:4 r:2 G4:2 Bb4:2 C5:2 Eb5:4 C5:4' : 'r:2 F3:2 r:2 Ab3:2 r:2 Bb3:1 r:1 r:4 r:2 F3:2 Ab3:2 Bb3:2 Db4:4 Bb3:4', tom: 'C', titulo: 'Riff de funk (notas curtas e precisas)', bpm: 96 }),
+    pra: (I, H) => H.pauta({ tipo: 'notas', notas: !I.grave ? 'r:2 G4:2 r:2 Bb4:2 r:2 C5:1 r:1 r:4 r:2 G4:2 Bb4:2 C5:2 Eb5:4 C5:4' : 'r:2 F3:2 r:2 Ab3:2 r:2 Bb3:1 r:1 r:4 r:2 F3:2 Ab3:2 Bb3:2 Db4:4 Bb3:4', tom: 'C', titulo: 'Riff de funk (notas curtas e precisas)', bpm: 96 }),
     exs: [{ nome: 'Efeitos', dur: '10 min', obj: 'Paleta de estilo.', passos: ['Pratique cada efeito numa nota longa.', 'Aplique scoop e fall numa melodia de soul.'], crit: 'Efeitos afinados e controlados (não aleatórios).' }, { nome: 'Riff com metrônomo', dur: '10 min', bpm: 96, obj: 'Precisão.', passos: ['Metrônomo nos tempos 2 e 4.', 'Toque o riff em laço por 2 minutos.'], crit: 'Notas curtas idênticas, sem atrasar.' }],
     err: [['Efeitos demais.', 'Efeito é tempero: use em notas de destaque.'], ['Notas curtas “mortas”.', 'Curta não é fraca: ataque com ar, corte com a língua.']],
     tempo: '25 minutos por dia.',
@@ -288,6 +288,60 @@
       { p: 'Ao tocar com banda, o sopro deve…', o: ['tocar na mesma região da voz', 'ocupar registro e ritmo diferentes da voz e do teclado', 'dobrar o baixo', 'tocar sempre forte'], c: 1 },
     ],
     tarefa: 'Apresente seu arranjo num ensaio. Grave e avalie com o grupo.',
+  });
+
+  C.aula({
+    id: '13-5', titulo: 'Assembleia de Deus: a Harpa Cristã, bandas e conjuntos', tempo: '30 min por dia',
+    obj: 'Tocar os hinos da Harpa Cristã com segurança e servir à banda, à orquestra ou ao conjunto da igreja.',
+    apr: ['A Harpa Cristã: história e organização', 'Estrutura dos hinos: estrofes e coro', 'Introdução, passagens e final', 'Tocar com banda, orquestra e conjunto', 'Montar seu repertório da Harpa'],
+    teo: (I, H) => `<p>A <b>Harpa Cristã</b> é o hinário oficial das Assembleias de Deus no Brasil. A primeira edição saiu no <b>Recife, em 1922</b>, um ano depois do <i>Cantor Pentecostal</i>. Entre seus organizadores estão Adriano Nobre, Samuel Nyström e Paulo Leivas Macalão. Em 1937 foi nomeada uma comissão para preparar a primeira edição com música; a <b>Harpa Cristã Ampliada</b>, de 1999, chegou a <b>640 hinos</b>. A editora é a CPAD.</p>
+      <p>A maioria dos hinos tem <b>estrofes</b> e um <b>coro</b> (refrão) que se repete depois de cada estrofe. Antes de tocar, descubra: quantas estrofes, onde está o coro, e se há repetição do coro no final.</p>
+      ${H.tabela(['Momento', 'O que o sopro faz'], [['Introdução', 'toca a última frase do coro (ou o coro inteiro), terminando na dominante para chamar a congregação'], ['Estrofes', 'melodia com fidelidade, ou contracanto suave se o cantor/coral já sustenta a melodia'], ['Coro', 'mais presença: melodia dobrada, 2ª voz em 3ªs ou respostas nos espaços'], ['Entre estrofes', 'pequena passagem de 2 a 4 compassos, só se combinado'], ['Final', 'repetição da última frase, rit. e fermata na tônica']])}
+      <p><b>Formações:</b> em muitas igrejas há <b>bandas</b> (metais, palhetas e percussão), <b>orquestras</b> (com cordas) e <b>conjuntos</b> com teclado, guitarra, baixo e bateria. Em todas, quem conduz é o regente ou o dirigente do louvor: combine tom, introdução, número de estrofes e final.</p>`,
+    pra: (I, H) => H.pauta({ tipo: 'mel', id: 'graca' }) + `<p>Use esta melodia como treino de “hino com estrofes”: toque a introdução (últimos 4 compassos), a melodia, e no final repita a última frase com <i>rit.</i> e fermata. ${I.transp.s ? 'A Harpa com música está em som de concerto: transponha (aba Transpositor) ou use a parte já escrita para ' + I.tom + ', se sua banda tiver.' : 'A Harpa com música está em som de concerto, que é como você lê.'}</p>`,
+    exs: (I) => [
+      { nome: 'Seu repertório da Harpa', dur: '20 min/dia', obj: 'Estar pronto para o culto.', passos: ['Liste os 10 hinos que sua igreja mais canta.', 'Anote o tom de concerto usado e o seu tom escrito.', 'Toque cada um com introdução e final.'], crit: '10 hinos prontos, 5 de memória.' },
+      { nome: 'Segunda voz no coro', dur: '15 min', obj: 'Harmonizar.', passos: ['Escolha 3 hinos.', 'Escreva uma 2ª voz em 3ªs abaixo para o coro.', 'Toque com outro músico ou com o teclado.'], crit: '2ª voz afinada em 3 hinos.' },
+    ],
+    err: [['Tocar todas as estrofes iguais.', 'Varie: melodia, contracanto, dinâmica. A última estrofe pode crescer.'], ['Mudar o tom sem combinar.', 'O tom é o da congregação e do regente; transponha você.'], ['Encher todos os espaços com respostas.', 'Respostas só onde ajudam a letra.']],
+    tempo: '30 minutos por dia.',
+    crit: ['Toco 10 hinos da Harpa no tom da minha igreja, com introdução e final.', 'Faço 2ª voz no coro de 3 hinos.'],
+    quiz: [
+      { p: 'A Harpa Cristã é…', o: ['um método de música', 'o hinário oficial das Assembleias de Deus no Brasil', 'um estilo de solo', 'uma banda'], c: 1 },
+      { p: 'Onde e quando saiu a primeira edição?', o: ['São Paulo, 1950', 'Recife, 1922', 'Rio de Janeiro, 1999', 'Belém, 1911'], c: 1 },
+      { p: 'Quantos hinos tem a Harpa Cristã Ampliada (1999)?', o: ['480', '524', '640', '300'], c: 2 },
+      { p: 'Quem define tom, introdução e final no culto?', o: ['cada músico', 'o regente ou o dirigente do louvor, combinado com o grupo', 'o primeiro que começar', 'ninguém'], c: 1 },
+    ],
+    tarefa: 'Monte a lista dos 10 hinos com tom de concerto, tom escrito, introdução e final.',
+  });
+
+  C.aula({
+    id: '13-6', titulo: 'CCB: o hinário, as quatro vozes e a orquestra', tempo: '30 min por dia',
+    obj: 'Ler e tocar com perfeição a sua voz no hinário a quatro vozes e entender a organização musical da Congregação Cristã no Brasil.',
+    apr: ['O hinário nº 5', 'Leitura a quatro vozes (SATB)', 'Hinários por afinação', 'Encarregado, ensino e oficialização', 'Como se preparar'],
+    teo: (I, H) => `<p>O hinário da Congregação Cristã no Brasil é <b>Hinos de Louvores e Súplicas a Deus</b>. O <b>hinário nº 5</b> foi publicado em junho de 2012 e está em uso desde <b>17 de março de 2013</b>. Tem <b>480 hinos</b> — 430 para os cultos oficiais e 50 para as reuniões de jovens e menores — e 6 coros. O canto da congregação é em <b>uníssono</b>.</p>
+      <p>Os hinários com música estão no formato <b>SATB</b>: <b>soprano e contralto na clave de Sol</b>, <b>tenor e baixo na clave de Fá</b>. Para os instrumentos, existem hinários de acordo com a afinação:</p>
+      ${H.tabela(['Hinário', 'Capa', 'Para'], [['Dó', 'preta', 'instrumentos em Dó (flauta, oboé, violino…)'], ['Fá', 'bege', 'instrumentos em Fá (trompa, corne inglês)'], ['Mi♭', 'vinho', 'sax alto, sax barítono, clarinete alto'], ['Si♭', 'azul-escuro', 'instrumentos em Si♭ (clarinete, sax soprano e tenor, trompete…)']])}
+      <p>Desde 1985 o hinário traz <b>sinais de respiração</b>; no nº 5, as linhas de acompanhamento (sobretudo o baixo) ficaram mais melódicas.</p>
+      <p><b>Organização:</b> o <b>encarregado</b> é o maestro da orquestra: mantém o andamento musical dos cultos, coordena o ensino e preside os ensaios. O <b>instrutor</b> é um músico oficializado que auxilia o encarregado. O ensino é <b>gratuito</b>, nos <b>Grupos de Estudo Musical (GEM)</b>; nos dias de <b>testes e exames</b>, os candidatos são avaliados pelo encarregado regional para serem aprovados a tocar nos cultos (para os cultos oficiais, o aprendiz precisa ser batizado). Para trocar de instrumento, fala-se com o encarregado local.</p>
+      <p><b>Instrumentos usados</b> (lista da igreja): violino, viola, violoncelo, flauta transversal, oboé, oboé d’amore, corne inglês, fagote, clarinete, clarinete alto e baixo, saxofones soprano, alto, tenor e barítono, trompete, cornet, flugelhorn, trompa, trombone de pisto, trombonito, eufônio, tuba e órgão.${I.sub === 'trombone' ? ' <b>Atenção:</b> na lista consta o <b>trombone de pisto</b> (e o trombonito), não o trombone de vara. A leitura, a teoria, a respiração e a embocadura que você aprende aqui valem para os dois; confirme com seu encarregado qual hinário e qual instrumento usar.' : ''}</p>
+      <p class="aviso">A igreja não produz nem autoriza gravações de seus hinos. Por isso este app não reproduz hinos do hinário: estude pelo próprio hinário, com seu instrutor. O exercício abaixo é original, no mesmo formato a quatro vozes.</p>`,
+    pra: (I, H) => `<p>Leia o coral abaixo nas quatro vozes. A partitura já vem transposta para o seu instrumento e na oitava que cabe na sua extensão. Toque primeiro a voz indicada pelo seu encarregado, depois as outras — isso treina leitura e ouvido harmônico.</p>` + ['s', 'a', 't', 'b'].map((v) => H.pauta({ tipo: 'mel', id: 'coral4', voz: v, bpm: 66 })).join(''),
+    exs: [
+      { nome: 'Quatro vozes', dur: '20 min/dia', bpm: 66, obj: 'Leitura SATB.', passos: ['Toque a voz de soprano, depois contralto, tenor e baixo.', 'Respire só nos fins de frase (compassos 4 e 8).', 'Dinâmica suave e som redondo.'], crit: 'As quatro vozes sem erro a ♩ = 72.' },
+      { nome: 'Preparação para o teste', dur: '20 min/dia', obj: 'Estar pronto para a avaliação.', passos: ['Escalas maiores e menores das tonalidades do hinário.', 'Leitura à primeira vista de hinos que você ainda não estudou (no seu hinário).', 'Afinação com o afinador e com outro músico.', 'Grave e ouça.'], crit: 'Lê um hino novo do começo ao fim sem parar e afinado.' },
+    ],
+    err: [['Tocar a voz errada ou trocar de voz no meio.', 'Marque a lápis qual pauta e qual voz você toca.'], ['Respirar fora dos sinais.', 'O hinário tem sinais de respiração: siga-os.'], ['Volume acima do conjunto.', 'Na orquestra, ninguém se destaca: o som deve se misturar.']],
+    tempo: '30 minutos por dia.',
+    crit: ['Toco as quatro vozes do coral sem erro.', 'Sei qual hinário (afinação) é o do meu instrumento.', 'Leio um hino novo do meu hinário sem parar.'],
+    quiz: [
+      { p: 'Quantos hinos tem o hinário nº 5?', o: ['640', '480', '524', '300'], c: 1 },
+      { p: 'Desde quando o hinário nº 5 está em uso?', o: ['17 de março de 2013', '1922', '1999', '1985'], c: 0 },
+      { p: 'No formato SATB, o tenor e o baixo ficam na…', o: ['clave de Sol', 'clave de Fá', 'clave de Dó', 'mesma pauta do soprano'], c: 1 },
+      { p: 'Quem é o maestro da orquestra local?', o: ['o instrutor', 'o encarregado', 'o organista', 'o ancião'], c: 1 },
+      { p: 'O ensino musical na CCB é…', o: ['pago', 'gratuito, nos GEM', 'só por internet', 'só em conservatório'], c: 1 },
+    ],
+    tarefa: 'Estude as quatro vozes do coral e um hino novo por semana no seu hinário, com seu instrutor.',
   });
 
   // =====================================================================
