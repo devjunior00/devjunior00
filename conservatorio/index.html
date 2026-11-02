@@ -277,7 +277,7 @@ th { font-size: .74rem; letter-spacing: .07em; text-transform: uppercase; color:
 .hub-card p { font-size: .86rem; color: var(--sutil); margin-top: 2px; }
 .aula-num { font-family: var(--f-dados); font-weight: 600; color: var(--acento-texto); min-width: 40px; }
 .gospel-cab { display: flex; flex-direction: column; gap: 12px; max-width: 72ch; }
-.seg { display: inline-flex; flex-wrap: wrap; gap: 4px; background: var(--papel); border: 1px solid var(--linha); border-radius: 999px; padding: 4px; }
+.seg { display: inline-flex; flex-wrap: wrap; gap: 4px; background: var(--papel); border: 1px solid var(--linha); border-radius: 16px; padding: 4px; }
 .seg button { border: 0; background: transparent; color: var(--sutil); font: 600 .86rem var(--f-texto); padding: 7px 14px; border-radius: 999px; cursor: pointer; min-height: 36px; }
 .seg button[aria-pressed="true"] { background: var(--tinta); color: var(--papel); }
 /* ---------- cartão da nota ---------- */
@@ -307,6 +307,11 @@ th { font-size: .74rem; letter-spacing: .07em; text-transform: uppercase; color:
 
 @media (max-width: 900px) { .indice { display: none; } }
 @media (max-width: 480px) { .marca b { font-size: 1.02rem; white-space: nowrap; } .troca { padding-right: 10px; } .troca-arte { width: 32px; height: 32px; } .troca-txt small { font-size: .68rem; } .topo-in { flex-wrap: nowrap; } }
+.hinos-cta { display: flex; gap: 16px; align-items: center; justify-content: space-between; flex-wrap: wrap; text-decoration: none; color: var(--tinta); padding: 20px; border-radius: 18px; border: 2px solid var(--acento); background: radial-gradient(circle at 10% 0%, var(--acento-suave), var(--cartao) 70%); box-shadow: var(--sombra); }
+.hinos-cta div { display: flex; flex-direction: column; gap: 4px; max-width: 64ch; }
+.hinos-cta b { font-family: var(--f-titulo); font-size: 1.6rem; }
+.hino-item { text-align: left; font: inherit; cursor: pointer; }
+details summary { cursor: pointer; }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
 </style>
 
@@ -336,4 +341,5 @@ th { font-size: .74rem; letter-spacing: .07em; text-transform: uppercase; color:
 <script src="js/flauta.js"></script>
 <script src="js/ferramentas.js"></script>
 <script src="js/paginas.js"></script>
+<script src="js/hinos.js"></script>
 <script src="js/app.js"></script>

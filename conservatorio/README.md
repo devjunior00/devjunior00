@@ -18,6 +18,7 @@ Curso completo de **saxofone alto, saxofone soprano, clarinete, flauta transvers
   - avaliação periódica de 0 a 10 com gráfico
   - repertório progressivo
 - **Ler partitura:** anatomia da partitura e treino de leitura de notas (4 níveis + desafio de 60 s). Cada resposta mostra a nota na pauta, o desenho de onde pôr os dedos e a explicação em palavras.
+- **Meus hinos:** copie (pelo teclado de notas) ou fotografe um hino da Harpa Cristã, da CCB ou de outro hinário; o app transpõe para o seu instrumento, toca e mostra os dedilhados. Os hinários não são reproduzidos no app, por respeito aos direitos das igrejas e editoras.
 - **Gospel:** aulas para a Assembleia de Deus (Harpa Cristã) e a CCB (hinário a 4 vozes), louvor contemporâneo e coral SATB transposto para cada instrumento.
 - **Professor por IA**, disponível quando o app é aberto no Claude.
 
@@ -42,6 +43,7 @@ O progresso fica salvo no navegador. Aberto no Claude, ele também fica salvo na
 | `js/audio.js` | síntese, metrônomo, nota de referência, detecção de altura |
 | `js/instrumentos.js`, `js/clarinete.js`, `js/flauta.js` | instrumentos, dedilhados e diagramas (a flauta inclui as partes das aulas que mudam para ela) |
 | `js/visual.js` | ilustrações dos instrumentos e descrição dos dedos em palavras |
+| `js/hinos.js` | Meus hinos: cópia, leitura por foto, transposição e dedilhados |
 | `js/paginas.js` | escolha do instrumento, ferramentas, gospel, ler partitura, aula 3.5 |
 | `js/melodias.js` | melodias de domínio público e exercícios originais |
 | `js/curso1.js` – `js/curso3.js` | conteúdo dos módulos 1–4, 5–10 e 11–16 |

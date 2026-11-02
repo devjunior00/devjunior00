@@ -47,6 +47,7 @@
     afinador: '<path d="M12 3v18M7 8l5-5 5 5M5 14h14" />', metronomo: '<path d="M8 21h8l-2-17h-4zM12 14l5-9" />', dedilhado: '<circle cx="12" cy="5" r="2"/><circle cx="12" cy="11" r="2"/><circle cx="12" cy="17" r="2"/>',
     escalas: '<path d="M4 18l4-4 4 2 4-6 4-4" />', transpositor: '<path d="M4 8h14l-3-3M20 16H6l3 3" />', ouvido: '<path d="M8 15a5 5 0 1 1 8-4c0 3-3 3-3 6a3 3 0 0 1-5 2" />',
     rotina: '<circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2M10 2h4" />', avaliacao: '<path d="M5 20V10M12 20V4M19 20v-7" />', repertorio: '<path d="M6 4h10a2 2 0 0 1 2 2v14H8a2 2 0 0 1-2-2zM6 18a2 2 0 0 1 2-2h10" />',
+    hinos: '<path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3zM9 8h6M9 12h6" />',
     leitura: '<path d="M9 18V5l11-2v13M9 18a3 3 0 1 1-3-3 3 3 0 0 1 3 3zm11-2a3 3 0 1 1-3-3 3 3 0 0 1 3 3z" />',
   };
   const ico = (k) => `<svg viewBox="0 0 24 24" class="ico" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${ICONES[k] || ''}</svg>`;
@@ -64,6 +65,7 @@
       ['rotina', 'Rotina de estudo', 'Sessões guiadas de 20 a 120 minutos, com cronômetro e histórico.'],
       ['avaliacao', 'Avaliação', 'Notas de 0 a 10 em 14 critérios, semanais a semestrais, com gráfico.'],
       ['repertorio', 'Repertório', 'Métodos, estudos e peças por nível, do iniciante ao profissional.'],
+      ['hinos', 'Meus hinos', 'Copie ou fotografe hinos da Harpa Cristã, da CCB ou de outro hinário e estude no seu instrumento.'],
     ];
     el.innerHTML = `<div class="vista"><div class="ferr-cab"><span class="rotulo">${esc(I.nome)}</span><h1>Ferramentas de estudo</h1><p>Tudo o que um músico usa todos os dias, ajustado ao seu instrumento.</p></div>
       <div class="hub">${lista.map(([id, t, d]) => `<a class="hub-card" href="#${id}">${ico(id)}<div><b>${t}</b><p>${d}</p></div></a>`).join('')}</div></div>`;
@@ -78,6 +80,7 @@
     el.innerHTML = `<div class="vista">
       <section class="gospel-cab"><span class="rotulo">Música na igreja</span><h1>Gospel, hinos e <em>orquestra</em></h1>
         <p>Tocar na igreja é servir: melodia fiel para a congregação cantar, introduções que chamam o louvor, contracantos que abraçam a voz, solos com começo, ápice e resolução — e, quando é a hora, silêncio. Aqui estão as aulas e os exercícios para a Assembleia de Deus, a Congregação Cristã no Brasil e a música gospel em geral.</p></section>
+      <a class="hinos-cta" href="#hinos"><div><span class="rotulo">Harpa Cristã · CCB · outros hinários</span><b>Meus hinos</b><p>Copie ou fotografe um hino do seu hinário: o app transpõe para o ${esc(I.nomeMin)}, toca a melodia e mostra onde pôr os dedos em cada nota.</p></div><span class="btn ouro">Abrir →</span></a>
       <section class="hub">${aulas.map((a) => { const au = C.aulas[a]; const ok = E.aulas[a] && E.aulas[a].ok; return `<a class="hub-card" href="#aula-${a}"><span class="aula-num">${a.replace('-', '.')}</span><div><b>${esc(au.titulo)}</b><p>${ok ? '✓ aprovada' : esc(au.tempo || '')}</p></div></a>`; }).join('')}</section>
       <section class="cartao pilha"><div class="linha" style="justify-content:space-between"><h2>Coral a quatro vozes</h2><div class="seg" id="g-voz">${['s', 'a', 't', 'b'].map((v) => `<button type="button" data-v="${v}" aria-pressed="${v === voz}">${window.Melodias.NOME_VOZ[v]}</button>`).join('')}</div></div>
         <p class="peq sutil">Formato SATB dos hinários: soprano e contralto na clave de Sol, tenor e baixo na clave de Fá. A parte já vem transposta para o ${esc(I.nomeMin)} e na oitava que cabe no instrumento. Sugestão de voz para você: <b>${window.Melodias.NOME_VOZ[VOZ_SUG[I.id] || 's']}</b> (siga sempre o seu regente ou encarregado).</p>

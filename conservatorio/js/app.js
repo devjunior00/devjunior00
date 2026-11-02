@@ -97,6 +97,7 @@
     const h = (location.hash.slice(1) || 'curso');
     if (h.startsWith('aula-')) { const id = h.slice(5); return id.startsWith('13-') ? 'gospel' : 'curso'; }
     if (FERRAMENTAS.includes(h)) return 'ferramentas';
+    if (h === 'hinos') return 'gospel';
     return h;
   }
 
@@ -133,6 +134,11 @@
     const faixa = I.faixa.map((x) => M.midi(M.parse(x)));
     let notas = [], tonicaMaior = { l: 'C', a: 0, o: 4 }, titulo = cfg.titulo || '', info = '', anacruse = 0;
     const dur = cfg.dur || 4;
+    if (cfg.tipo === 'hino') {
+      const r = window.Hinos && window.Hinos.gera(cfg.id, I);
+      if (!r) return { abc: 'X:1\nK:C\nz16 |]\n', notas: [], titulo: 'Hino não encontrado', info: '', bpm: 0 };
+      return { abc: M.abc({ notas: r.notas, tonicaMaior: r.tonicaMaior, compasso: r.compasso, clave: I.clave, anacruse: r.anacruse }), notas: r.notas, titulo: r.titulo, info: r.info, bpm: r.bpm };
+    }
     if (cfg.tipo === 'abc') {
       return { abc: I.grave && cfg.abcGrave ? cfg.abcGrave : cfg.abc, notas: [], titulo, info: '', bpm: 0 };
     }
