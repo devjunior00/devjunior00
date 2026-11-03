@@ -122,11 +122,82 @@
         <p>Em partituras de banda e orquestra: procure sua parte (“Alto Sax 1”, “Sax alto em Mi♭”), confira se ela já está transposta (deve estar), marque respirações, cortes e repetições combinadas no ensaio. Leia também a pauta do colega ao lado para ouvir a harmonia.</p>` },
   ];
 
+  // ---------- plano do CLARINETE em Si♭ (notas escritas) ----------
+  const T = { // teoria comum, reaproveitada
+    pauta: `<p>A <b>pauta</b> tem 5 linhas e 4 espaços, contados <b>de baixo para cima</b>. A <b>clave de Sol</b> “enrola” na 2ª linha: ali é o <b>Sol</b>. Cada linha e cada espaço é a nota seguinte: descendo, Sol (2ª linha) → Fá (1º espaço) → Mi (1ª linha).</p><p><b>Duração:</b> <b>semibreve</b> (bola aberta, sem haste) = <b>4 tempos</b>; <b>mínima</b> (bola aberta com haste) = <b>2 tempos</b>. Compasso <b>4/4</b>: 4 tempos por compasso, separados pelas <b>barras</b>.</p><p><b>Como ler cada estudo:</b> (1) diga o nome das notas; (2) bata o ritmo contando “1, 2, 3, 4”; (3) toque com metrônomo, sem parar; (4) só repita depois de chegar ao fim.</p>`,
+    seminima: `<p>A <b>semínima</b> (bola preenchida com haste) dura <b>1 tempo</b>. Cada figura tem uma <b>pausa</b> de mesmo valor: a de semibreve é um retângulo pendurado na 4ª linha; a de mínima, um retângulo sentado na 3ª linha; a de semínima, um “raio”. Na pausa, conte e prepare a próxima nota.</p>`,
+    tres: `<p><b>Compasso 3/4:</b> 3 tempos por compasso (valsa, muitos hinos). Conte “<b>1</b>-2-3”. O <b>ponto de aumento</b> soma metade do valor: <b>mínima pontuada = 3 tempos</b>.</p>`,
+    supl: `<p><b>Linhas suplementares:</b> pequenas linhas que estendem a pauta para baixo ou para cima — o clarinete usa muitas no grave. Conte-as a partir da pauta: o Dó4 está na 1ª linha suplementar inferior, o Lá3 na 2ª, o Fá3 na 3ª. <b>Ligadura de valor:</b> curva unindo duas notas <b>iguais</b>: toque só a primeira e some as durações.</p>`,
+    colcheia: `<p><b>Colcheia</b>: metade de um tempo; duas colcheias unidas por uma barra = 1 tempo. Conte “<b>1</b>-e-<b>2</b>-e-<b>3</b>-e-<b>4</b>-e”.</p>`,
+    dois: `<p><b>2/4:</b> dois tempos por compasso — marchas, dobrados, samba, frevo. <b>Anacruse:</b> nota(s) antes do primeiro tempo forte; a frase começa “no ar”.</p>`,
+    sust: `<p>O <b>sustenido (♯)</b> sobe meio tom. Com o ♯ no começo da pauta, na linha do Fá, é a <b>armadura de clave</b>: todo Fá da música é Fá♯, em qualquer oitava — <b>Sol maior</b> (ou Mi menor). Antes de tocar, diga: “Sol maior, todo Fá é sustenido”.</p>`,
+    bemol: `<p>O <b>bemol (♭)</b> abaixa meio tom. Com o ♭ na linha do Si, a armadura indica <b>Fá maior</b> (ou Ré menor). <b>Acidente ocorrente</b> vale até o fim do compasso, naquela altura; o <b>bequadro (♮)</b> cancela e volta à nota natural.</p>`,
+    pont: `<p><b>Semínima pontuada</b> = 1 tempo e meio, quase sempre seguida de uma <b>colcheia</b>: o padrão “<b>taaa</b>-ta”. Conte em colcheias: a semínima pontuada dura “1-e-2”; a colcheia cai no “e” do 2.</p>`,
+    rito: `<p><b>Ritornelo</b> (barras com dois pontos): repita o trecho. <b>Casas 1 e 2:</b> na primeira vez toque a casa 1; na repetição, pule-a e vá para a casa 2. Siga o caminho com o dedo antes de tocar.</p>`,
+  };
+  const PLANOS = {};
+  PLANOS.clarinete = [
+    { t: 'A pauta, a clave de Sol e as três primeiras notas', novas: N('G4 F4 E4'), notas: N('E4 F4 G4'), fim: 'E4', tom: 'C',
+      txt: `<p><b>Sol</b> (2ª linha) é o <b>Sol solto</b>: nenhum dedo, mãos em posição perto dos furos. <b>Fá</b> (1º espaço): só o polegar tampando o furo de trás. <b>Mi</b> (1ª linha): polegar + indicador esquerdo (furo 1). Tampe com a <b>polpa</b> do dedo, não a ponta.</p>` + T.pauta },
+    { t: 'Ré e Dó · a semínima e as pausas', novas: N('D4 C4'), notas: N('C4 D4 E4 F4 G4'), fim: 'C4', tom: 'C',
+      txt: `<p><b>Ré</b> (abaixo da pauta): polegar + furos 1 e 2. <b>Dó</b> (1ª linha suplementar inferior): polegar + furos 1, 2 e 3 — toda a mão esquerda. Qualquer fresta faz a nota guinchar: tampe firme e leve.</p>` + T.seminima },
+    { t: 'A chave de Lá · compasso 3/4 · mínima pontuada', novas: N('A4'), notas: N('C4 D4 E4 F4 G4 A4'), fim: 'C4', tom: 'C',
+      txt: `<p><b>Lá</b> (2º espaço): só a <b>chave de Lá</b>, com o indicador esquerdo (polegar solto). Role o indicador do furo 1 para a chave sem levantar a mão. Troca <b>Sol → Lá</b>: movimento mínimo.</p>` + T.tres },
+    { t: 'Mão direita: Si, Lá e Sol graves · ligadura de valor', novas: N('B3 A3 G3'), notas: N('G3 A3 B3 C4 D4 E4 F4 G4'), fim: 'C4', tom: 'C',
+      txt: `<p>Com a mão esquerda toda tampada (polegar + 1-2-3), a mão direita desce: <b>Si grave</b> = + médio direito (furo 5) — é um dedilhado “em forquilha”; <b>Lá grave</b> = + indicador e médio (4 e 5); <b>Sol grave</b> = + 4, 5 e 6 (todos os seis furos). Ar quente e constante, garganta aberta (“ô”).</p>` + T.supl },
+    { t: 'Fá e Mi graves (mínimos) · colcheias', novas: N('F3 E3'), notas: N('E3 F3 G3 A3 B3 C4 D4 E4 F4 G4'), fim: 'C4', tom: 'C',
+      txt: `<p><b>Fá grave</b>: todos os furos + mínimo direito na chave Fá/Dó (ou mínimo esquerdo). <b>Mi grave</b>, a nota mais grave do clarinete: todos os furos + mínimo esquerdo na chave Mi/Si (ou mínimo direito). Alternar os mínimos esquerdo e direito evita “escorregar” o dedo.</p>` + T.colcheia },
+    { t: 'Si bemol da garganta · compasso 2/4 · anacruse', novas: N('Bb4'), notas: N('F3 G3 A3 C4 D4 E4 F4 G4 A4 Bb4'), fim: 'F4', tom: 'F',
+      txt: `<p><b>Si♭</b> (3ª linha) da garganta: <b>chave de registro + chave de Lá</b> (polegar solto). Som tende a ficar fraco: deixe os dedos da mão direita abaixados nos furos para estabilizar. Esta música está em <b>Fá maior</b> (um bemol na armadura: todo Si é Si♭).</p>` + T.dois },
+    { t: 'Fá sustenido e a armadura de Sol maior', novas: N('F#4'), notas: N('G3 A3 B3 C4 D4 E4 F#4 G4 A4'), fim: 'G4', tom: 'G',
+      txt: `<p><b>Fá♯</b> (1º espaço, com sustenido): <b>só o indicador esquerdo</b> (furo 1), com o <b>polegar solto</b>. A troca Fá♯ → Sol solto é só levantar um dedo.</p>` + T.sust },
+    { t: 'Si bemol grave · bemol, bequadro e Fá maior', novas: N('Bb3'), notas: N('F3 G3 A3 Bb3 C4 D4 E4 F4 G4 A4 Bb4'), fim: 'F3', tom: 'F',
+      txt: `<p><b>Si♭ grave</b> (abaixo da 1ª linha suplementar): polegar + 1-2-3 + <b>indicador direito</b> (furo 4). Compare com o Si grave (médio direito) e o Lá grave (4 e 5).</p>` + T.bemol },
+    { t: 'A passagem do registro: Si, Dó e Ré do clarim · semínima pontuada', novas: N('B4 C5 D5'), notas: N('G4 A4 B4 C5 D5'), fim: 'C5', tom: 'C',
+      txt: `<p>A <b>chave de registro</b> (polegar esquerdo, atrás) leva o clarinete ao registro <b>clarim</b>, uma <b>12ª</b> acima do grave. <b>Si</b> (3ª linha) = dedilhado do Mi grave + registro (todos os furos + mínimo Mi/Si). <b>Dó</b> (3º espaço) = do Fá grave + registro. <b>Ré</b> (4ª linha) = do Sol grave + registro.</p><p>É a passagem mais difícil do clarinete: tampe tudo, sopre com <b>velocidade</b>, não morda. Nas notas da garganta (Sol, Lá, Si♭) deixe a mão direita abaixada para preparar a troca.</p>` + T.pont },
+    { t: 'Mi, Fá e Sol do clarim · ritornelo e casas 1 e 2', novas: N('E5 F5 G5'), notas: N('A4 B4 C5 D5 E5 F5 G5'), fim: 'C5', tom: 'C',
+      txt: `<p>No clarim, cada nota é a do grave uma 12ª abaixo + registro: <b>Mi</b> (4º espaço) = do Lá grave; <b>Fá</b> (5ª linha) = do Si♭ grave; <b>Sol</b> (acima da pauta) = do Dó4 (mão esquerda toda + registro).</p>` + T.rito },
+    { novas: [], notas: N('C4 D4 E4 F4 G4 A4'), fim: 'C4', tom: 'C', txt: null },
+    { novas: [], notas: N('D4 E4 F#4 G4 A4 B4 C5 D5'), fim: 'G4', tom: 'G', txt: null },
+    { novas: [], notas: N('C4 D4 E4 F4 G4 A4 B4 C5 D5 E5'), fim: 'C5', tom: 'C', txt: null },
+    { t: 'Dó♯, Mi♭ e Sol♯ · Ré maior e Mi♭ maior', novas: N('C#5 G#4 Eb4'), notas: N('D4 E4 F#4 G4 A4 B4 C#5 D5'), fim: 'D4', tom: 'D',
+      txt: `<p><b>Dó♯ do clarim</b> = dedilhado do Fá♯ grave + registro (todos + mínimo esquerdo Fá♯/Dó♯). <b>Sol♯</b> da garganta = chave de Sol♯ com a lateral do indicador esquerdo. <b>Mi♭</b> (1ª linha, com bemol) = polegar + 1-2 + chave lateral 4 (lateral do indicador direito).</p><p><b>Ré maior</b>: 2 sustenidos (Fá♯, Dó♯). <b>Mi♭ maior</b>: 3 bemóis (Si♭, Mi♭, Lá♭ = Sol♯). Ordem dos sustenidos: <b>Fá Dó Sol Ré Lá Mi Si</b>; dos bemóis: <b>Si Mi Lá Ré Sol Dó Fá</b>.</p>`, extra: { notas: N('Eb4 F4 G4 Ab4 Bb4 C5 D5 Eb5'), tom: 'Eb', fim: 'Eb4' } },
+    { t: 'A região grave: Fá♯, Sol♯ e Dó♯ graves', novas: N('F#3 G#3 C#4'), notas: N('E3 F#3 G#3 A3 B3 C#4 D4 E4'), fim: 'A3', tom: 'A',
+      txt: `<p><b>Fá♯ grave</b>: todos os furos + mínimo esquerdo Fá♯/Dó♯. <b>Sol♯ grave</b>: todos os furos + mínimo direito Sol♯/Ré♯. <b>Dó♯4</b>: mão esquerda toda + mínimo esquerdo Dó♯/Sol♯. A música está em <b>Lá maior</b> (3 sustenidos: Fá, Dó, Sol).</p>` },
+    { novas: [], notas: N('E3 F3 G3 A3 B3 C4 D4 E4 F4 G4 A4 B4 C5'), fim: 'C4', tom: 'C', txt: null },
+    { novas: [], notas: N('D4 E4 F#4 G4 A4 B4 C5 D5'), fim: 'G4', tom: 'G', txt: null },
+    { novas: [], notas: N('E4 F#4 G#4 A4 B4 C#5 D5 E5'), fim: 'A4', tom: 'A', txt: null, extra: { notas: N('F4 G4 Ab4 Bb4 C5 Db5 Eb5 F5'), tom: 'Ab', fim: 'Ab4' } },
+    { t: 'A região aguda: Lá, Si e Dó do clarim', novas: N('A5 B5 C6'), notas: N('C5 D5 E5 F5 G5 A5 B5 C6'), fim: 'C5', tom: 'C',
+      txt: `<p><b>Lá</b> (1ª linha suplementar superior) = registro + polegar + 1-2. <b>Si</b> = registro + polegar + 1. <b>Dó</b> (2ª linha suplementar superior) = registro + polegar. Ar rápido e garganta aberta; não morda — o agudo do clarinete tende a subir. Acima do Dó começa o <b>altíssimo</b>, com dedilhados próprios (nível avançado).</p>` },
+    { novas: [], notas: N('C4 C#4 D4 Eb4 E4 F4 F#4 G4 G#4 A4 Bb4'), fim: 'C4', tom: 'C', txt: null },
+    { novas: [], notas: N('D4 E4 F#4 G4 A4 B4 C#5 D5 E5'), fim: 'D4', tom: 'D', txt: null },
+    { novas: [], notas: N('C4 D4 E4 F4 G4 A4 Bb4 B4 C5 D5 E5 F5 G5'), fim: 'F4', tom: 'F', txt: null },
+    { t: 'Ler partes em Dó: transposição à primeira vista', novas: [], notas: N('C4 D4 E4 F4 G4 A4 B4 C5'), fim: 'C4', tom: 'C',
+      txt: `<p>Na igreja e na banda, muitas vezes só existe a partitura <b>em Dó</b> (voz, piano, hinário de coral). O clarinete em Si♭ soa um tom abaixo do escrito; para tocar junto, leia <b>um tom acima</b> (uma 2ª maior) e troque a armadura: <b>+2 sustenidos ou −2 bemóis</b>. Ex.: hino em Si♭ maior (2♭) → você lê em Dó maior; hino em Fá maior (1♭) → você lê em Sol maior (1♯).</p><p>Os estudos abaixo estão em Dó (concerto): leia transpondo um tom acima e toque.</p>` },
+    { t: 'Hinários a quatro vozes e partituras de conjunto', novas: [], notas: N('E4 F#4 G4 A4 B4 C5 D5 E5'), fim: 'G4', tom: 'G',
+      txt: `<p>Hinários com música (como os da Harpa Cristã e da CCB) vêm em <b>quatro vozes (SATB)</b>: <b>soprano e contralto</b> na clave de Sol (soprano com hastes para cima, contralto para baixo); <b>tenor e baixo</b> na clave de Fá. Use o hinário escrito para instrumentos em <b>Si♭</b> e marque a lápis qual voz você toca.</p><p>Em partituras de banda e orquestra: procure sua parte (“Clarinete 1 em Si♭”, “Clarinet in B♭”), confira se ela está escrita para o clarinete em Si♭ (e não em Lá), marque respirações, cortes e repetições combinadas no ensaio.</p>` },
+  ];
+  // teoria das lições sem texto próprio (11, 12, 13, 16, 17, 18, 20, 21, 22) = a mesma do sax, sem as frases de dedilhado
+  function txtClar(i) {
+    const sax = LICOES[i].txt;
+    return sax;
+  }
+
+  function planoPara(I, i) {
+    const base = LICOES[i];
+    const p = (PLANOS[I.sub] || [])[i];
+    if (!p) return base;
+    const L = Object.assign({}, base, p);
+    if (!p.t) L.t = base.t;
+    if (p.txt == null) L.txt = txtClar(i);
+    return L;
+  }
+
   function nomeNota(s) { const n = M.parse(s); return M.nomeBR(n) + n.o; }
 
   // monta o HTML de uma lição (usada no livro)
   function licaoHTML(i, H) {
-    const L = LICOES[i];
+    const L = planoPara(window.App.inst(), i);
     const ests = [];
     for (let k = 0; k < 6; k++) {
       const ex = L.extra && k >= 4 ? Object.assign({}, L, L.extra) : L;
@@ -134,7 +205,7 @@
       const txt = estudo(1000 * (i + 1) + k * 37, { notas: ex.notas, celulas: ex.cel, compasso: comp, final: ex.fim, inicio: ex.fim, compassos: 8, salto: ex.salto || 1 });
       ests.push(H.pauta({ tipo: 'notas', notas: txt, tom: ex.tom, compasso: comp, titulo: `Estudo ${i + 1}.${k + 1}${ex !== L ? ' · ' + M.nomeBR(M.parse(ex.tom + '4')) + ' maior' : ''}${comp !== L.comp ? ' · ' + comp : ''}`, bpm: L.bpm, porLinha: 4 }));
     }
-    const ritmo = estudo(77 * (i + 3), { notas: ['B4'], celulas: L.cel, compasso: L.comp, final: 'B4', compassos: 8 });
+    const ritmo = estudo(77 * (i + 3), { notas: [L.notas[0]], celulas: L.cel, compasso: L.comp, final: 'B4', compassos: 8 });
     return `<article class="aula-livro leitura-licao"><header class="cab-aula"><span class="rotulo">Método de leitura · lição ${i + 1} de ${LICOES.length}</span><h1><span class="num-aula">L${i + 1}</span> ${L.t}</h1></header>
       <section><h2><span class="n">01</span>O que é</h2>${L.txt}</section>
       ${L.novas.length ? `<section><h2><span class="n">02</span>Notas novas</h2>${H.dedos(window.App.inst(), L.novas)}</section>` : ''}
@@ -144,5 +215,5 @@
     </article>`;
   }
 
-  window.MetodoLeitura = { LICOES, estudo, licaoHTML };
+  window.MetodoLeitura = { LICOES, estudo, licaoHTML, planoPara };
 })();

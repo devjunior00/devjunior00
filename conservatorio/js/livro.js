@@ -11,7 +11,7 @@
   const I = IN.INSTRUMENTOS[id];
   const v = (x) => (typeof x === 'function' ? x(I, H) : x);
   const NIVEIS = { iniciante: 'Iniciante', basico: 'Básico', intermediario: 'Intermediário', intAvancado: 'Intermediário avançado', avancado: 'Avançado', profissional: 'Profissional' };
-  const SECOES = [['obj', 'Objetivo principal'], ['apr', 'O que você vai aprender'], ['teo', 'Explicação teórica'], ['pra', 'Aplicação prática no saxofone'], ['ex', 'Exemplos musicais'],
+  const SECOES = [['obj', 'Objetivo principal'], ['apr', 'O que você vai aprender'], ['teo', 'Explicação teórica'], ['pra', 'Aplicação prática no ' + I.curto.toLowerCase()], ['ex', 'Exemplos musicais'],
     ['exs', 'Exercícios passo a passo'], ['met', 'Exercícios com metrônomo'], ['err', 'Erros comuns e como corrigir'], ['tempo', 'Tempo recomendado de estudo'], ['crit', 'Critério de aprovação'], ['quiz', 'Teste de aprendizagem'], ['tarefa', 'Tarefa para a próxima aula']];
   const gabarito = [];
   const PULAR = ['1-1'];
@@ -52,12 +52,12 @@
   const capa = `<section class="capa">
     <div class="capa-arte">${V.ilustracao(ARTE)}</div>
     <div class="capa-txt"><span class="rotulo">Conservatório de Sopros</span><h1>${esc(I.nome)}</h1><p class="capa-sub">Do primeiro sopro <em>ao palco</em></p>
-      <p>Curso completo em 16 módulos e ${total} aulas — do iniciante ao profissional. Teoria desde a origem, leitura de partitura, técnica, harmonia, percepção, improvisação, estilos, música gospel e preparação profissional, tudo escrito para o saxofone alto em Mi♭.</p>
+      <p>Curso completo em 16 módulos e ${total} aulas — do iniciante ao profissional. Teoria desde a origem, leitura de partitura, técnica, harmonia, percepção, improvisação, estilos, música gospel e preparação profissional, tudo escrito para o ${esc(I.nomeMin)}${I.transp.s ? ' em ' + I.tom : ''}.</p>
       <p class="peq sutil">Edição de ${hoje}</p></div></section>`;
 
   const comoUsar = `<section class="pagina"><h1>Como usar este livro</h1>
     <p>Este livro é um curso de conservatório organizado para você estudar sozinho ou com um professor. Ele segue uma regra simples: <b>o progresso depende do domínio, não do tempo</b>. Não há prazos: há critérios.</p>
-    <h3>Cada aula tem doze partes</h3>${H.tabela(['Parte', 'Para que serve'], [['Objetivo', 'o que você deve conseguir fazer ao final'], ['O que vai aprender', 'os tópicos da aula'], ['Explicação teórica', 'o conceito, desde a origem'], ['Aplicação prática', 'como aquilo vira som no saxofone alto, com partituras e dedilhados'], ['Exemplos', 'músicas e gravações de referência'], ['Exercícios', 'passo a passo, com duração e critério'], ['Metrônomo', 'andamento inicial, meta e como subir'], ['Erros comuns', 'o que costuma dar errado e como corrigir'], ['Tempo de estudo', 'quanto dedicar'], ['Critério de aprovação', 'a lista do que você precisa cumprir'], ['Teste', 'perguntas para conferir a teoria (gabarito no final)'], ['Tarefa', 'o que fazer antes da próxima aula']])}
+    <h3>Cada aula tem doze partes</h3>${H.tabela(['Parte', 'Para que serve'], [['Objetivo', 'o que você deve conseguir fazer ao final'], ['O que vai aprender', 'os tópicos da aula'], ['Explicação teórica', 'o conceito, desde a origem'], ['Aplicação prática', 'como aquilo vira som no instrumento, com partituras e dedilhados'], ['Exemplos', 'músicas e gravações de referência'], ['Exercícios', 'passo a passo, com duração e critério'], ['Metrônomo', 'andamento inicial, meta e como subir'], ['Erros comuns', 'o que costuma dar errado e como corrigir'], ['Tempo de estudo', 'quanto dedicar'], ['Critério de aprovação', 'a lista do que você precisa cumprir'], ['Teste', 'perguntas para conferir a teoria (gabarito no final)'], ['Tarefa', 'o que fazer antes da próxima aula']])}
     <h3>Regras de ouro do estudo</h3><ol>
       <li><b>Grave-se.</b> O celular é seu melhor professor: ouça cada gravação com a partitura na mão.</li>
       <li><b>Metrônomo sempre.</b> Comece onde você não erra; suba 4 BPM a cada três execuções limpas; errou, volte 8.</li>
@@ -65,7 +65,7 @@
       <li><b>Pouco e todo dia</b> vale mais que muito de vez em quando. 30 minutos diários rendem mais que 3 horas no sábado.</li>
       <li><b>Não avance sem os critérios.</b> Base fraca vira problema lá na frente.</li>
       <li><b>Ouça os grandes.</b> Você só produz o som que consegue imaginar.</li></ol>
-    <h3>Sobre a transposição</h3><p>O saxofone alto é um instrumento <b>em Mi♭</b>: ele soa uma 6ª maior abaixo do que está escrito. Quando você toca o <b>Dó escrito</b>, sai o <b>Mi♭ de concerto</b>. Todas as partituras deste livro já estão escritas para o sax alto; quando aparece “soa…”, é o som real, que o piano ou o teclado precisa tocar para soar igual.</p>
+    <h3>Sobre a transposição</h3><p>${I.transp.s ? `O ${esc(I.nomeMin)} é um instrumento <b>em ${I.tom}</b>: ele ${esc(I.transpTexto)}. Quando você toca o <b>Dó escrito</b>, sai o <b>${M.nomeBR(M.escritaParaConcerto(M.parse('C4'), I))} de concerto</b>. Todas as partituras deste livro já estão escritas para o ${esc(I.nomeMin)}; quando aparece “soa…”, é o som real, que o piano ou o teclado precisa tocar para soar igual.` : `O ${esc(I.nomeMin)} ${esc(I.transpTexto)}: a nota escrita é a nota que soa.`}</p>
     <h3>Símbolos</h3><p>⏱ duração do exercício · ♩ = andamento em batidas por minuto · ☐ critério a cumprir · “Exercício original” = criado para este curso; obras citadas de outros autores são referências — compre as edições publicadas.</p></section>`;
 
   const plano = `<section class="pagina"><h1>Plano de formação</h1><p>Os 16 módulos, do zero ao nível profissional. Os níveis indicam a etapa da formação; avance quando cumprir os critérios de todas as aulas do módulo.</p>
@@ -75,42 +75,51 @@
 
   const sumMod = (m) => `<div class="sum-mod"><b>${m.n}. ${esc(m.titulo)}</b> <span class="sutil">· ${NIVEIS[m.nivel]}</span><ol>${aulasDe(m).map((a) => `<li><span class="num">${a.replace('-', '.')}</span> ${esc(C.aulas[a].titulo)}</li>`).join('')}</ol></div>`;
   const sumario = `<section class="pagina"><h1>Sumário</h1><div class="sumario"><h3>Parte 1 · Primeiros passos</h3>${C.modulos.filter((m) => m.n <= 2).map(sumMod).join('')}
-    <h3>Parte 2 · Método de leitura de partitura</h3><div class="sum-mod"><ol>${window.MetodoLeitura.LICOES.map((l, i) => `<li><span class="num">L${i + 1}</span> ${l.t}</li>`).join('')}</ol></div>
+    <h3>Parte 2 · Método de leitura de partitura</h3><div class="sum-mod"><ol>${window.MetodoLeitura.LICOES.map((l, i) => `<li><span class="num">L${i + 1}</span> ${window.MetodoLeitura.planoPara(I, i).t}</li>`).join('')}</ol></div>
     <h3>Parte 3 · Formação completa</h3>${C.modulos.filter((m) => m.n >= 3).map(sumMod).join('')}
     <div class="sum-mod"><b>Apêndices</b><ol><li>A · Tabela completa de dedilhados</li><li>B · Escalas nas 12 tonalidades</li><li>C · Arpejos nas 12 tonalidades</li><li>D · Transposição</li><li>E · Rotinas de estudo</li><li>F · Fichas de avaliação</li><li>G · Repertório</li><li>H · Melodias do curso</li><li>I · Referências de intervalos</li><li>J · Gabarito dos testes</li></ol></div></div></section>`;
 
   // A — dedilhados
   const [lo, hi] = I.faixa.map((x) => M.midi(M.parse(x)));
-  const notasExt = []; for (let m = lo; m <= hi; m++) { const n = M.deMidi(m, [70, 82, 75, 87, 63, 58].includes(m)); notasExt.push(n.l + (n.a === 1 ? '#' : n.a === -1 ? 'b' : '') + n.o); }
+  const notasExt = []; for (let m = lo; m <= hi; m++) { const n = M.deMidi(m, I.sub === 'sax' ? [70, 82, 75, 87, 63, 58].includes(m) : [58, 70, 82, 63, 75].includes(m)); notasExt.push(n.l + (n.a === 1 ? '#' : n.a === -1 ? 'b' : '') + n.o); }
   const altern = notasExt.map((s) => { const n = M.parse(s), d = IN.dedilhado(I, n); return d && d.alts.length ? `<div class="alt-linha"><b>${M.nomeBR(n)}${n.o}</b> — alternativas: ${d.alts.map((a) => `<span>${esc(a.texto)}${a.nota ? ' <i class="sutil">(' + esc(a.nota) + ')</i>' : ''}</span>`).join('; ')}</div>` : ''; }).join('');
   const obsList = notasExt.map((s) => { const n = M.parse(s), d = IN.dedilhado(I, n); return d && d.obs ? `<li><b>${M.nomeBR(n)}${n.o}:</b> ${esc(d.obs)}</li>` : ''; }).join('');
-  const apA = `<section class="apendice"><h1>Apêndice A · Tabela completa de dedilhados</h1><p>Todas as notas <b>escritas</b> do saxofone alto, do Si♭ grave ao Fá♯ agudo. Em cada cartão: a nota na pauta, o nome, a posição na pauta, o som real (de concerto), o desenho das chaves (em dourado, as que você aperta) e a explicação em palavras.</p>
-    <div class="legenda-chaves">${V.ilustracao(ARTE, { rotulos: true })}<div><h3>Como ler o diagrama</h3><ul><li>Círculos <b>1, 2, 3</b>: indicador, médio e anelar da mão esquerda (em cima).</li><li>Círculos <b>4, 5, 6</b>: indicador, médio e anelar da mão direita (embaixo).</li><li><b>Oitava</b>: polegar esquerdo, atrás do sax.</li><li><b>Palma (Ré, Mi♭, Fá)</b>: base do indicador e palma da mão esquerda.</li><li><b>Laterais</b> (Mi agudo, Dó, Si♭): lateral da mão direita.</li><li><b>Mínimo esquerdo</b>: Sol♯, Dó♯, Si e Si♭ graves. <b>Mínimo direito</b>: Mi♭ e Dó graves.</li></ul></div></div>
+  const LEG = {
+    sax: '<ul><li>Círculos <b>1, 2, 3</b>: indicador, médio e anelar da mão esquerda (em cima).</li><li>Círculos <b>4, 5, 6</b>: indicador, médio e anelar da mão direita (embaixo).</li><li><b>Oitava</b>: polegar esquerdo, atrás do sax.</li><li><b>Palma (Ré, Mi♭, Fá)</b>: base do indicador e palma da mão esquerda.</li><li><b>Laterais</b> (Mi agudo, Dó, Si♭): lateral da mão direita.</li><li><b>Mínimo esquerdo</b>: Sol♯, Dó♯, Si e Si♭ graves. <b>Mínimo direito</b>: Mi♭ e Dó graves.</li></ul>',
+    clarinete: '<ul><li><b>P</b>: polegar esquerdo tampando o furo de trás. <b>Registro</b>: a chave ao lado, também com o polegar.</li><li>Círculos <b>1, 2, 3</b>: furos da mão esquerda (indicador, médio, anelar). <b>Lá</b> e <b>Sol♯</b>: chaves acima do furo 1, com o indicador esquerdo.</li><li>Círculos <b>4, 5, 6</b>: furos da mão direita. <b>Laterais 1–4</b>: chaves de trinado, com a lateral do indicador direito (a 4 é a de Mi♭/Si♭).</li><li><b>Mínimo esquerdo</b>: Dó♯/Sol♯, Fá♯/Dó♯, Mi/Si, Fá/Dó. <b>Mínimo direito</b>: Sol♯/Ré♯, Fá/Dó, Mi/Si, Fá♯/Dó♯.</li><li>Furos se tampam com a <b>polpa</b> do dedo, por inteiro.</li></ul>',
+  };
+  const apA = `<section class="apendice"><h1>Apêndice A · Tabela completa de dedilhados</h1><p>Todas as notas <b>escritas</b> do ${esc(I.nomeMin)}, do ${M.nomeBR(M.parse(I.faixa[0]))}${M.parse(I.faixa[0]).o} ao ${M.nomeBR(M.parse(I.faixa[1]))}${M.parse(I.faixa[1]).o}. Em cada cartão: a nota na pauta, o nome, a posição na pauta, o som real (de concerto), o desenho das chaves (em dourado, as que você aperta) e a explicação em palavras.</p>
+    <div class="legenda-chaves">${V.ilustracao(ARTE, { rotulos: true })}<div><h3>Como ler o diagrama</h3>${LEG[I.sub] || ''}</div></div>
     ${H.dedos(I, notasExt)}<h3>Dedilhados alternativos</h3>${altern}<h3>Observações por nota</h3><ul>${obsList}</ul></section>`;
 
   // B — escalas
   const TON = ['C', 'G', 'D', 'A', 'E', 'B', 'F#', 'Db', 'Ab', 'Eb', 'Bb', 'F'];
   const MEN = ['A', 'E', 'B', 'F#', 'C#', 'G#', 'D#', 'Bb', 'F', 'C', 'G', 'D'];
   const esc2 = (tipo, lista, oit, dur) => lista.map((t) => H.pauta({ tipo: 'escala', escala: tipo, tonica: t + '4', oitavas: oit, dur, porLinha: 4 })).join('');
-  const apB = `<section class="apendice"><h1>Apêndice B · Escalas nas 12 tonalidades</h1><p>Escritas para o saxofone alto, seguindo o ciclo das quintas. Cada uma mostra a tonalidade escrita e o som de concerto. Estude de memória, com metrônomo, em semínimas, depois colcheias (meta: ♩ = 120). Quando a escala de duas oitavas não cabe na extensão, aparece em uma oitava.</p>
+  const apB = `<section class="apendice"><h1>Apêndice B · Escalas nas 12 tonalidades</h1><p>Escritas para o ${esc(I.nomeMin)}, seguindo o ciclo das quintas. Cada uma mostra a tonalidade escrita e o som de concerto. Estude de memória, com metrônomo, em semínimas, depois colcheias (meta: ♩ = 120). Quando a escala de duas oitavas não cabe na extensão, aparece em uma oitava.</p>
     <h2>Escalas maiores (2 oitavas quando possível)</h2>${esc2('maior', TON, 2, 2)}
     <h2>Escalas menores harmônicas</h2>${esc2('menorHarm', MEN, 1, 2)}
     <h2>Escalas menores melódicas (sobe melódica, desce natural)</h2>${esc2('menorMel', MEN, 1, 2)}
     <h2>Pentatônicas menores</h2>${esc2('pentaMenor', MEN, 1, 2)}
     <h2>Escalas blues</h2>${esc2('blues', MEN, 1, 2)}
-    <h2>Escala cromática em toda a extensão</h2>${H.pauta({ tipo: 'escala', escala: 'cromatica', tonica: 'Bb3', oitavas: 2, dur: 2, porLinha: 4 })}
+    <h2>Escala cromática em toda a extensão</h2>${H.pauta({ tipo: 'escala', escala: 'cromatica', tonica: I.faixa[0], oitavas: 2, dur: 2, porLinha: 4 })}
     <h2>Escala maior por terças e em grupos de 4 (Dó escrito)</h2>${H.pauta({ tipo: 'escala', escala: 'maior', tonica: 'C4', padrao: 'tercas', dur: 2 })}${H.pauta({ tipo: 'escala', escala: 'maior', tonica: 'C4', padrao: 'grupos4', dur: 2 })}</section>`;
 
   // C — arpejos
-  const apC = `<section class="apendice"><h1>Apêndice C · Arpejos nas 12 tonalidades</h1><p>Tríade maior, tríade menor (da relativa) e acorde de sétima da dominante (V7) de cada tonalidade maior, escritos para o sax alto.</p>
+  const apC = `<section class="apendice"><h1>Apêndice C · Arpejos nas 12 tonalidades</h1><p>Tríade maior, tríade menor (da relativa) e acorde de sétima da dominante (V7) de cada tonalidade maior, escritos para o ${esc(I.nomeMin)}.</p>
     ${TON.map((t, i) => `<div class="trio"><h3>${M.nomeBR(M.parse(t + '4'))} maior · ${M.nomeBR(M.parse(MEN[i] + '4'))} menor</h3>${H.pauta({ tipo: 'arpejo', acorde: 'M', tonica: t + '4', dur: 2 })}${H.pauta({ tipo: 'arpejo', acorde: 'm', tonica: MEN[i] + '4', dur: 2 })}${H.pauta({ tipo: 'arpejo', acorde: 'd7', tonica: M.nomeInt(M.grau(M.parse(t + '4'), 7, 4)).replace('♯', '#').replace('♭', 'b') + '4', dur: 2 })}</div>`).join('')}</section>`;
 
   // D — transposição
+  const REGRAS = {
+    eb: '<ul><li><b>De Dó (piano, voz, hinário de coral) para o sax alto:</b> suba uma 6ª maior (ou desça uma 3ª menor e acerte a oitava). Armadura: <b>+3 sustenidos</b> (ou −3 bemóis).</li><li><b>Do sax alto para Dó:</b> desça uma 6ª maior. Armadura: −3 sustenidos (ou +3 bemóis).</li><li><b>De instrumentos em Si♭</b> (sax tenor, trompete, clarinete) <b>para o alto:</b> suba uma 5ª justa (ou desça uma 4ª). Armadura: +1 sustenido.</li><li><b>Cifras transpõem também:</b> C7 no teclado = A7 para você.</li></ul>',
+    bb: '<ul><li><b>De Dó (piano, voz, hinário de coral) para instrumento em Si♭:</b> suba <b>um tom</b> (2ª maior). Armadura: <b>+2 sustenidos</b> (ou −2 bemóis). Ex.: Si♭ maior → Dó maior; Fá maior → Sol maior.</li><li><b>Do seu instrumento para Dó:</b> desça um tom. Armadura: −2 sustenidos (ou +2 bemóis).</li><li><b>De outro instrumento em Si♭</b> (trompete, sax soprano e tenor): mesma escrita (o sax tenor soa uma oitava abaixo). <b>Do sax alto (Mi♭) para Si♭:</b> desça uma 5ª justa (ou suba uma 4ª); armadura −1 sustenido.</li><li><b>Clarinete em Lá:</b> partes de orquestra para clarinete em Lá, tocadas no Si♭, se leem meio tom abaixo.</li><li><b>Cifras transpõem também:</b> C7 no teclado = D7 para você.</li></ul>',
+    c: '<ul><li>Você lê em sons reais. Para conversar com instrumentos em Si♭, lembre que eles leem um tom acima de você; o sax alto (Mi♭), uma 6ª maior acima.</li></ul>',
+  };
   const conc = ['C4', 'C#4', 'D4', 'Eb4', 'E4', 'F4', 'F#4', 'G4', 'Ab4', 'A4', 'Bb4', 'B4'].map(M.parse);
   const apD = `<section class="apendice"><h1>Apêndice D · Transposição</h1>
-    <h3>Notas: concerto → sax alto</h3>${H.tabela(['Som de concerto (piano, voz, flauta)', 'Você lê no sax alto'], conc.map((n) => [M.nomeComp(n), `<b>${M.nomeComp(M.concertoParaEscrita(n, I))}</b>`]))}
-    <h3>Tonalidades: concerto → sax alto</h3>${H.tabela(['Concerto', 'Escrito para o sax alto', 'Armadura escrita'], M.CICLO.map((t) => { const tc = M.parse(t + '4'), r = M.tomEscrito(tc, 'maior', I); return [M.nomeBR(tc) + ' maior', `<b>${M.nomeBR(r.tonica)} maior</b>`, M.descArmadura(r.tonica)]; }))}
-    <h3>Regras rápidas</h3><ul><li><b>De Dó (piano, voz, hinário de coral) para o sax alto:</b> suba uma 6ª maior (ou desça uma 3ª menor e acerte a oitava). Armadura: <b>+3 sustenidos</b> (ou −3 bemóis).</li><li><b>Do sax alto para Dó:</b> desça uma 6ª maior (ou suba uma 3ª menor). Armadura: −3 sustenidos (ou +3 bemóis).</li><li><b>De instrumentos em Si♭</b> (sax tenor, trompete, clarinete) <b>para o alto:</b> suba uma 5ª justa (ou desça uma 4ª justa). Armadura: +1 sustenido.</li><li><b>Cifras transpõem também:</b> C7 no teclado = A7 para você.</li></ul></section>`;
+    <h3>Notas: concerto → ${esc(I.curto.toLowerCase())}</h3>${H.tabela(['Som de concerto (piano, voz, flauta)', 'Você lê no ' + I.curto.toLowerCase()], conc.map((n) => [M.nomeComp(n), `<b>${M.nomeComp(M.concertoParaEscrita(n, I))}</b>`]))}
+    <h3>Tonalidades: concerto → ${esc(I.curto.toLowerCase())}</h3>${H.tabela(['Concerto', 'Escrito para o ' + I.curto.toLowerCase(), 'Armadura escrita'], M.CICLO.map((t) => { const tc = M.parse(t + '4'), r = M.tomEscrito(tc, 'maior', I); return [M.nomeBR(tc) + ' maior', `<b>${M.nomeBR(r.tonica)} maior</b>`, M.descArmadura(r.tonica)]; }))}
+    <h3>Regras rápidas</h3>${REGRAS[I.transp.s === 9 ? 'eb' : I.transp.s === 2 ? 'bb' : 'c']}</section>`;
 
   // E — rotinas
   const blocos = F._dados.blocosRotina;
@@ -126,14 +135,14 @@
 
   // G — repertório
   const R = window.Repertorio.para(I);
-  const apG = `<section class="apendice"><h1>Apêndice G · Repertório progressivo</h1><p>Métodos, estudos e peças reais para o saxofone alto, por nível. São referências: procure as edições publicadas (compre ou use bibliotecas). Itens marcados como “original” foram criados para este curso.</p>
+  const apG = `<section class="apendice"><h1>Apêndice G · Repertório progressivo</h1><p>Métodos, estudos e peças reais para o ${esc(I.nomeMin)}, por nível. São referências: procure as edições publicadas (compre ou use bibliotecas). Itens marcados como “original” foram criados para este curso.</p>
     ${Object.entries(NIVEIS).map(([k, n]) => { const it = R.filter((x) => x.n === k); return it.length ? `<h3>${n}</h3>${H.tabela(['Tipo', 'Título', 'Autor / observação'], it.map((x) => [x.t, `<b>${esc(x.titulo)}</b>`, esc(x.autor) + (x.obs ? ' — ' + esc(x.obs) : '')]))}` : ''; }).join('')}
     <h3>Como estudar uma peça nova</h3><ol><li>Ouça duas ou três gravações de referência.</li><li>Analise: tonalidade, forma, trechos difíceis, respirações.</li><li>Divida em trechos de 4–8 compassos; comece pelos difíceis.</li><li>Metrônomo a 60% do andamento final; +4 BPM por dia quando limpo.</li><li>Junte os trechos; toque do início ao fim sem parar.</li><li>Interprete: dinâmica, articulação de estilo, fraseado.</li><li>Grave, corrija e toque para alguém.</li></ol></section>`;
 
   // H — melodias
   const mel = ['brilha', 'ode', 'coral', 'santos', 'graca', 'resposta', 'blues', 'iiVI', 'guia', 'contracanto'].map((m) => H.pauta({ tipo: 'mel', id: m, porLinha: 4 })).join('') +
     ['s', 'a', 't', 'b'].map((vz) => H.pauta({ tipo: 'mel', id: 'coral4', voz: vz })).join('') + H.pauta({ tipo: 'hino', id: 'ex-noite' });
-  const apH = `<section class="apendice"><h1>Apêndice H · Melodias do curso</h1><p>Todas as melodias usadas nas aulas, escritas para o sax alto: domínio público e exercícios originais. O coral a quatro vozes está em Fá maior de concerto; cada voz aparece escrita para o sax alto.</p>${mel}</section>`;
+  const apH = `<section class="apendice"><h1>Apêndice H · Melodias do curso</h1><p>Todas as melodias usadas nas aulas, escritas para o ${esc(I.nomeMin)}: domínio público e exercícios originais. O coral a quatro vozes está em Fá maior de concerto; cada voz aparece escrita para o ${esc(I.nomeMin)}.</p>${mel}</section>`;
 
   // I — intervalos
   const apI = `<section class="apendice"><h1>Apêndice I · Referências de intervalos</h1><p>Associe cada intervalo a uma música que você conhece. Melhor ainda: troque as referências por hinos e louvores que você canta — referência pessoal fixa melhor.</p>${H.tabela(['Intervalo', 'Semitons', 'Referência (ascendente)'], D.INTERVALOS.map(([s, n, r]) => [n, s, r]))}</section>`;
