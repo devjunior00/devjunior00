@@ -188,7 +188,7 @@
       notas = cfg.ritmo.split(/\s+/).filter(Boolean).map((x) => ({ n: x.startsWith('-') ? null : p, d: Math.abs(parseFloat(x)) }));
     }
     const nomes = cfg.nomes != null ? cfg.nomes : (cfg.tipo !== 'ritmo' && window.NOMES_NOTAS !== false);
-    const abc = M.abc({ notas, tonicaMaior, compasso: cfg.compasso || '4/4', clave: I.clave, anacruse, porLinha: cfg.porLinha || 4, nomes });
+    const abc = M.abc({ notas, tonicaMaior, compasso: cfg.compasso || '4/4', clave: cfg.clave || I.clave, anacruse, porLinha: cfg.porLinha || 4, nomes });
     return { abc, notas, titulo, info, bpm: cfg.bpm || 72 };
   }
   function tomInfo(t, I, ref) {

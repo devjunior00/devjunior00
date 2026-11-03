@@ -228,6 +228,51 @@
   PLANOS.soprano[23] = { t: 'Hinários a quatro vozes e partituras de conjunto', novas: [], notas: N('E4 F#4 G4 A4 B4 C5 D5 E5'), fim: 'G4', tom: 'G',
     txt: `<p>Hinários com música (como os da Harpa Cristã e da CCB) vêm em <b>quatro vozes (SATB)</b>: <b>soprano e contralto</b> na clave de Sol; <b>tenor e baixo</b> na clave de Fá. O sax soprano costuma tocar a voz de soprano (a melodia) — siga a orientação do seu regente ou encarregado. Use o hinário escrito para instrumentos em <b>Si♭</b>.</p><p>Em partituras de banda e orquestra: procure sua parte (“Sax soprano em Si♭”, “Soprano Sax in B♭”). Em quartetos de saxofone, o soprano faz a voz mais aguda. Marque respirações, cortes e repetições combinadas no ensaio.</p>` };
 
+  // ---------- TROMBONE (clave de Fá, sons reais, posições da vara) ----------
+  const VARA = '<p class="aviso">No trombone não há chaves: a <b>vara</b> leva à posição e o <b>ouvido</b> confirma a afinação. Mova a vara rápido entre as notas, com o pulso solto, e use língua suave (“du”) na troca para não fazer glissando sem querer.</p>';
+  PLANOS.trombone = [
+    { t: 'A pauta, a clave de Fá e as três primeiras notas', novas: N('F3 E3 D3'), notas: N('D3 E3 F3'), fim: 'F3', tom: 'C',
+      txt: `<p>A <b>pauta</b> tem 5 linhas e 4 espaços, contados <b>de baixo para cima</b>. A <b>clave de Fá</b> começa na 4ª linha, entre os dois pontinhos: ali é o <b>Fá</b>. Cada linha e cada espaço é a nota seguinte: descendo, Fá (4ª linha) → Mi (3º espaço) → Ré (3ª linha).</p><p><b>Fá</b>: <b>1ª posição</b> (vara fechada). <b>Mi</b>: <b>2ª posição</b> (cerca de 8 cm para fora). <b>Ré</b>: <b>4ª posição</b> (logo depois da campana). O trombone lê em <b>sons reais</b>: a nota escrita é a que soa.</p><p><b>Duração:</b> semibreve (bola aberta, sem haste) = 4 tempos; mínima (bola aberta com haste) = 2 tempos. Compasso 4/4: 4 tempos por compasso.</p><p><b>Como ler cada estudo:</b> (1) diga o nome das notas; (2) bata o ritmo contando; (3) toque com metrônomo, sem parar.</p>` + VARA },
+    { t: 'Sol e Lá · a semínima e as pausas', novas: N('G3 A3'), notas: N('D3 E3 F3 G3 A3'), fim: 'D3', tom: 'C',
+      txt: `<p><b>Sol</b> (4º espaço): <b>4ª posição</b> — a mesma do Ré, num harmônico acima (mais velocidade de ar). <b>Lá</b> (5ª linha): <b>2ª posição</b>, como o Mi. Cante a nota antes de tocar: na mesma posição existem várias notas.</p>` + T.seminima },
+    { t: 'Dó · compasso 3/4 · mínima pontuada', novas: N('C3'), notas: N('C3 D3 E3 F3 G3 A3'), fim: 'C3', tom: 'C',
+      txt: `<p><b>Dó</b> (2º espaço): <b>6ª posição</b>, braço quase estendido. Leve a vara com o braço inteiro, sem dobrar o pulso.</p>` + T.tres },
+    { t: 'Si e Dó acima da pauta · linhas suplementares · ligadura', novas: N('B3 C4'), notas: N('C3 D3 E3 F3 G3 A3 B3 C4'), fim: 'C3', tom: 'C',
+      txt: `<p><b>Si</b> (espaço acima da pauta): <b>4ª posição</b> (5º harmônico, um pouco baixo: vara levemente para dentro). <b>Dó central</b> (1ª linha suplementar superior): <b>3ª posição</b>, um pouco antes da campana.</p><p><b>Linhas suplementares:</b> pequenas linhas que estendem a pauta; o Dó central fica na 1ª acima da clave de Fá (e na 1ª abaixo da clave de Sol). <b>Ligadura de valor:</b> curva unindo notas <b>iguais</b>: toque só a primeira e some as durações.</p>` },
+    { t: 'Lá e Sol graves · colcheias', novas: N('A2 G2'), notas: N('G2 A2 C3 D3 E3 F3 G3 A3 B3 C4'), fim: 'C3', tom: 'C',
+      txt: `<p><b>Lá grave</b> (1º espaço): <b>2ª posição</b>. <b>Sol grave</b> (1ª linha): <b>4ª posição</b>. Mesmas posições do Mi/Lá e do Ré/Sol, um harmônico abaixo: lábios relaxados, ar quente e lento, mandíbula um pouco mais aberta.</p>` + T.colcheia },
+    { t: 'Si bemol: a nota do trombone · 2/4 · anacruse', novas: N('Bb2 Bb3'), notas: N('A2 Bb2 C3 D3 E3 F3 G3 A3 Bb3 C4'), fim: 'F3', tom: 'F',
+      txt: `<p><b>Si♭ grave</b> (2ª linha) e <b>Si♭ médio</b> (acima da pauta): <b>1ª posição</b>. O trombone “é afinado em Si♭”: a 1ª posição dá a série de Si♭ (Si♭–Fá–Si♭–Ré–Fá…). Esta música está em <b>Fá maior</b> (um bemol: todo Si é Si♭).</p>` + T.dois },
+    { t: 'Fá sustenido e a armadura de Sol maior', novas: N('F#3'), notas: N('G2 A2 C3 D3 E3 F#3 G3 A3 B3 C4'), fim: 'G3', tom: 'G',
+      txt: `<p><b>Fá♯</b> (4ª linha, com sustenido): <b>5ª posição</b>, cerca de um palmo depois da campana.</p>` + T.sust },
+    { t: 'Mi bemol · bemol, bequadro e Si♭ maior', novas: N('Eb3'), notas: N('Bb2 C3 D3 Eb3 F3 G3 A3 Bb3'), fim: 'Bb2', tom: 'Bb',
+      txt: `<p><b>Mi♭</b> (3º espaço, com bemol): <b>3ª posição</b>. Com Si♭ e Mi♭ na armadura, a música está em <b>Si♭ maior</b> — a tonalidade mais confortável do trombone e muito usada em bandas.</p><p>O <b>bemol (♭)</b> abaixa meio tom; acidente ocorrente vale até o fim do compasso; o <b>bequadro (♮)</b> cancela.</p>` },
+    { t: 'Ré acima da pauta · semínima pontuada', novas: N('D4'), notas: N('F3 G3 A3 Bb3 C4 D4'), fim: 'F3', tom: 'F',
+      txt: `<p><b>Ré</b> (2º espaço acima da pauta, depois da 1ª linha suplementar): <b>1ª posição</b> (5º harmônico, um pouco baixo: vara levemente para dentro) ou <b>4ª</b>. Escolha a posição que deixa a vara mais perto da nota seguinte.</p>` + T.pont },
+    { t: 'Mi♭ e Fá agudos · ritornelo e casas 1 e 2', novas: N('Eb4 F4'), notas: N('Bb2 C3 D3 Eb3 F3 G3 A3 Bb3 C4 D4 Eb4 F4'), fim: 'Bb2', tom: 'Bb',
+      txt: `<p><b>Mi♭ agudo</b>: <b>3ª posição</b>. <b>Fá agudo</b> (2ª linha suplementar superior): <b>1ª posição</b>. Ar rápido, cantos firmes, sem apertar o bocal.</p>` + T.rito },
+    { novas: [], notas: N('C3 D3 E3 F3 G3 A3'), fim: 'C3', tom: 'C', txt: null },
+    { novas: [], notas: N('D3 E3 F#3 G3 A3 B3 C4 D4'), fim: 'G3', tom: 'G', txt: null },
+    { novas: [], notas: N('C3 D3 E3 F3 G3 A3 B3 C4 D4'), fim: 'C3', tom: 'C', txt: null },
+    { t: 'Dó♯ e Lá♭ · Ré maior e Mi♭ maior', novas: N('C#4 Ab3'), notas: N('D3 E3 F#3 G3 A3 B3 C#4 D4'), fim: 'D3', tom: 'D',
+      txt: `<p><b>Dó♯</b> acima da pauta: <b>2ª posição</b>. <b>Lá♭</b> (5ª linha, com bemol): <b>3ª posição</b>.</p><p><b>Ré maior</b>: 2 sustenidos (Fá♯, Dó♯). <b>Mi♭ maior</b>: 3 bemóis (Si♭, Mi♭, Lá♭). Ordem dos sustenidos: <b>Fá Dó Sol Ré Lá Mi Si</b>; dos bemóis: <b>Si Mi Lá Ré Sol Dó Fá</b>.</p>`, extra: { notas: N('Eb3 F3 G3 Ab3 Bb3 C4 D4 Eb4'), tom: 'Eb', fim: 'Eb3' } },
+    { t: 'A região grave: Si, Fá♯ e Mi graves (posições longas)', novas: N('B2 F#2 E2'), notas: N('E2 F#2 G2 A2 B2 C3 D3 E3'), fim: 'G2', tom: 'G',
+      txt: `<p><b>Si grave</b> (2ª linha): <b>7ª posição</b>. <b>Fá♯ grave</b> (espaço abaixo da pauta): <b>5ª posição</b>. <b>Mi grave</b> (1ª linha suplementar inferior): <b>7ª posição</b>, braço todo estendido. Posições longas pedem braço solto e ar generoso. Trombones com <b>rotor de Fá</b> fazem essas notas com o polegar esquerdo, em posições mais curtas.</p>` },
+    { novas: [], notas: N('C3 D3 E3 F3 G3 A3 B3 C4 D4'), fim: 'C3', tom: 'C', txt: null },
+    { novas: [], notas: N('D3 E3 F#3 G3 A3 B3 C4 D4'), fim: 'G3', tom: 'G', txt: null },
+    { t: 'Armaduras com 3 e 4 acidentes · Sol♯ e Mi agudo', novas: N('G#3 E4'), notas: N('E3 F#3 G#3 A3 B3 C#4 D4 E4'), fim: 'A3', tom: 'A',
+      txt: `<p><b>Sol♯</b> (4º espaço, com sustenido): <b>3ª posição</b> (a mesma do Lá♭). <b>Mi agudo</b>: <b>2ª posição</b>.</p><p><b>Lá maior</b> (3♯: Fá, Dó, Sol), <b>Mi maior</b> (4♯), <b>Lá♭ maior</b> (4♭). Cada maior tem uma <b>relativa menor</b> uma 3ª menor abaixo. Olhe o início e a última nota para saber se a música é maior ou menor.</p>`, extra: { notas: N('F3 G3 Ab3 Bb3 C4 Db4 Eb4 F4'), tom: 'Ab', fim: 'Ab3' } },
+    { t: 'A região aguda: Sol, Lá e Si♭ agudos', novas: N('G4 A4 Bb4'), notas: N('Bb3 C4 D4 Eb4 F4 G4 A4 Bb4'), fim: 'Bb3', tom: 'Bb',
+      txt: `<p><b>Sol agudo</b>: <b>2ª</b> ou <b>4ª posição</b>. <b>Lá agudo</b>: <b>2ª posição</b>. <b>Si♭ agudo</b>: <b>1ª posição</b>. No agudo os harmônicos ficam próximos: cante a nota, use ar rápido e abertura pequena, sem pressão do bocal.</p>` },
+    { t: 'Leitura cromática · Dó♯ grave', novas: N('C#3'), notas: N('C3 C#3 D3 Eb3 E3 F3 F#3 G3 Ab3 A3 Bb3 B3 C4'), fim: 'C3', tom: 'C', txt: null },
+    { novas: [], notas: N('D3 E3 F#3 G3 A3 B3 C#4 D4 E4'), fim: 'D3', tom: 'D', txt: null },
+    { novas: [], notas: N('C3 D3 E3 F3 G3 A3 Bb3 B3 C4 D4 E4 F4'), fim: 'F3', tom: 'F', txt: null },
+    { t: 'Ler partes de trombone em Si♭ na clave de Sol', novas: [], notas: N('C4 D4 E4 F4 G4 A4 B4 C5'), fim: 'C4', tom: 'C', clave: 'treble',
+      txt: `<p>Em muitas bandas e igrejas no Brasil, a parte de trombone vem escrita <b>em Si♭ na clave de Sol</b>, como se fosse um trompete ou um sax tenor: a nota escrita soa uma <b>9ª maior abaixo</b>. A posição é sempre a da <b>nota real</b>. Ex.: Dó escrito no 3º espaço da clave de Sol = <b>Si♭3</b> = 1ª posição.</p><p><b>Truque da clave de Dó:</b> leia a clave de Sol em Si♭ <b>como se fosse a clave de tenor</b> (clave de Dó na 4ª linha) e acrescente <b>2 bemóis</b> à armadura (ou tire 2 sustenidos). O nome que sai já é a nota real, na oitava certa para o trombone. Os estudos abaixo estão escritos em Si♭ na clave de Sol: leia, diga a nota real e a posição, depois toque.</p>` },
+    { t: 'Hinários a quatro vozes e partituras de conjunto', novas: [], notas: N('D3 E3 F#3 G3 A3 B3 C4 D4'), fim: 'G3', tom: 'G',
+      txt: `<p>Hinários com música (como os da Harpa Cristã e da CCB) vêm em <b>quatro vozes (SATB)</b>: soprano e contralto na clave de Sol; <b>tenor e baixo na clave de Fá</b>. O trombone costuma tocar a voz de <b>tenor</b> (ou a de baixo) — siga a orientação do seu regente ou encarregado. Como o trombone lê em sons reais, o hinário <b>em Dó</b> serve diretamente.</p><p>Em partituras de banda e orquestra: procure sua parte (“Trombone 1”, “Trombone em Dó” ou “Trombone em Si♭”, na clave de Sol — veja a lição anterior). Em orquestras, o trombone pode aparecer também na clave de Dó (tenor); os estudos de Blazhevich treinam isso.</p>` },
+  ];
+
   // teoria das lições sem texto próprio (11, 12, 13, 16, 17, 18, 20, 21, 22) = a mesma do sax, sem as frases de dedilhado
   function txtClar(i) {
     const sax = LICOES[i].txt;
@@ -254,7 +299,7 @@
       const ex = L.extra && k >= 4 ? Object.assign({}, L, L.extra) : L;
       const comp = ex.comp;
       const txt = estudo(1000 * (i + 1) + k * 37, { notas: ex.notas, celulas: ex.cel, compasso: comp, final: ex.fim, inicio: ex.fim, compassos: 8, salto: ex.salto || 1 });
-      ests.push(H.pauta({ tipo: 'notas', notas: txt, tom: ex.tom, compasso: comp, titulo: `Estudo ${i + 1}.${k + 1}${ex !== L ? ' · ' + M.nomeBR(M.parse(ex.tom + '4')) + ' maior' : ''}${comp !== L.comp ? ' · ' + comp : ''}`, bpm: L.bpm, porLinha: 4 }));
+      ests.push(H.pauta({ tipo: 'notas', notas: txt, tom: ex.tom, compasso: comp, clave: ex.clave, titulo: `Estudo ${i + 1}.${k + 1}${ex !== L ? ' · ' + M.nomeBR(M.parse(ex.tom + '4')) + ' maior' : ''}${comp !== L.comp ? ' · ' + comp : ''}`, bpm: L.bpm, porLinha: 4 }));
     }
     const ritmo = estudo(77 * (i + 3), { notas: [L.notas[0]], celulas: L.cel, compasso: L.comp, final: 'B4', compassos: 8 });
     return `<article class="aula-livro leitura-licao"><header class="cab-aula"><span class="rotulo">Método de leitura · lição ${i + 1} de ${LICOES.length}</span><h1><span class="num-aula">L${i + 1}</span> ${L.t}</h1></header>
