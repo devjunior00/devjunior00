@@ -335,7 +335,7 @@
   };
 
   // ======================= TREINO AUDITIVO =======================
-  const INTERVALOS = [[1, '2ª menor', 'Tubarão (tema); Für Elise (Mi–Ré♯)'], [2, '2ª maior', '“Parabéns pra você” (Pa-ra-béns)'], [3, '3ª menor', 'Greensleeves (início)'], [4, '3ª maior', 'When the Saints (Oh, when)'], [5, '4ª justa', 'Marcha nupcial de Wagner; “Lá vem a noiva”'], [6, 'Trítono', 'Maria (West Side Story); Os Simpsons (abertura)'], [7, '5ª justa', 'Brilha, brilha estrelinha (Bri-lha)'], [8, '6ª menor', 'The Entertainer (Mi–Dó, descendo a nota-alvo)'], [9, '6ª maior', 'My Bonnie Lies Over the Ocean'], [10, '7ª menor', 'Somewhere (There’s a place) – West Side Story'], [11, '7ª maior', 'Over the rainbow, 1ª e 3ª notas (aprox.); procure ouvir resolvendo na 8ª'], [12, '8ª justa', 'Somewhere Over the Rainbow (Some-where)']];
+  const INTERVALOS = [[1, '2ª menor', 'Tubarão (tema); Für Elise (Mi–Ré♯)'], [2, '2ª maior', '“Parabéns pra você” (Pa-ra-béns)'], [3, '3ª menor', 'Greensleeves (início)'], [4, '3ª maior', 'When the Saints (Oh, when)'], [5, '4ª justa', 'Marcha nupcial de Wagner; “Lá vem a noiva”'], [6, 'Trítono', 'Maria (West Side Story); Os Simpsons (abertura)'], [7, '5ª justa', 'Brilha, brilha estrelinha (Bri-lha)'], [8, '6ª menor', 'The Entertainer (Scott Joplin): o salto Mi→Dó da introdução'], [9, '6ª maior', 'My Bonnie Lies Over the Ocean'], [10, '7ª menor', 'Somewhere (There’s a place) – West Side Story'], [11, '7ª maior', 'Over the Rainbow: da 1ª para a 3ª nota (Some-where o-); ouça a 7ª “pedindo” a 8ª'], [12, '8ª justa', 'Somewhere Over the Rainbow (Some-where)']];
   const ACORDES_OUV = { M: [0, 4, 7], m: [0, 3, 7], dim: [0, 3, 6], aum: [0, 4, 8], M7: [0, 4, 7, 11], d7: [0, 4, 7, 10], m7: [0, 3, 7, 10], m7b5: [0, 3, 6, 10], dim7: [0, 3, 6, 9] };
   const ESC_OUV = ['maior', 'menorNat', 'menorHarm', 'menorMelJazz', 'dorico', 'mixolidio', 'lidio', 'frigio', 'pentaMaior', 'pentaMenor', 'blues'];
   Ferr.ouvido = (el, { E, salvar, inst }) => {
@@ -452,7 +452,7 @@
   function blocosRotina(min, nivel, I) {
     const metal = I.familia === 'metal', flauta = I.familia === 'flauta';
     const B = {
-      resp: ['Respiração e aquecimento', metal ? 'Respiração 4-4-8 (inspira 4, segura 4, solta 8) × 4; buzz no bocal em sirenes suaves.' : flauta ? 'Respiração 4-4-8 × 4; notas longas só na cabeça da flauta (aberta e tampada).' : 'Respiração 4-4-8 × 4; sopro em “sss” contínuo; notas na boquilha sozinha (ou boquilha + barrilete, no clarinete).', 'Ar contínuo, sem tensão nos ombros; som de bocal/boquilha estável.'],
+      resp: ['Respiração e aquecimento', metal ? 'Respiração 4-4-8 (inspira 4, segura 4, solta 8) × 4; buzz no bocal em sirenes suaves.' : flauta ? 'Respiração 4-4-8 × 4; notas longas só na cabeça da flauta (aberta e tampada).' : (I.sub === 'clarinete' ? 'Respiração 4-4-8 × 4; sopro em “sss” contínuo; notas na boquilha + barrilete.' : 'Respiração 4-4-8 × 4; sopro em “sss” contínuo; notas na boquilha sozinha.'), 'Ar contínuo, sem tensão nos ombros; som de bocal/boquilha estável.'],
       longas: ['Notas longas', nivel === 'iniciante' ? 'Uma nota por respiração, ♩ = 60, 4 tempos cada, nas notas que você já domina.' : 'Notas longas em crescendo–diminuendo (pp → ff → pp), 8 tempos, ♩ = 60, por toda a extensão estudada.', 'Altura parada no afinador (±10 cents) do início ao fim da nota.'],
       afin: ['Afinação', 'Nota de referência (aba Afinador): toque junto e elimine os batimentos. Confira 5 notas no afinador.', 'Batimentos eliminados em até 3 segundos.'],
       art: ['Articulação', nivel === 'iniciante' ? 'Uma nota, 4 semínimas por respiração com “tu”, ♩ = 60.' : 'Escala em staccato, legato e tenuto; grupos de 4 colcheias com “tu-tu-tu-tu”.' + (nivel === 'avancado' ? ' Dupla articulação (tu-ku) e tripla (tu-tu-ku).' : ''), 'Início das notas limpo, sem “ataque de garganta” nem atraso.'],
@@ -636,5 +636,6 @@
     desenha();
   };
 
+  Ferr._dados = { blocosRotina, CRITERIOS, FAIXAS, ROTEIRO, INTERVALOS };
   window.Ferr = Ferr;
 })();
