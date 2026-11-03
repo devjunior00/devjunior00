@@ -221,6 +221,13 @@
       txt: `<p>Hinários com música (como os da Harpa Cristã e da CCB) vêm em <b>quatro vozes (SATB)</b>: <b>soprano e contralto</b> na clave de Sol; <b>tenor e baixo</b> na clave de Fá. O trompete costuma tocar a voz de soprano (a melodia) — siga a orientação do seu regente ou encarregado. Use o hinário escrito para instrumentos em <b>Si♭</b>.</p><p>Em partituras de banda e orquestra: procure sua parte (“Trompete 1 em Si♭”, “Trumpet in B♭”); partes de orquestra podem estar em Dó, Fá ou Mi♭ — confira e transponha. Marque respirações, cortes e repetições combinadas no ensaio.</p>` },
   ];
 
+  // ---------- SAX SOPRANO (mesmo dedilhado do alto; muda a transposição) ----------
+  PLANOS.soprano = [];
+  PLANOS.soprano[22] = { t: 'Ler partes em Dó: transposição à primeira vista', novas: [], notas: N('C4 D4 E4 F4 G4 A4 B4 C5'), fim: 'C4', tom: 'C',
+    txt: `<p>Na igreja e na banda, muitas vezes só existe a partitura <b>em Dó</b> (voz, piano, hinário de coral). O sax soprano em Si♭ soa um tom abaixo do escrito; para tocar junto, leia <b>um tom acima</b> (uma 2ª maior) e troque a armadura: <b>+2 sustenidos ou −2 bemóis</b>. Ex.: hino em Si♭ maior (2♭) → você lê em Dó maior; hino em Fá maior (1♭) → Sol maior (1♯).</p><p>Os estudos abaixo estão em Dó (concerto): leia transpondo um tom acima e toque.</p>` };
+  PLANOS.soprano[23] = { t: 'Hinários a quatro vozes e partituras de conjunto', novas: [], notas: N('E4 F#4 G4 A4 B4 C5 D5 E5'), fim: 'G4', tom: 'G',
+    txt: `<p>Hinários com música (como os da Harpa Cristã e da CCB) vêm em <b>quatro vozes (SATB)</b>: <b>soprano e contralto</b> na clave de Sol; <b>tenor e baixo</b> na clave de Fá. O sax soprano costuma tocar a voz de soprano (a melodia) — siga a orientação do seu regente ou encarregado. Use o hinário escrito para instrumentos em <b>Si♭</b>.</p><p>Em partituras de banda e orquestra: procure sua parte (“Sax soprano em Si♭”, “Soprano Sax in B♭”). Em quartetos de saxofone, o soprano faz a voz mais aguda. Marque respirações, cortes e repetições combinadas no ensaio.</p>` };
+
   // teoria das lições sem texto próprio (11, 12, 13, 16, 17, 18, 20, 21, 22) = a mesma do sax, sem as frases de dedilhado
   function txtClar(i) {
     const sax = LICOES[i].txt;
@@ -229,7 +236,7 @@
 
   function planoPara(I, i) {
     const base = LICOES[i];
-    const p = (PLANOS[I.sub] || [])[i];
+    const p = (PLANOS[I.id] || PLANOS[I.sub] || [])[i];
     if (!p) return base;
     const L = Object.assign({}, base, p);
     if (!p.t) L.t = base.t;

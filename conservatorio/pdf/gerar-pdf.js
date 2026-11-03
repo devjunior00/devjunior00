@@ -1,11 +1,11 @@
 // Gera o PDF do livro de um instrumento. Uso: node gerar-pdf.js <url-base> <instrumento> <saida.pdf>
 const { chromium } = require('playwright');
 (async () => {
-  const [base, inst, saida] = process.argv.slice(2);
+  const [base, inst, saida, extra] = process.argv.slice(2);
   const b = await chromium.launch();
   const p = await b.newPage({ colorScheme: 'light' });
   const erros = []; p.on('pageerror', (e) => erros.push(e.message));
-  await p.goto(`${base}/livro.html?inst=${inst}`, { waitUntil: 'networkidle' });
+  await p.goto(`${base}/livro.html?inst=${inst}${extra ? '&' + extra : ''}`, { waitUntil: 'networkidle' });
   await p.waitForFunction(() => window.LIVRO_PRONTO === true, null, { timeout: 120000 });
   await p.evaluate(() => document.fonts.ready);
   await p.waitForTimeout(1500);

@@ -9,6 +9,8 @@
   const E = window.App.estado();
   E.inst = id; E.escolhido = true;
   const I = IN.INSTRUMENTOS[id];
+  const CURVO = params.get('curvo') === '1' && id === 'soprano';
+  if (CURVO) { I.nome = 'Saxofone soprano curvo'; I.nomeMin = 'saxofone soprano curvo'; I.curto = 'Sax soprano'; }
   const v = (x) => (typeof x === 'function' ? x(I, H) : x);
   const NIVEIS = { iniciante: 'Iniciante', basico: 'Básico', intermediario: 'Intermediário', intAvancado: 'Intermediário avançado', avancado: 'Avançado', profissional: 'Profissional' };
   const SECOES = [['obj', 'Objetivo principal'], ['apr', 'O que você vai aprender'], ['teo', 'Explicação teórica'], ['pra', 'Aplicação prática no ' + I.curto.toLowerCase()], ['ex', 'Exemplos musicais'],
@@ -17,7 +19,7 @@
   const PULAR = ['1-1'];
   const aulasDe = (m) => m.aulas.filter((a) => !PULAR.includes(a));
   const DESC = (m) => m.desc.replace('História, família, partes', 'Partes');
-  const ARTE = I.id === 'soprano' ? 'soprano' : I.sub;
+  const ARTE = I.id === 'soprano' && !CURVO ? 'soprano' : I.sub;
   const L = (s) => s.replace(/<a [^>]*>(.*?)<\/a>/g, '$1'); // links viram texto
 
   function aula(idA, num) {
@@ -30,7 +32,7 @@
       obj: `<p>${v(a.obj)}</p>`,
       apr: `<ul>${(v(a.apr) || []).map((x) => `<li>${x}</li>`).join('')}</ul>`,
       teo: v(a.teo) + (idA === '1-2' ? `<div class="ilustra-grande">${V.ilustracao(ARTE, { rotulos: true })}</div>` : ''),
-      pra: v(a.pra), ex: v(a.ex),
+      pra: v(a.pra) + (CURVO && idA === '1-2' ? '<p class="aviso"><b>No soprano curvo:</b> segure como um sax alto pequeno — com a correia no pescoço, o instrumento ao lado do corpo (ou levemente à frente) e a cabeça reta. Ajuste a correia para a boquilha chegar à boca sem você abaixar ou levantar o queixo. Se o tudel for removível, encaixe-o com o mesmo cuidado do alto (sem forçar a chave de oitava).</p>' : ''), ex: v(a.ex),
       exs: (v(a.exs) || []).map((x, i) => `<div class="exercicio"><h4><span class="n">${i + 1}</span>${x.nome}</h4><div class="meta">${x.dur ? `<span class="chip">⏱ ${x.dur}</span>` : ''}${x.bpm ? `<span class="chip ouro">♩ = ${x.bpm}</span>` : ''}</div>${x.obj ? `<p><b>Objetivo:</b> ${x.obj}</p>` : ''}${x.passos ? `<ol>${x.passos.map((p) => `<li>${p}</li>`).join('')}</ol>` : ''}${x.extra || ''}${x.crit ? `<p class="peq"><b>Está pronto quando:</b> ${x.crit}</p>` : ''}</div>`).join(''),
       met: (() => { const l = v(a.met) || []; return l.length ? H.tabela(['Exercício', 'Comece em', 'Meta', 'Como subir'], l.map((m) => [m[0], `♩ = ${m[1]}`, `♩ = ${m[2]}`, m[3] || '+4 BPM por dia, se limpo'])) + '<p class="peq sutil">Suba o andamento só depois de três execuções seguidas sem erro. Errou? Volte 8 BPM.</p>' : ''; })(),
       err: (v(a.err) || []).map(([e, c]) => `<div class="erro-par"><div><span class="rotulo">Erro</span><p>${e}</p></div><div><span class="rotulo">Como corrigir</span><p>${c}</p></div></div>`).join(''),
@@ -68,6 +70,12 @@
     <h3>Sobre a transposição</h3><p>${I.transp.s ? `O ${esc(I.nomeMin)} é um instrumento <b>em ${I.tom}</b>: ele ${esc(I.transpTexto)}. Quando você toca o <b>Dó escrito</b>, sai o <b>${M.nomeBR(M.escritaParaConcerto(M.parse('C4'), I))} de concerto</b>. Todas as partituras deste livro já estão escritas para o ${esc(I.nomeMin)}; quando aparece “soa…”, é o som real, que o piano ou o teclado precisa tocar para soar igual.` : `O ${esc(I.nomeMin)} ${esc(I.transpTexto)}: a nota escrita é a nota que soa.`}</p>
     <h3>Símbolos</h3><p>⏱ duração do exercício · ♩ = andamento em batidas por minuto · ☐ critério a cumprir · “Exercício original” = criado para este curso; obras citadas de outros autores são referências — compre as edições publicadas.</p></section>`;
 
+  const curvoPag = CURVO ? `<section class="pagina"><h1>O sax soprano curvo</h1>
+    <div class="legenda-chaves">${V.ilustracao('sax', { rotulos: true })}<div>
+    <p>O <b>soprano curvo</b> tem o formato de um sax alto em miniatura: tudel curvo, corpo e campana voltada para cima. É afinado em <b>Si♭</b>, como o soprano reto, e usa <b>exatamente o mesmo dedilhado escrito</b> do sax alto e do soprano reto — tudo o que está neste livro vale para ele.</p></div></div>
+    ${H.tabela(['', 'Soprano curvo', 'Soprano reto'], [['Afinação e leitura', 'Si♭ · soa um tom abaixo do escrito', 'igual'], ['Dedilhado', 'o mesmo do sax alto (notas escritas)', 'igual'], ['Como segurar', 'com correia, ao lado do corpo ou levemente à frente, como um alto pequeno', 'à frente, inclinado 30–45°, peso no polegar direito (correia opcional)'], ['Som', 'em geral um pouco mais escuro e menos direcional: a campana aponta para cima', 'mais brilhante e projetado para a frente'], ['Tudel', 'fixo ou removível, conforme o modelo', 'geralmente uma peça (alguns têm tudel curvo e reto)'], ['Afinação', 'muito sensível à embocadura, como todo soprano', 'igual']])}
+    <h3>Cuidados específicos</h3><ul><li><b>Microfone e gravação:</b> como a campana aponta para cima, posicione o microfone à frente e um pouco acima da campana, a 30–40 cm.</li><li><b>Limpeza:</b> o puxador passa pela curva; use um puxador fino próprio para soprano. Se o tudel for removível, seque-o separadamente.</li><li><b>Afinação:</b> confira várias notas, não só uma — o soprano “denuncia” qualquer mordida. Notas da região aguda tendem a subir: garganta aberta, sem morder.</li><li><b>Embocadura:</b> mais firme e precisa que a do alto, com menos boquilha na boca. Notas longas com afinador todos os dias.</li></ul>
+    <h3>Repertório que soa muito bem no curvo</h3><p>Melodias de hinos e louvores (voz de soprano), baladas, música brasileira (choro, bossa) e jazz tradicional — Sidney Bechet tocava soprano reto, mas o som cantado e redondo que ele buscava é um ótimo modelo para o curvo.</p></section>` : '';
   const plano = `<section class="pagina"><h1>Plano de formação</h1><p>Os 16 módulos, do zero ao nível profissional. Os níveis indicam a etapa da formação; avance quando cumprir os critérios de todas as aulas do módulo.</p>
     ${H.tabela(['Nível', 'Etapa', 'Conteúdo'], [[NIVEIS.iniciante, '<b>Parte 1 · Primeiros passos</b>', 'montagem, cuidados, equipamento, afinação, transposição, primeiro som, respiração, embocadura, notas longas e articulação'], [NIVEIS.iniciante + ' → ' + NIVEIS.profissional, '<b>Parte 2 · Método de leitura</b>', '24 lições com estudos escritos: das primeiras notas à leitura à primeira vista, transposição e hinários a 4 vozes']].concat(C.modulos.filter((m) => m.n >= 3).map((m) => [NIVEIS[m.nivel], `<b>${m.n}. ${esc(m.titulo)}</b>`, esc(DESC(m))])))}
     <p><b>Como combinar as partes:</b> faça a Parte 1 primeiro. Depois estude a Parte 2 (leitura) <b>em paralelo</b> com a Parte 3: uma lição de leitura por semana junto com as aulas do curso.</p>
@@ -148,7 +156,7 @@
   // I — intervalos
   const apI = `<section class="apendice"><h1>Apêndice I · Referências de intervalos</h1><p>Associe cada intervalo a uma música que você conhece. Melhor ainda: troque as referências por hinos e louvores que você canta — referência pessoal fixa melhor.</p>${H.tabela(['Intervalo', 'Semitons', 'Referência (ascendente)'], D.INTERVALOS.map(([s, n, r]) => [n, s, r]))}</section>`;
 
-  const conteudo = [capa, comoUsar, plano, sumario];
+  const conteudo = [capa, comoUsar, curvoPag, plano, sumario].filter(Boolean);
   const parte = (n, t, d) => `<section class="abre-parte"><span class="rotulo">Parte ${n}</span><h1>${t}</h1><p>${d}</p></section>`;
   const modulo = (m) => {
     conteudo.push(`<section class="abre-modulo"><span class="rotulo">${NIVEIS[m.nivel]}</span><div class="mod-num">${m.n}</div><h1>${esc(m.titulo)}</h1><p>${esc(DESC(m))}</p><ol>${aulasDe(m).map((a) => `<li>${a.replace('-', '.')} · ${esc(C.aulas[a].titulo)}</li>`).join('')}</ol></section>`);
