@@ -177,6 +177,50 @@
     { t: 'Hinários a quatro vozes e partituras de conjunto', novas: [], notas: N('E4 F#4 G4 A4 B4 C5 D5 E5'), fim: 'G4', tom: 'G',
       txt: `<p>Hinários com música (como os da Harpa Cristã e da CCB) vêm em <b>quatro vozes (SATB)</b>: <b>soprano e contralto</b> na clave de Sol (soprano com hastes para cima, contralto para baixo); <b>tenor e baixo</b> na clave de Fá. Use o hinário escrito para instrumentos em <b>Si♭</b> e marque a lápis qual voz você toca.</p><p>Em partituras de banda e orquestra: procure sua parte (“Clarinete 1 em Si♭”, “Clarinet in B♭”), confira se ela está escrita para o clarinete em Si♭ (e não em Lá), marque respirações, cortes e repetições combinadas no ensaio.</p>` },
   ];
+  // ---------- plano do TROMPETE em Si♭ (notas escritas) ----------
+  const OUVIR = '<p class="aviso">No trompete, <b>notas diferentes podem usar os mesmos pistos</b>. O que escolhe a nota é a velocidade do ar e a vibração dos lábios. Por isso, <b>cante (ou imagine) a nota antes de tocar</b>: o ouvido guia os lábios.</p>';
+  PLANOS.trompete = [
+    { t: 'A pauta, a clave de Sol e as três primeiras notas', novas: N('C4 D4 E4'), notas: N('C4 D4 E4'), fim: 'C4', tom: 'C',
+      txt: `<p><b>Dó</b> (1ª linha suplementar inferior): <b>nenhum pisto</b> (0). <b>Ré</b> (logo abaixo da pauta): pistos <b>1 e 3</b>. <b>Mi</b> (1ª linha): pistos <b>1 e 2</b>. Aperte os pistos até o fundo, rápido, com a ponta dos dedos; o mínimo fica fora do gancho.</p>` + T.pauta.replace('descendo, Sol (2ª linha) → Fá (1º espaço) → Mi (1ª linha)', 'subindo a partir do Dó: Dó (linha suplementar) → Ré (espaço abaixo da pauta) → Mi (1ª linha)') },
+    { t: 'Fá e Sol · a semínima e as pausas', novas: N('F4 G4'), notas: N('C4 D4 E4 F4 G4'), fim: 'C4', tom: 'C',
+      txt: `<p><b>Fá</b> (1º espaço): pisto <b>1</b>. <b>Sol</b> (2ª linha): <b>nenhum pisto</b> — o mesmo “0” do Dó, com ar mais rápido (vogal “ti”). A troca Dó → Sol é só de ar e de lábio.</p>` + OUVIR + T.seminima },
+    { t: 'Lá · compasso 3/4 · mínima pontuada', novas: N('A4'), notas: N('C4 D4 E4 F4 G4 A4'), fim: 'C4', tom: 'C',
+      txt: `<p><b>Lá</b> (2º espaço): pistos <b>1 e 2</b> (o 3 sozinho é alternativa, um pouco baixa).</p>` + T.tres },
+    { t: 'Notas graves: Si, Lá e Sol · ligadura de valor', novas: N('B3 A3 G3'), notas: N('G3 A3 B3 C4 D4 E4 F4 G4'), fim: 'C4', tom: 'C',
+      txt: `<p><b>Si grave</b>: pisto <b>2</b>. <b>Lá grave</b>: <b>1 e 2</b>. <b>Sol grave</b>: <b>1 e 3</b> (tende a ficar alto: estenda um pouco a bomba do 3º pisto). Graves pedem lábios relaxados, ar quente e lento — sem afrouxar o apoio.</p>` + T.supl.replace('o clarinete usa muitas no grave', 'o trompete usa no grave e no agudo').replace('o Dó4 está na 1ª linha suplementar inferior, o Lá3 na 2ª, o Fá3 na 3ª', 'o Dó4 está na 1ª linha suplementar inferior, o Lá3 na 2ª') },
+    { t: 'Si e Dó do 3º espaço · colcheias', novas: N('B4 C5'), notas: N('G3 A3 B3 C4 D4 E4 F4 G4 A4 B4 C5'), fim: 'C5', tom: 'C',
+      txt: `<p><b>Si</b> (3ª linha): pisto <b>2</b>. <b>Dó</b> (3º espaço): <b>nenhum pisto</b> — o terceiro “0”, depois do Dó grave e do Sol. Ar ainda mais rápido, abertura dos lábios menor, sem apertar o bocal.</p>` + T.colcheia },
+    { t: 'Ré e Mi do registro médio · compasso 2/4 · anacruse', novas: N('D5 E5'), notas: N('C4 D4 E4 F4 G4 A4 B4 C5 D5 E5'), fim: 'C5', tom: 'C',
+      txt: `<p><b>Ré</b> (4ª linha): pisto <b>1</b>. <b>Mi</b> (4º espaço): <b>nenhum pisto</b> (tende a ficar um pouco baixo: ouça e ajuste com o lábio).</p>` + OUVIR + T.dois },
+    { t: 'Fá sustenido e a armadura de Sol maior', novas: N('F#4'), notas: N('G3 A3 B3 C4 D4 E4 F#4 G4 A4 B4 C5 D5'), fim: 'G4', tom: 'G',
+      txt: `<p><b>Fá♯</b> (1º espaço, com sustenido): pisto <b>2</b>.</p>` + T.sust },
+    { t: 'Si bemol · bemol, bequadro e Fá maior', novas: N('Bb4 Bb3'), notas: N('A3 Bb3 C4 D4 E4 F4 G4 A4 Bb4 C5 D5'), fim: 'F4', tom: 'F',
+      txt: `<p><b>Si♭</b> (3ª linha, com bemol) e <b>Si♭ grave</b>: pisto <b>1</b>. Compare: Si natural = pisto 2.</p>` + T.bemol },
+    { t: 'Fá e Sol agudos · semínima pontuada', novas: N('F5 G5'), notas: N('C4 D4 E4 F4 G4 A4 B4 C5 D5 E5 F5 G5'), fim: 'C5', tom: 'C',
+      txt: `<p><b>Fá</b> (5ª linha): pisto <b>1</b>. <b>Sol</b> (acima da pauta): <b>nenhum pisto</b>. No agudo: mais velocidade de ar, vogal “i”, cantos firmes — <b>não</b> mais pressão do bocal.</p>` + T.pont },
+    { t: 'Fá sustenido agudo · ritornelo e casas 1 e 2', novas: N('F#5'), notas: N('G4 A4 B4 C5 D5 E5 F#5 G5'), fim: 'G4', tom: 'G',
+      txt: `<p><b>Fá♯</b> agudo (5ª linha, com sustenido): pisto <b>2</b>.</p>` + T.rito },
+    { novas: [], notas: N('C4 D4 E4 F4 G4 A4'), fim: 'C4', tom: 'C', txt: null },
+    { novas: [], notas: N('D4 E4 F#4 G4 A4 B4 C5 D5'), fim: 'G4', tom: 'G', txt: null },
+    { novas: [], notas: N('C4 D4 E4 F4 G4 A4 B4 C5 D5 E5'), fim: 'C5', tom: 'C', txt: null },
+    { t: 'Dó♯, Mi♭ e Sol♯ · Ré maior e Mi♭ maior', novas: N('C#5 Eb4 G#4'), notas: N('D4 E4 F#4 G4 A4 B4 C#5 D5'), fim: 'D4', tom: 'D',
+      txt: `<p><b>Dó♯</b> (3º espaço, com sustenido): pistos <b>1 e 2</b>. <b>Mi♭</b> (1ª linha, com bemol): pistos <b>2 e 3</b>. <b>Sol♯ / Lá♭</b> (2ª linha): pistos <b>2 e 3</b>.</p><p><b>Ré maior</b>: 2 sustenidos (Fá♯, Dó♯). <b>Mi♭ maior</b>: 3 bemóis (Si♭, Mi♭, Lá♭). Ordem dos sustenidos: <b>Fá Dó Sol Ré Lá Mi Si</b>; dos bemóis: <b>Si Mi Lá Ré Sol Dó Fá</b>.</p>`, extra: { notas: N('Eb4 F4 G4 Ab4 Bb4 C5 D5 Eb5'), tom: 'Eb', fim: 'Eb4' } },
+    { t: 'A região grave: Fá♯, Sol♯ e Dó♯ graves', novas: N('F#3 G#3 C#4'), notas: N('F#3 G#3 A3 B3 C#4 D4 E4'), fim: 'A3', tom: 'A',
+      txt: `<p><b>Fá♯ grave</b> (a nota mais grave do trompete): pistos <b>1-2-3</b>. <b>Sol♯ grave</b>: <b>2 e 3</b>. <b>Dó♯4</b>: <b>1-2-3</b>. As combinações 1-3 e 1-2-3 ficam <b>altas</b>: use o gatilho do 3º pisto (estenda a bomba com o anelar esquerdo). A música está em <b>Lá maior</b> (3 sustenidos: Fá, Dó, Sol).</p>` },
+    { novas: [], notas: N('C4 D4 E4 F4 G4 A4 B4 C5 D5 E5 F5 G5'), fim: 'C5', tom: 'C', txt: null },
+    { novas: [], notas: N('D4 E4 F#4 G4 A4 B4 C5 D5'), fim: 'G4', tom: 'G', txt: null },
+    { novas: [], notas: N('E4 F#4 G#4 A4 B4 C#5 D5 E5'), fim: 'A4', tom: 'A', txt: null, extra: { notas: N('F4 G4 Ab4 Bb4 C5 Db5 Eb5 F5'), tom: 'Ab', fim: 'Ab4' } },
+    { t: 'A região aguda: Lá, Si e Dó agudos', novas: N('A5 B5 C6'), notas: N('C5 D5 E5 F5 G5 A5 B5 C6'), fim: 'C5', tom: 'C',
+      txt: `<p><b>Lá</b> (1ª linha suplementar superior): pistos <b>1 e 2</b>. <b>Si</b>: pisto <b>2</b>. <b>Dó agudo</b> (2ª linha suplementar superior): <b>nenhum pisto</b>. O agudo vem de <b>ar rápido e apoio</b>, abertura pequena e cantos firmes. Se precisar apertar o bocal para a nota sair, volte às ligaduras labiais (aula 6.5) e descanse.</p>` },
+    { novas: [], notas: N('C4 C#4 D4 Eb4 E4 F4 F#4 G4 G#4 A4 Bb4 B4 C5'), fim: 'C4', tom: 'C', txt: null },
+    { novas: [], notas: N('D4 E4 F#4 G4 A4 B4 C#5 D5 E5'), fim: 'D4', tom: 'D', txt: null },
+    { novas: [], notas: N('C4 D4 E4 F4 G4 A4 Bb4 B4 C5 D5 E5 F5 G5 A5'), fim: 'F4', tom: 'F', txt: null },
+    { t: 'Ler partes em Dó: transposição à primeira vista', novas: [], notas: N('C4 D4 E4 F4 G4 A4 B4 C5'), fim: 'C4', tom: 'C',
+      txt: `<p>Na igreja e na banda, muitas vezes só existe a partitura <b>em Dó</b> (voz, piano, hinário de coral, parte de trompete em Dó da orquestra). O trompete em Si♭ soa um tom abaixo do escrito; para tocar junto, leia <b>um tom acima</b> (uma 2ª maior) e troque a armadura: <b>+2 sustenidos ou −2 bemóis</b>. Ex.: hino em Si♭ maior (2♭) → você lê em Dó maior; hino em Fá maior (1♭) → Sol maior (1♯).</p><p>Os estudos abaixo estão em Dó (concerto): leia transpondo um tom acima e toque.</p>` },
+    { t: 'Hinários a quatro vozes e partituras de conjunto', novas: [], notas: N('E4 F#4 G4 A4 B4 C5 D5 E5'), fim: 'G4', tom: 'G',
+      txt: `<p>Hinários com música (como os da Harpa Cristã e da CCB) vêm em <b>quatro vozes (SATB)</b>: <b>soprano e contralto</b> na clave de Sol; <b>tenor e baixo</b> na clave de Fá. O trompete costuma tocar a voz de soprano (a melodia) — siga a orientação do seu regente ou encarregado. Use o hinário escrito para instrumentos em <b>Si♭</b>.</p><p>Em partituras de banda e orquestra: procure sua parte (“Trompete 1 em Si♭”, “Trumpet in B♭”); partes de orquestra podem estar em Dó, Fá ou Mi♭ — confira e transponha. Marque respirações, cortes e repetições combinadas no ensaio.</p>` },
+  ];
+
   // teoria das lições sem texto próprio (11, 12, 13, 16, 17, 18, 20, 21, 22) = a mesma do sax, sem as frases de dedilhado
   function txtClar(i) {
     const sax = LICOES[i].txt;
