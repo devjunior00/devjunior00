@@ -54,8 +54,12 @@ body { font-size: 10.4pt; line-height: 1.5; -webkit-print-color-adjust: exact; p
 .checks { list-style: none; padding-left: 0 !important; }
 .ficha { break-inside: avoid; margin-top: 10pt; } .ficha td { height: 16pt; }
 .trio h3 { margin-top: 8pt; }
+.abre-parte { break-before: page; height: 250mm; display: flex; flex-direction: column; justify-content: center; gap: 12pt; padding: 0 12mm; background: radial-gradient(circle at 20% 30%, var(--acento-suave), #fff 60%); border-radius: 14pt; }
+.abre-parte h1 { font-size: 38pt !important; }
+.abre-parte p { font-size: 13pt; max-width: 60ch; }
+.sumario h3 { column-span: all; margin-top: 10pt; }
 </style>'''
 html = html.replace('</head>', css + '\n</head>', 1)
-html = html.replace('<script src="js/app.js"></script>', '<script src="js/app.js"></script>\n<script src="js/livro.js"></script>', 1)
+html = html.replace('<script src="js/app.js"></script>', '<script src="js/app.js"></script>\n<script src="js/leitura-metodo.js"></script>\n<script src="js/livro.js"></script>', 1)
 (aqui / 'livro.html').write_text(html, encoding='utf-8')
 print('livro.html gerado')

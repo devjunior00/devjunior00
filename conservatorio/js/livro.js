@@ -14,6 +14,9 @@
   const SECOES = [['obj', 'Objetivo principal'], ['apr', 'O que você vai aprender'], ['teo', 'Explicação teórica'], ['pra', 'Aplicação prática no saxofone'], ['ex', 'Exemplos musicais'],
     ['exs', 'Exercícios passo a passo'], ['met', 'Exercícios com metrônomo'], ['err', 'Erros comuns e como corrigir'], ['tempo', 'Tempo recomendado de estudo'], ['crit', 'Critério de aprovação'], ['quiz', 'Teste de aprendizagem'], ['tarefa', 'Tarefa para a próxima aula']];
   const gabarito = [];
+  const PULAR = ['1-1'];
+  const aulasDe = (m) => m.aulas.filter((a) => !PULAR.includes(a));
+  const DESC = (m) => m.desc.replace('História, família, partes', 'Partes');
   const ARTE = I.id === 'soprano' ? 'soprano' : I.sub;
   const L = (s) => s.replace(/<a [^>]*>(.*?)<\/a>/g, '$1'); // links viram texto
 
@@ -66,10 +69,14 @@
     <h3>Símbolos</h3><p>⏱ duração do exercício · ♩ = andamento em batidas por minuto · ☐ critério a cumprir · “Exercício original” = criado para este curso; obras citadas de outros autores são referências — compre as edições publicadas.</p></section>`;
 
   const plano = `<section class="pagina"><h1>Plano de formação</h1><p>Os 16 módulos, do zero ao nível profissional. Os níveis indicam a etapa da formação; avance quando cumprir os critérios de todas as aulas do módulo.</p>
-    ${H.tabela(['Nível', 'Módulo', 'Conteúdo'], C.modulos.map((m) => [NIVEIS[m.nivel], `<b>${m.n}. ${esc(m.titulo)}</b>`, esc(m.desc)]))}
+    ${H.tabela(['Nível', 'Etapa', 'Conteúdo'], [[NIVEIS.iniciante, '<b>Parte 1 · Primeiros passos</b>', 'montagem, cuidados, equipamento, afinação, transposição, primeiro som, respiração, embocadura, notas longas e articulação'], [NIVEIS.iniciante + ' → ' + NIVEIS.profissional, '<b>Parte 2 · Método de leitura</b>', '24 lições com estudos escritos: das primeiras notas à leitura à primeira vista, transposição e hinários a 4 vozes']].concat(C.modulos.filter((m) => m.n >= 3).map((m) => [NIVEIS[m.nivel], `<b>${m.n}. ${esc(m.titulo)}</b>`, esc(DESC(m))])))}
+    <p><b>Como combinar as partes:</b> faça a Parte 1 primeiro. Depois estude a Parte 2 (leitura) <b>em paralelo</b> com a Parte 3: uma lição de leitura por semana junto com as aulas do curso.</p>
     <h3>Quanto tempo leva?</h3><p>Depende do seu estudo diário e do domínio de cada aula. Como referência, com 45–60 minutos por dia: os módulos 1–4 costumam levar de 3 a 6 meses; 5–6, mais 4 a 8 meses; 7–11, de 1 a 2 anos; 12–16 são a formação de toda a vida musical. Não compare seu ritmo com o de ninguém: compare suas gravações de hoje com as do mês passado.</p></section>`;
 
-  const sumario = `<section class="pagina"><h1>Sumário</h1><div class="sumario">${C.modulos.map((m) => `<div class="sum-mod"><b>${m.n}. ${esc(m.titulo)}</b> <span class="sutil">· ${NIVEIS[m.nivel]}</span><ol>${m.aulas.map((a) => `<li><span class="num">${a.replace('-', '.')}</span> ${esc(C.aulas[a].titulo)}</li>`).join('')}</ol></div>`).join('')}
+  const sumMod = (m) => `<div class="sum-mod"><b>${m.n}. ${esc(m.titulo)}</b> <span class="sutil">· ${NIVEIS[m.nivel]}</span><ol>${aulasDe(m).map((a) => `<li><span class="num">${a.replace('-', '.')}</span> ${esc(C.aulas[a].titulo)}</li>`).join('')}</ol></div>`;
+  const sumario = `<section class="pagina"><h1>Sumário</h1><div class="sumario"><h3>Parte 1 · Primeiros passos</h3>${C.modulos.filter((m) => m.n <= 2).map(sumMod).join('')}
+    <h3>Parte 2 · Método de leitura de partitura</h3><div class="sum-mod"><ol>${window.MetodoLeitura.LICOES.map((l, i) => `<li><span class="num">L${i + 1}</span> ${l.t}</li>`).join('')}</ol></div>
+    <h3>Parte 3 · Formação completa</h3>${C.modulos.filter((m) => m.n >= 3).map(sumMod).join('')}
     <div class="sum-mod"><b>Apêndices</b><ol><li>A · Tabela completa de dedilhados</li><li>B · Escalas nas 12 tonalidades</li><li>C · Arpejos nas 12 tonalidades</li><li>D · Transposição</li><li>E · Rotinas de estudo</li><li>F · Fichas de avaliação</li><li>G · Repertório</li><li>H · Melodias do curso</li><li>I · Referências de intervalos</li><li>J · Gabarito dos testes</li></ol></div></div></section>`;
 
   // A — dedilhados
@@ -132,10 +139,18 @@
   const apI = `<section class="apendice"><h1>Apêndice I · Referências de intervalos</h1><p>Associe cada intervalo a uma música que você conhece. Melhor ainda: troque as referências por hinos e louvores que você canta — referência pessoal fixa melhor.</p>${H.tabela(['Intervalo', 'Semitons', 'Referência (ascendente)'], D.INTERVALOS.map(([s, n, r]) => [n, s, r]))}</section>`;
 
   const conteudo = [capa, comoUsar, plano, sumario];
-  C.modulos.forEach((m) => {
-    conteudo.push(`<section class="abre-modulo"><span class="rotulo">${NIVEIS[m.nivel]}</span><div class="mod-num">${m.n}</div><h1>${esc(m.titulo)}</h1><p>${esc(m.desc)}</p><ol>${m.aulas.map((a) => `<li>${a.replace('-', '.')} · ${esc(C.aulas[a].titulo)}</li>`).join('')}</ol></section>`);
-    m.aulas.forEach((a) => conteudo.push(aula(a)));
-  });
+  const parte = (n, t, d) => `<section class="abre-parte"><span class="rotulo">Parte ${n}</span><h1>${t}</h1><p>${d}</p></section>`;
+  const modulo = (m) => {
+    conteudo.push(`<section class="abre-modulo"><span class="rotulo">${NIVEIS[m.nivel]}</span><div class="mod-num">${m.n}</div><h1>${esc(m.titulo)}</h1><p>${esc(DESC(m))}</p><ol>${aulasDe(m).map((a) => `<li>${a.replace('-', '.')} · ${esc(C.aulas[a].titulo)}</li>`).join('')}</ol></section>`);
+    aulasDe(m).forEach((a) => conteudo.push(aula(a)));
+  };
+  conteudo.push(parte(1, 'Primeiros passos', 'Montar, cuidar, afinar e tirar o primeiro som; respiração, embocadura, notas longas e ataque com a língua.'));
+  C.modulos.filter((m) => m.n <= 2).forEach(modulo);
+  const ML = window.MetodoLeitura;
+  conteudo.push(parte(2, 'Método de leitura de partitura', `${ML.LICOES.length} lições, das três primeiras notas à leitura profissional. Cada lição traz as notas novas (com o desenho dos dedos), a figura rítmica nova, um exercício de ritmo e seis estudos de leitura escritos. Estude uma lição por semana — ou mais devagar, se os critérios não estiverem cumpridos.`));
+  ML.LICOES.forEach((l, i) => conteudo.push(ML.licaoHTML(i, H)));
+  conteudo.push(parte(3, 'Formação completa', 'Leitura avançada, escalas e tonalidades, técnica, harmonia, percepção, sonoridade, improvisação, estilos, música na igreja, repertório e vida profissional.'));
+  C.modulos.filter((m) => m.n >= 3).forEach(modulo);
   const apJ = `<section class="apendice"><h1>Apêndice J · Gabarito dos testes</h1><div class="gabarito">${gabarito.map(([a, t, q]) => `<div><b>${a.replace('-', '.')} ${esc(t)}</b><ol>${q.map((x) => `<li>${String.fromCharCode(97 + x.c)}) ${x.o[x.c]}${x.e ? ' — <span class="sutil">' + x.e + '</span>' : ''}</li>`).join('')}</ol></div>`).join('')}</div></section>`;
   conteudo.push(apA, apB, apC, apD, apE, apF, apG, apH, apI, apJ);
 

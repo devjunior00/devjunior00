@@ -535,7 +535,7 @@ details summary { cursor: pointer; }
     if (o.bpm) out += 'Q:1/4=' + o.bpm + '\n';
     out += 'K:' + k + (o.clave === 'bass' ? ' clef=bass' : '') + '\n';
     const anac = o.anacruse ? barra - o.anacruse : 0;
-    let pos = anac, med = {}, linha = '', compassos = 0;
+    let pos = anac, med = {}, linha = '', compassos = 0, tupla = 0;
     const porLinha = o.porLinha || 4;
     const notas = [];
     // divide notas que atravessam a barra
@@ -546,6 +546,8 @@ details summary { cursor: pointer; }
         const parte = Math.min(d, resto);
         notas.push(Object.assign({}, x, { d: parte, liga: d - parte > 0 && x.n ? true : x.t, cont: !primeira }));
         d -= parte; pos += parte; primeira = false;
+        if (Math.abs(pos - Math.round(pos)) < 0.01) pos = Math.round(pos);
+        if (Math.abs(d) < 0.01) d = 0;
       }
     });
     pos = anac;
@@ -558,11 +560,18 @@ details summary { cursor: pointer; }
         const atual = chave in med ? med[chave] : arm[x.n.l];
         let pre = '';
         if (x.n.a !== atual || x.forca) { pre = ABC_ACC[x.n.a]; med[chave] = x.n.a; }
-        linha += pre + abcNota(x.n) + ABC_DUR(x.d) + (x.liga ? '-' : '');
+        const ter = Math.abs(x.d - 4 / 3) < 0.01;
+        if (ter && tupla === 0) linha += '(3';
+        linha += pre + abcNota(x.n) + (ter ? '2' : ABC_DUR(x.d)) + (x.liga ? '-' : '');
+        tupla = ter ? (tupla + 1) % 3 : 0;
       } else {
-        linha += 'z' + ABC_DUR(x.d);
+        const ter = Math.abs(x.d - 4 / 3) < 0.01;
+        if (ter && tupla === 0) linha += '(3';
+        linha += 'z' + (ter ? '2' : ABC_DUR(x.d));
+        tupla = ter ? (tupla + 1) % 3 : 0;
       }
       pos += x.d;
+      if (Math.abs(pos - Math.round(pos)) < 0.01) pos = Math.round(pos);
       const fimTempo = pos % tempo === 0;
       if (pos % barra === 0) {
         compassos++;
