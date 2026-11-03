@@ -189,10 +189,13 @@
     let out = 'X:1\n';
     if (o.titulo) out += 'T:' + o.titulo + '\n';
     out += 'M:' + o.compasso + '\nL:1/16\n';
+    if (o.nomes) out += '%%vocalfont Helvetica 9\n%%vocalspace 4\n';
     if (o.bpm) out += 'Q:1/4=' + o.bpm + '\n';
     out += 'K:' + k + (o.clave === 'bass' ? ' clef=bass' : '') + '\n';
     const anac = o.anacruse ? barra - o.anacruse : 0;
     let pos = anac, med = {}, linha = '', compassos = 0, tupla = 0;
+    let wBR = [], wIN = [];
+    const fechaLetra = () => { if (o.nomes && wBR.some((x) => x !== '*')) linha += '\nw:' + wBR.join(' ') + '\nw:' + wIN.join(' '); wBR = []; wIN = []; };
     const porLinha = o.porLinha || 4;
     const notas = [];
     // divide notas que atravessam a barra
@@ -220,6 +223,7 @@
         const ter = Math.abs(x.d - 4 / 3) < 0.01;
         if (ter && tupla === 0) linha += '(3';
         linha += pre + abcNota(x.n) + (ter ? '2' : ABC_DUR(x.d)) + (x.liga ? '-' : '');
+        if (o.nomes) { if (x.cont) { wBR.push('*'); wIN.push('*'); } else { wBR.push(nomeBR(x.n)); wIN.push(nomeInt(x.n)); } }
         tupla = ter ? (tupla + 1) % 3 : 0;
       } else {
         const ter = Math.abs(x.d - 4 / 3) < 0.01;
@@ -235,11 +239,12 @@
         med = {};
         const ultimo = i === notas.length - 1;
         linha += ultimo ? ' |]' : ' |';
-        if (compassos % porLinha === 0 && !ultimo) linha += '\n';
+        if (compassos % porLinha === 0 && !ultimo) { fechaLetra(); linha += '\n'; }
         else linha += ' ';
       } else if (fimTempo || x.d >= tempo) linha += ' ';
     });
     if (pos % barra !== 0) linha += ' |]';
+    fechaLetra();
     return out + linha.trim() + '\n';
   }
 

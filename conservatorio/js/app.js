@@ -137,7 +137,7 @@
     if (cfg.tipo === 'hino') {
       const r = window.Hinos && window.Hinos.gera(cfg.id, I);
       if (!r) return { abc: 'X:1\nK:C\nz16 |]\n', notas: [], titulo: 'Hino não encontrado', info: '', bpm: 0 };
-      return { abc: M.abc({ notas: r.notas, tonicaMaior: r.tonicaMaior, compasso: r.compasso, clave: I.clave, anacruse: r.anacruse }), notas: r.notas, titulo: r.titulo, info: r.info, bpm: r.bpm };
+      return { abc: M.abc({ notas: r.notas, tonicaMaior: r.tonicaMaior, compasso: r.compasso, clave: I.clave, anacruse: r.anacruse, nomes: cfg.nomes != null ? cfg.nomes : window.NOMES_NOTAS !== false }), notas: r.notas, titulo: r.titulo, info: r.info, bpm: r.bpm };
     }
     if (cfg.tipo === 'abc') {
       return { abc: I.grave && cfg.abcGrave ? cfg.abcGrave : cfg.abc, notas: [], titulo, info: '', bpm: 0 };
@@ -187,7 +187,8 @@
       const p = I.clave === 'bass' ? M.parse('D3') : M.parse('B4');
       notas = cfg.ritmo.split(/\s+/).filter(Boolean).map((x) => ({ n: x.startsWith('-') ? null : p, d: Math.abs(parseFloat(x)) }));
     }
-    const abc = M.abc({ notas, tonicaMaior, compasso: cfg.compasso || '4/4', clave: I.clave, anacruse, porLinha: cfg.porLinha || 4 });
+    const nomes = cfg.nomes != null ? cfg.nomes : (cfg.tipo !== 'ritmo' && window.NOMES_NOTAS !== false);
+    const abc = M.abc({ notas, tonicaMaior, compasso: cfg.compasso || '4/4', clave: I.clave, anacruse, porLinha: cfg.porLinha || 4, nomes });
     return { abc, notas, titulo, info, bpm: cfg.bpm || 72 };
   }
   function tomInfo(t, I, ref) {

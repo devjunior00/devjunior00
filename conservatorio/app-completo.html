@@ -532,10 +532,13 @@ details summary { cursor: pointer; }
     let out = 'X:1\n';
     if (o.titulo) out += 'T:' + o.titulo + '\n';
     out += 'M:' + o.compasso + '\nL:1/16\n';
+    if (o.nomes) out += '%%vocalfont Helvetica 9\n%%vocalspace 4\n';
     if (o.bpm) out += 'Q:1/4=' + o.bpm + '\n';
     out += 'K:' + k + (o.clave === 'bass' ? ' clef=bass' : '') + '\n';
     const anac = o.anacruse ? barra - o.anacruse : 0;
     let pos = anac, med = {}, linha = '', compassos = 0, tupla = 0;
+    let wBR = [], wIN = [];
+    const fechaLetra = () => { if (o.nomes && wBR.some((x) => x !== '*')) linha += '\nw:' + wBR.join(' ') + '\nw:' + wIN.join(' '); wBR = []; wIN = []; };
     const porLinha = o.porLinha || 4;
     const notas = [];
     // divide notas que atravessam a barra
@@ -563,6 +566,7 @@ details summary { cursor: pointer; }
         const ter = Math.abs(x.d - 4 / 3) < 0.01;
         if (ter && tupla === 0) linha += '(3';
         linha += pre + abcNota(x.n) + (ter ? '2' : ABC_DUR(x.d)) + (x.liga ? '-' : '');
+        if (o.nomes) { if (x.cont) { wBR.push('*'); wIN.push('*'); } else { wBR.push(nomeBR(x.n)); wIN.push(nomeInt(x.n)); } }
         tupla = ter ? (tupla + 1) % 3 : 0;
       } else {
         const ter = Math.abs(x.d - 4 / 3) < 0.01;
@@ -578,11 +582,12 @@ details summary { cursor: pointer; }
         med = {};
         const ultimo = i === notas.length - 1;
         linha += ultimo ? ' |]' : ' |';
-        if (compassos % porLinha === 0 && !ultimo) linha += '\n';
+        if (compassos % porLinha === 0 && !ultimo) { fechaLetra(); linha += '\n'; }
         else linha += ' ';
       } else if (fimTempo || x.d >= tempo) linha += ' ';
     });
     if (pos % barra !== 0) linha += ' |]';
+    fechaLetra();
     return out + linha.trim() + '\n';
   }
 
@@ -5055,7 +5060,7 @@ Não invente notas: se algo estiver ilegível, indique em "duvidas".`;
     if (cfg.tipo === 'hino') {
       const r = window.Hinos && window.Hinos.gera(cfg.id, I);
       if (!r) return { abc: 'X:1\nK:C\nz16 |]\n', notas: [], titulo: 'Hino não encontrado', info: '', bpm: 0 };
-      return { abc: M.abc({ notas: r.notas, tonicaMaior: r.tonicaMaior, compasso: r.compasso, clave: I.clave, anacruse: r.anacruse }), notas: r.notas, titulo: r.titulo, info: r.info, bpm: r.bpm };
+      return { abc: M.abc({ notas: r.notas, tonicaMaior: r.tonicaMaior, compasso: r.compasso, clave: I.clave, anacruse: r.anacruse, nomes: cfg.nomes != null ? cfg.nomes : window.NOMES_NOTAS !== false }), notas: r.notas, titulo: r.titulo, info: r.info, bpm: r.bpm };
     }
     if (cfg.tipo === 'abc') {
       return { abc: I.grave && cfg.abcGrave ? cfg.abcGrave : cfg.abc, notas: [], titulo, info: '', bpm: 0 };
@@ -5105,7 +5110,8 @@ Não invente notas: se algo estiver ilegível, indique em "duvidas".`;
       const p = I.clave === 'bass' ? M.parse('D3') : M.parse('B4');
       notas = cfg.ritmo.split(/\s+/).filter(Boolean).map((x) => ({ n: x.startsWith('-') ? null : p, d: Math.abs(parseFloat(x)) }));
     }
-    const abc = M.abc({ notas, tonicaMaior, compasso: cfg.compasso || '4/4', clave: I.clave, anacruse, porLinha: cfg.porLinha || 4 });
+    const nomes = cfg.nomes != null ? cfg.nomes : (cfg.tipo !== 'ritmo' && window.NOMES_NOTAS !== false);
+    const abc = M.abc({ notas, tonicaMaior, compasso: cfg.compasso || '4/4', clave: I.clave, anacruse, porLinha: cfg.porLinha || 4, nomes });
     return { abc, notas, titulo, info, bpm: cfg.bpm || 72 };
   }
   function tomInfo(t, I, ref) {
