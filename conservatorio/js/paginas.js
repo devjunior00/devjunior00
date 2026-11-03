@@ -19,6 +19,7 @@
   const TAGS = {
     alto: 'O som mais versátil dos sopros — do culto ao jazz, do choro à sala de concerto.',
     soprano: 'Brilho e doçura numa linha reta. Pede precisão e devolve beleza.',
+    tenor: 'A voz grave e quente do sax: baladas, jazz, soul, gospel e o contracanto do choro.',
     clarinete: 'Do grave aveludado ao agudo cristalino: o instrumento de Mozart e de Abel Ferreira.',
     flauta: 'O sopro mais antigo da música, com a técnica mais refinada.',
     trompete: 'A voz do anúncio e da celebração: brilho, potência e lirismo.',
@@ -72,7 +73,7 @@
   };
 
   // ======================= GOSPEL =======================
-  const VOZ_SUG = { flauta: 's', soprano: 's', clarinete: 's', trompete: 's', alto: 'a', trombone: 't' };
+  const VOZ_SUG = { flauta: 's', soprano: 's', clarinete: 's', trompete: 's', alto: 'a', tenor: 't', trombone: 't' };
   Ferr.gospel = (el, { inst, E }) => {
     const I = inst;
     const aulas = C.modulos.find((m) => m.n === 13).aulas;

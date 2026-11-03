@@ -12,7 +12,7 @@
     primeiraEscala: 'C', bocal: 'cabeça',
   };
   // ordem dos botões de instrumento
-  const ord = ['alto', 'soprano', 'clarinete', 'flauta', 'trompete', 'trombone'];
+  const ord = ['alto', 'soprano', 'tenor', 'clarinete', 'flauta', 'trompete', 'trombone'];
   const novo = {}; ord.forEach((k) => { novo[k] = IN.INSTRUMENTOS[k]; });
   Object.keys(IN.INSTRUMENTOS).forEach((k) => delete IN.INSTRUMENTOS[k]);
   Object.assign(IN.INSTRUMENTOS, novo);

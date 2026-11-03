@@ -273,6 +273,12 @@
       txt: `<p>Hinários com música (como os da Harpa Cristã e da CCB) vêm em <b>quatro vozes (SATB)</b>: soprano e contralto na clave de Sol; <b>tenor e baixo na clave de Fá</b>. O trombone costuma tocar a voz de <b>tenor</b> (ou a de baixo) — siga a orientação do seu regente ou encarregado. Como o trombone lê em sons reais, o hinário <b>em Dó</b> serve diretamente.</p><p>Em partituras de banda e orquestra: procure sua parte (“Trombone 1”, “Trombone em Dó” ou “Trombone em Si♭”, na clave de Sol — veja a lição anterior). Em orquestras, o trombone pode aparecer também na clave de Dó (tenor); os estudos de Blazhevich treinam isso.</p>` },
   ];
 
+  PLANOS.tenor = [];
+  PLANOS.tenor[22] = { t: 'Ler partes em Dó: transposição à primeira vista', novas: [], notas: N('C4 D4 E4 F4 G4 A4 B4 C5'), fim: 'C4', tom: 'C',
+    txt: `<p>Na igreja e na banda, muitas vezes só existe a partitura <b>em Dó</b> (voz, piano, hinário de coral). O sax tenor em Si♭ soa uma <b>9ª maior abaixo</b> do escrito (um tom e uma oitava). Para tocar junto, leia <b>um tom acima</b> e troque a armadura: <b>+2 sustenidos ou −2 bemóis</b> — e pense uma oitava acima. Ex.: hino em Si♭ maior (2♭) → você lê em Dó maior; hino em Fá maior (1♭) → Sol maior (1♯).</p><p><b>Partes de outros instrumentos:</b> de trompete, clarinete ou sax soprano (Si♭) a escrita é a mesma (o tenor soa uma oitava abaixo); de sax alto (Mi♭), leia uma 4ª justa acima e tire 1 sustenido da armadura.</p><p>Os estudos abaixo estão em Dó (concerto): leia transpondo um tom acima e toque.</p>` };
+  PLANOS.tenor[23] = { t: 'Hinários a quatro vozes e partituras de conjunto', novas: [], notas: N('E4 F#4 G4 A4 B4 C5 D5 E5'), fim: 'G4', tom: 'G',
+    txt: `<p>Hinários com música (como os da Harpa Cristã e da CCB) vêm em <b>quatro vozes (SATB)</b>: soprano e contralto na clave de Sol; <b>tenor e baixo na clave de Fá</b>. O sax tenor costuma tocar a voz de <b>tenor</b> (às vezes a de contralto ou de baixo) — siga a orientação do seu regente ou encarregado. Use o hinário escrito para instrumentos em <b>Si♭</b>, que já traz as vozes transpostas na clave de Sol.</p><p>Em partituras de banda e big band: procure sua parte (“Sax tenor em Si♭”, “Tenor Sax 1”). Em big bands o tenor 1 costuma ter os solos; em quartetos de saxofone, o tenor faz a terceira voz. Marque respirações, cortes e repetições combinadas no ensaio.</p>` };
+
   // teoria das lições sem texto próprio (11, 12, 13, 16, 17, 18, 20, 21, 22) = a mesma do sax, sem as frases de dedilhado
   function txtClar(i) {
     const sax = LICOES[i].txt;

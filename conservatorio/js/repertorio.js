@@ -41,6 +41,17 @@
     { p: 'alto', n: 'intAvancado', t: 'jazz', titulo: 'Solo de “Autumn Leaves” (álbum Somethin’ Else, 1958)', autor: 'Cannonball Adderley — para transcrever' },
     { p: 'alto', n: 'basico', t: 'jazz', titulo: 'Take Five (tema)', autor: 'Paul Desmond' },
 
+    { p: 'tenor', n: 'basico', t: 'jazz', titulo: 'St. Thomas (tema)', autor: 'Sonny Rollins' },
+    { p: 'tenor', n: 'intermediario', t: 'jazz', titulo: 'Tenor Madness (blues)', autor: 'Sonny Rollins' },
+    { p: 'tenor', n: 'intermediario', t: 'brasileira', titulo: 'The Girl from Ipanema (gravação Getz/Gilberto, 1964)', autor: 'Tom Jobim; solo de Stan Getz — referência de som e fraseado da bossa nova' },
+    { p: 'tenor', n: 'intermediario', t: 'brasileira', titulo: 'Contracantos de Pixinguinha ao sax tenor', autor: 'gravações de Pixinguinha e Benedito Lacerda (anos 1940) — o tenor fazendo a “baixaria” do choro' },
+    { p: 'tenor', n: 'intAvancado', t: 'jazz', titulo: 'Solo de “Blue Train” (1957)', autor: 'John Coltrane — para transcrever' },
+    { p: 'tenor', n: 'intAvancado', t: 'jazz', titulo: 'Baladas de Ben Webster', autor: 'referência de subtone e vibrato no tenor' },
+    { p: 'tenor', n: 'avancado', t: 'jazz', titulo: 'Giant Steps', autor: 'John Coltrane' },
+    { p: 'tenor', n: 'avancado', t: 'peça', titulo: 'Ballade para sax tenor e orquestra (1938)', autor: 'Frank Martin' },
+    { p: 'tenor', n: 'avancado', t: 'gospel', titulo: 'The Gospel According to Jazz (álbuns)', autor: 'Kirk Whalum — referência de sax tenor gospel' },
+    { p: 'tenor', n: 'profissional', t: 'jazz', titulo: 'Transcrições de Michael Brecker e Dexter Gordon', autor: 'linguagem moderna e clássica do tenor' },
+
     // ---------- CLARINETE ----------
     { p: 'clarinete', n: 'iniciante', t: 'método', titulo: 'Rubank Elementary Method — Clarinet', autor: 'N. W. Hovey' },
     { p: 'clarinete', n: 'iniciante', t: 'método', titulo: 'Essential Elements for Band — Clarinete, Livro 1', autor: 'Hal Leonard' },

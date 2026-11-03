@@ -926,6 +926,15 @@ details summary { cursor: pointer; }
       afinar: { escrita: 'B4', obs: 'Afine no Si escrito (Lá de concerto) ou no Dó escrito (Si♭ de concerto). O soprano é muito sensível à embocadura: confira várias notas, não só uma.' },
       primeiraEscala: 'C', bocal: 'boquilha',
     },
+    tenor: {
+      id: 'tenor', nome: 'Saxofone tenor', nomeMin: 'saxofone tenor', curto: 'Sax tenor', tom: 'Si♭', tomInt: 'B♭', familia: 'palheta', sub: 'sax', timbre: 'sax',
+      transp: { l: 8, s: 14 }, clave: 'treble',
+      transpTexto: 'soa uma 9ª maior abaixo do que está escrito (um tom e uma oitava)',
+      exemploTransp: 'Dó escrito soa Si♭ de concerto, uma oitava e um tom abaixo',
+      faixa: ['Bb3', 'F#6'], conf: { iniciante: ['D4', 'C5'], basico: ['C4', 'C6'], intermediario: ['Bb3', 'F6'], avancado: ['Bb3', 'F#6'] },
+      afinar: { escrita: 'B4', obs: 'Muitos tenoristas afinam no Si escrito (Lá de concerto) ou no Dó escrito (Si♭ de concerto). Ajuste empurrando ou puxando a boquilha no tudel. O tenor tem muita coluna de ar: aqueça bem antes de afinar.' },
+      primeiraEscala: 'C', bocal: 'boquilha',
+    },
     clarinete: {
       id: 'clarinete', nome: 'Clarinete em Si♭', nomeMin: 'clarinete em Si♭', curto: 'Clarinete', tom: 'Si♭', tomInt: 'B♭', familia: 'palheta', sub: 'clarinete', timbre: 'clarinete',
       transp: { l: 1, s: 2 }, clave: 'treble',
@@ -1673,7 +1682,7 @@ window.Curso.aula = function (a) {
         <li>Passe um pouco de graxa na cortiça do tudel se estiver seca. Encaixe a boquilha girando, cobrindo cerca de metade a dois terços da cortiça (ajuste fino com o afinador, na aula 1.5).</li>
         <li>Molhe a palheta na boca por 30 segundos. Coloque-a centralizada sobre a mesa da boquilha, com a ponta da palheta <b>praticamente rente</b> à ponta da boquilha (deixe aparecer só um fio da boquilha).</li>
         <li>Coloque a abraçadeira e aperte os parafusos o suficiente para a palheta não se mexer. Apertar demais abafa o som.</li>
-        <li><b>Postura:</b> sentado na ponta da cadeira, costas retas; o sax alto vai ao lado direito do corpo (ou à frente, entre as pernas, se for mais confortável); o soprano vai à frente, inclinado uns 30–45° em relação ao corpo. A cabeça fica reta: o instrumento vem até você.</li></ol>`,
+        <li><b>Postura:</b> sentado na ponta da cadeira, costas retas; o sax alto vai ao lado direito do corpo (ou à frente, entre as pernas, se for mais confortável); o sax tenor, maior e mais pesado, vai quase sempre ao lado direito, com a correia bem regulada (de pé, ele fica à frente, levemente inclinado); o soprano vai à frente, inclinado uns 30–45° em relação ao corpo. A cabeça fica reta: o instrumento vem até você.</li></ol>`,
       clarinete: `<ol><li>Passe graxa nas cortiças se estiverem secas.</li><li>Encaixe a campana no corpo inferior girando de leve.</li>
         <li>Segure o corpo superior <b>pressionando o anel do 3º furo</b> (isso levanta a meia-ponte). Segure o corpo inferior pela parte de baixo, sem apertar as chaves laterais. Gire para encaixar e <b>alinhe a ponte</b>: as duas metades devem ficar alinhadas, sem se tocar com força.</li>
         <li>Encaixe o barrilete e, por último, a boquilha (com a parte achatada alinhada ao apoio do polegar direito, por baixo).</li>
@@ -1766,6 +1775,7 @@ window.Curso.aula = function (a) {
     }),
     pra: (I, H) => por(I, {
       alto: H.tabela(['Objetivo', 'Boquilha (exemplos)', 'Palheta inicial'], [['Começo / estudo geral', 'Yamaha 4C, Selmer S80 C*, Vandoren AL3', 'cana 2 a 2½ (Vandoren, Rico, Juno) ou sintética macia'], ['Erudito', 'Selmer S80, Vandoren AL3/AL4', '3 a 3½ conforme a abertura'], ['Jazz / popular / igreja', 'Meyer 5M ou 6M e similares', '2½ a 3']]),
+      tenor: H.tabela(['Objetivo', 'Boquilha (exemplos)', 'Palheta inicial'], [['Começo / estudo geral', 'Yamaha 4C (tenor), Selmer S80 C*, Vandoren TL3', 'cana 2 a 2½ (Vandoren, Rico, Juno) ou sintética macia'], ['Erudito', 'Selmer S80, Vandoren TL3/TL4', '3'], ['Jazz / soul / gospel', 'Otto Link Tone Edge 6 ou 7 e similares', '2½ a 3']]) + '<p class="peq">O tenor gasta mais ar que o alto: palheta um pouco mais macia no começo ajuda a construir o som sem cansar.</p>',
       soprano: H.tabela(['Objetivo', 'Boquilha (exemplos)', 'Palheta inicial'], [['Começo / estudo geral', 'Yamaha 4C, Selmer S80 C*', '2 a 2½'], ['Erudito', 'Selmer S80, Vandoren SL3/SL4', '3'], ['Popular / jazz / igreja', 'boquilhas de abertura média-grande', '2½']]),
       clarinete: H.tabela(['Objetivo', 'Boquilha (exemplos)', 'Palheta inicial'], [['Começo / estudo geral', 'Yamaha 4C, Vandoren B45', '2 a 2½ (Vandoren, Rico)'], ['Erudito avançado', 'Vandoren 5RV Lyre, M13, B45 e outras', '3 a 3½ (Vandoren V12, 56 Rue Lepic etc.)'], ['Choro / popular', 'abertura média', '2½ a 3']]),
       trompete: H.tabela(['Objetivo', 'Bocal (exemplos)'], [['Começo / estudo geral', 'Bach 7C, Yamaha 11B4'], ['Intermediário / orquestra', 'Bach 5C, 3C, 1½C'], ['Agudo / big band / popular', 'taça mais rasa — só depois de ter embocadura formada']]),
@@ -1808,8 +1818,8 @@ window.Curso.aula = function (a) {
       return `<p>Um instrumento é <b>transpositor</b> quando a nota que você lê (nota <b>escrita</b>) é diferente da nota que soa (nota <b>de concerto</b>, ou som real). O ${I.nomeMin} está em <b>${I.tom}</b>: quando você toca o Dó escrito, sai o ${c('C4')} de concerto. Ele ${I.transpTexto}.</p>
         <p><b>Por que existe isso?</b> Para que toda a família use o mesmo dedilhado. ${I.sub === 'sax' ? 'O saxofonista troca de soprano para alto ou tenor sem reaprender as posições: muda apenas a partitura.' : I.sub === 'clarinete' ? 'O clarinetista troca do clarinete em Si♭ para o em Lá ou para o clarone sem reaprender as posições.' : 'O trompetista troca entre trompete em Si♭, cornet e flugelhorn com os mesmos pistos.'}</p>
         ${H.tabela(['Você lê (escrito)', 'Soa (concerto)'], ['C4', 'D4', 'E4', 'F4', 'G4', 'A4', 'B4', 'C5'].map((s) => [M.nomeBR(M.parse(s)), c(s)]))}
-        <p><b>Regra prática para converter uma parte em Dó (piano, voz, flauta, violino) para o seu instrumento:</b> ${I.id === 'alto' ? '<b>suba uma 6ª maior</b> (ou desça uma 3ª menor e acerte a oitava). Na armadura: <b>acrescente 3 sustenidos</b> ou retire 3 bemóis. Ex.: Mi♭ maior (3♭) vira Dó maior; Fá maior (1♭) vira Ré maior (2♯).' : '<b>suba uma 2ª maior</b> (um tom). Na armadura: <b>acrescente 2 sustenidos</b> ou retire 2 bemóis. Ex.: Si♭ maior (2♭) vira Dó maior; Mi♭ maior (3♭) vira Fá maior (1♭).'}</p>
-        <p><b>Converter de outros transpositores:</b> do sax tenor (Si♭) para ${I.id === 'alto' ? 'o alto: suba uma 5ª justa (ou desça uma 4ª), pois os dois estão uma 5ª de distância' : 'você: é a mesma escrita, só uma oitava de diferença'}. Use a aba <a href="#transpositor">Transpositor</a> para conferir sempre.</p>`;
+        <p><b>Regra prática para converter uma parte em Dó (piano, voz, flauta, violino) para o seu instrumento:</b> ${I.id === 'alto' ? '<b>suba uma 6ª maior</b> (ou desça uma 3ª menor e acerte a oitava). Na armadura: <b>acrescente 3 sustenidos</b> ou retire 3 bemóis. Ex.: Mi♭ maior (3♭) vira Dó maior; Fá maior (1♭) vira Ré maior (2♯).' : I.id === 'tenor' ? '<b>suba uma 9ª maior</b> (um tom e uma oitava). Na armadura: <b>acrescente 2 sustenidos</b> ou retire 2 bemóis. Ex.: Si♭ maior (2♭) vira Dó maior; Mi♭ maior (3♭) vira Fá maior (1♭). Na prática: leia um tom acima e uma oitava acima — a parte do tenor fica numa região confortável da pauta.' : '<b>suba uma 2ª maior</b> (um tom). Na armadura: <b>acrescente 2 sustenidos</b> ou retire 2 bemóis. Ex.: Si♭ maior (2♭) vira Dó maior; Mi♭ maior (3♭) vira Fá maior (1♭).'}</p>
+        <p><b>Converter de outros transpositores:</b> ${I.id === 'tenor' ? 'do sax alto (Mi♭) para o tenor: suba uma 4ª justa (ou desça uma 5ª); armadura −1 sustenido (ou +1 bemol). De trompete, clarinete ou sax soprano (Si♭) para o tenor: a escrita é a mesma — o tenor só soa uma oitava abaixo deles' : 'do sax tenor (Si♭) para ' + (I.id === 'alto' ? 'o alto: suba uma 5ª justa (ou desça uma 4ª), pois os dois estão uma 5ª de distância' : 'você: é a mesma escrita, só uma oitava de diferença')}. Use a aba <a href="#transpositor">Transpositor</a> para conferir sempre.</p>`;
     },
     pra: (I) => `<h4>Afinação diária</h4><ol><li>Toque 2–3 minutos para aquecer (o instrumento frio soa mais baixo).</li><li>Ligue o <a href="#afinador">afinador</a> e toque a nota de afinação: <b>${window.H.nota(I, I.afinar.escrita)}</b>. ${I.afinar.obs}</li>
       <li>Ponteiro à esquerda (bemol, baixo): ${I.sub === 'sax' ? 'empurre a boquilha mais para dentro do tudel' : I.sub === 'clarinete' ? 'empurre o barrilete (feche a folga)' : 'empurre a bomba geral'}. Ponteiro à direita (sustenido, alto): ${I.sub === 'sax' ? 'puxe a boquilha um pouco para fora' : I.sub === 'clarinete' ? 'puxe o barrilete um pouco' : 'puxe a bomba'}.</li>
@@ -1836,7 +1846,7 @@ window.Curso.aula = function (a) {
       ];
       return [
         { p: `No ${I.curto.toLowerCase()}, o Dó escrito soa…`, o: ['Dó', M.nomeBR(M.escritaParaConcerto(M.parse('C4'), I)), 'Fá', 'Ré'].filter((x, i, a) => a.indexOf(x) === i).concat(['Lá']).slice(0, 4), c: 1 },
-        { p: 'Uma música em Fá maior de concerto será escrita para você em…', o: I.id === 'alto' ? ['Fá maior', 'Ré maior', 'Si♭ maior', 'Sol maior'] : ['Fá maior', 'Sol maior', 'Mi♭ maior', 'Ré maior'], c: 1, e: I.id === 'alto' ? 'Fá + 6ª maior = Ré.' : 'Fá + 2ª maior = Sol.' },
+        { p: 'Uma música em Fá maior de concerto será escrita para você em…', o: I.id === 'alto' ? ['Fá maior', 'Ré maior', 'Si♭ maior', 'Sol maior'] : ['Fá maior', 'Sol maior', 'Mi♭ maior', 'Ré maior'], c: 1, e: I.id === 'alto' ? 'Fá + 6ª maior = Ré.' : I.id === 'tenor' ? 'Fá + 9ª maior = Sol (uma oitava acima).' : 'Fá + 2ª maior = Sol.' },
         { p: 'O ponteiro do afinador está à direita (alto). Você deve…', o: I.sub === 'sax' ? ['empurrar a boquilha para dentro', 'puxar a boquilha para fora', 'morder mais', 'soprar mais forte'] : I.sub === 'clarinete' ? ['empurrar o barrilete', 'puxar o barrilete', 'morder mais', 'soprar mais forte'] : ['empurrar a bomba geral', 'puxar a bomba geral', 'apertar o bocal', 'soprar mais forte'], c: 1 },
         { p: 'Para converter uma armadura de Dó para o seu instrumento…', o: I.id === 'alto' ? ['acrescente 2 sustenidos', 'acrescente 3 sustenidos (ou retire 3 bemóis)', 'retire 2 sustenidos', 'não muda'] : ['acrescente 2 sustenidos (ou retire 2 bemóis)', 'acrescente 3 sustenidos', 'retire 1 bemol', 'não muda'], c: I.id === 'alto' ? 1 : 0 },
       ];
@@ -1850,12 +1860,12 @@ window.Curso.aula = function (a) {
     apr: (I) => I.familia === 'metal' ? ['Buzz sem bocal e com bocal', 'Sirenes e notas sustentadas no bocal', 'Primeiras notas no instrumento', 'Como saber se a vibração está certa'] : [(I.sub === 'clarinete' ? 'Som na boquilha com o barrilete' : 'Som na boquilha sozinha'), 'Altura de referência da boquilha', 'Primeiras notas no instrumento', 'Como evitar guinchos'],
     teo: (I) => por(I, {
       palheta: `<p>O som nasce quando o ar faz a palheta vibrar contra a boquilha, abrindo e fechando centenas de vezes por segundo. Para isso, a palheta precisa estar <b>livre para vibrar</b>: o lábio inferior a apoia sem esmagar, e o ar precisa ter <b>velocidade</b> constante. A embocadura completa é o tema da aula 2.2; aqui você vai apenas conseguir um som estável.</p>
-        <p>${I.sub === 'clarinete' ? 'A boquilha com o barrilete' : 'A boquilha sozinha'} dá uma <b>nota de referência</b> que revela se a embocadura está apertada ou frouxa: ${I.sub === 'sax' ? (I.id === 'alto' ? 'no sax alto, a boquilha sozinha deve soar perto do <b>Lá de concerto (Lá5, 880 Hz)</b>' : 'no soprano, a boquilha sozinha deve soar perto do <b>Dó de concerto (Dó6)</b>') : 'no clarinete, <b>boquilha + barrilete</b> devem soar perto do <b>Fá♯ de concerto (Fá♯5)</b>'}. Mais alto = embocadura apertada; mais baixo = frouxa.</p>`,
+        <p>${I.sub === 'clarinete' ? 'A boquilha com o barrilete' : 'A boquilha sozinha'} dá uma <b>nota de referência</b> que revela se a embocadura está apertada ou frouxa: ${I.sub === 'sax' ? (I.id === 'alto' ? 'no sax alto, a boquilha sozinha deve soar perto do <b>Lá de concerto (Lá5, 880 Hz)</b>' : I.id === 'tenor' ? 'no sax tenor, a boquilha sozinha deve soar perto do <b>Sol de concerto (Sol5)</b>' : 'no soprano, a boquilha sozinha deve soar perto do <b>Dó de concerto (Dó6)</b>') : 'no clarinete, <b>boquilha + barrilete</b> devem soar perto do <b>Fá♯ de concerto (Fá♯5)</b>'}. Mais alto = embocadura apertada; mais baixo = frouxa.</p>`,
       metal: `<p>O som dos metais nasce da <b>vibração dos lábios</b>. O ar passa entre os lábios levemente fechados e eles vibram como uma porta batendo muito rápido. O instrumento amplifica e “escolhe” a nota da série harmônica mais próxima da vibração.</p>
         <p>Nota alta = lábios vibrando mais rápido (ar mais rápido, abertura menor). Nota baixa = vibração mais lenta. Você não “força” a nota com pressão do bocal: muda a <b>velocidade do ar</b> e a forma da abertura dos lábios.</p>`,
     }),
     pra: (I, H) => por(I, {
-      sax: `<ol><li>Só a boquilha com palheta (sem o tudel). Lábio inferior levemente sobre os dentes de baixo, dentes de cima apoiados em cima da boquilha (a 1–1,5 cm da ponta), cantos da boca firmes “como num cordão”.</li><li>Inspire pela boca e sopre como se dissesse “uuuu”, firme e constante. Mantenha 4 segundos.</li><li>Confira no afinador: ${I.id === 'alto' ? 'Lá de concerto (Lá5)' : 'Dó de concerto (Dó6)'}. Muito acima? Afrouxe a mordida. Muito abaixo ou sem som? Firme os cantos e acelere o ar.</li><li>Monte o sax. Primeira nota: <b>Si</b> escrito (só dedo 1). Depois <b>Lá</b> (1-2) e <b>Sol</b> (1-2-3).</li></ol>${H.dedos(I, ['B4', 'A4', 'G4'])}`,
+      sax: `<ol><li>Só a boquilha com palheta (sem o tudel). Lábio inferior levemente sobre os dentes de baixo, dentes de cima apoiados em cima da boquilha (a 1–1,5 cm da ponta), cantos da boca firmes “como num cordão”.</li><li>Inspire pela boca e sopre como se dissesse “uuuu”, firme e constante. Mantenha 4 segundos.</li><li>Confira no afinador: ${I.id === 'alto' ? 'Lá de concerto (Lá5)' : I.id === 'tenor' ? 'Sol de concerto (Sol5)' : 'Dó de concerto (Dó6)'}. Muito acima? Afrouxe a mordida. Muito abaixo ou sem som? Firme os cantos e acelere o ar.</li><li>Monte o sax. Primeira nota: <b>Si</b> escrito (só dedo 1). Depois <b>Lá</b> (1-2) e <b>Sol</b> (1-2-3).</li></ol>${H.dedos(I, ['B4', 'A4', 'G4'])}`,
       clarinete: `<ol><li>Boquilha + barrilete. Lábio inferior sobre os dentes de baixo, dentes de cima <b>sobre</b> a boquilha (a 1–1,5 cm da ponta), queixo “reto e para baixo”, cantos firmes.</li><li>Sopre firme e constante por 4 segundos.</li><li>Confira: Fá♯ de concerto (Fá♯5). Agudo demais = mordendo; grave ou sem som = frouxo.</li><li>Monte o clarinete. Primeiras notas: <b>Sol solto</b> (nenhum dedo), <b>Fá</b> (polegar) e <b>Mi</b> (polegar + 1).</li></ol>${H.dedos(I, ['G4', 'F4', 'E4'])}`,
       trompete: `<ol><li><b>Buzz sem bocal:</b> lábios juntos como para dizer “M”, sopre e faça vibrar (como imitar um motorzinho). Sustente 3 segundos.</li><li><b>Buzz no bocal:</b> segure o bocal pela haste com dois dedos (sem pressão). Faça uma nota média e sustente 4 segundos. Depois faça “sirenes” (escorregue do grave ao agudo e volte).</li><li>Coloque o bocal no trompete. Primeira nota: <b>Dó</b> escrito (sem pistos), depois <b>Sol</b> (sem pistos, mais ar e mais velocidade).</li></ol>${H.dedos(I, ['C4', 'G4'])}`,
       trombone: `<ol><li><b>Buzz sem bocal:</b> lábios juntos como para dizer “M”, sopre e faça vibrar. Sustente 3 segundos.</li><li><b>Buzz no bocal:</b> segure pela haste, sem pressão. Nota média, depois sirenes.</li><li>Coloque o bocal no trombone. Primeira nota: <b>Fá</b> (Fá3) na 1ª posição; depois <b>Si♭</b> grave (Si♭2), também na 1ª — menos velocidade de ar, mais relaxado.</li></ol>${H.dedos(I, ['F3', 'Bb2'])}`,
@@ -3051,7 +3061,7 @@ window.Curso.aula = function (a) {
     teo: (I) => `<p><b>Aproximação:</b> chegar a uma nota do acorde vindo de meio tom abaixo (cromática) ou de um grau da escala acima. <b>Enclosure</b> (cercadura): “cercar” a nota-alvo com notas acima e abaixo antes de tocá-la (ex.: alvo Mi: Fá – Ré♯ – Mi). É marca do bebop.</p>
       <p><b>Escala bebop dominante:</b> mixolídio + 7ª maior de passagem (8 notas). Em colcheias, ela coloca as notas do acorde nos tempos fortes.</p>
       <p><b>Outside:</b> sair da tonalidade de propósito e voltar — por exemplo, tocar meio tom acima (side-slipping) por um tempo e resolver. Funciona quando a ideia é clara e a volta é segura.</p>
-      <p><b>Transcrever</b> é a forma mais eficaz de aprender a linguagem (aula 9.4). Solos para transcrever: ${por(I, { alto: 'Charlie Parker (“Now’s the Time”, “Billie’s Bounce”), Cannonball Adderley (“Autumn Leaves”), Paul Desmond (“Take Five”)', soprano: 'Sidney Bechet, John Coltrane (“My Favorite Things”), Wayne Shorter', clarinete: 'Benny Goodman, Artie Shaw, Paulo Moura, Abel Ferreira', trompete: 'Louis Armstrong (“West End Blues”), Miles Davis (“So What”), Clifford Brown (“Joy Spring”), Chet Baker', trombone: 'J. J. Johnson, Curtis Fuller (“Blue Train”), Raul de Souza' })}.</p>`,
+      <p><b>Transcrever</b> é a forma mais eficaz de aprender a linguagem (aula 9.4). Solos para transcrever: ${por(I, { tenor: 'John Coltrane (“Blue Train”, “Giant Steps”), Sonny Rollins (“St. Thomas”, “Tenor Madness”), Dexter Gordon, Stan Getz (“The Girl from Ipanema”), Ben Webster (baladas, subtone), Michael Brecker; no gospel, Kirk Whalum (“The Gospel According to Jazz”)', alto: 'Charlie Parker (“Now’s the Time”, “Billie’s Bounce”), Cannonball Adderley (“Autumn Leaves”), Paul Desmond (“Take Five”)', soprano: 'Sidney Bechet, John Coltrane (“My Favorite Things”), Wayne Shorter', clarinete: 'Benny Goodman, Artie Shaw, Paulo Moura, Abel Ferreira', trompete: 'Louis Armstrong (“West End Blues”), Miles Davis (“So What”), Clifford Brown (“Joy Spring”), Chet Baker', trombone: 'J. J. Johnson, Curtis Fuller (“Blue Train”), Raul de Souza' })}.</p>`,
     pra: (I, H) => H.pauta({ tipo: 'escala', escala: 'bebopDom', tonica: !I.grave ? 'G4' : 'F2', oitavas: 1, dur: 2, bpm: 100, porLinha: 3 }) + H.pauta({ tipo: 'notas', notas: !I.grave ? 'F4:2 D#4:2 E4:4 r:4 D5:2 B4:2 C5:4 r:4' : 'F3:2 D#3:2 E3:4 r:4 D4:2 B3:2 C4:4 r:4', tom: 'C', titulo: 'Enclosures (alvo: Mi e Dó)', bpm: 90 }),
     exs: [
       { nome: 'Enclosures em todas as notas do acorde', dur: '10 min', bpm: 90, obj: 'Vocabulário bebop.', passos: ['Escolha um acorde (ex.: C7M).', 'Faça enclosure em cada nota: 1, 3, 5, 7.', 'Transponha para outras tonalidades.'], crit: 'Enclosures em 4 tonalidades a ♩ = 120.' },
@@ -3237,7 +3247,7 @@ window.Curso.aula = function (a) {
     apr: ['Arranjo para instrumento solo + teclado', 'Harmonização a 2 e 3 vozes', 'Transposição de hinários', 'Tocar com teclado, guitarra, baixo e bateria', 'Orquestras de igreja: naipes e afinação'],
     teo: (I) => `<p><b>Arranjo simples:</b> introdução (4 compassos) – 1ª estrofe com melodia – 2ª estrofe com contracanto (o cantor ou outro instrumento faz a melodia) – interlúdio/solo – modulação (+½ ou +1 tom) – último refrão com melodia oitava acima ou dobrada – final (cadência plagal ou fermata).</p>
       <p><b>Harmonização a 2 vozes:</b> 2ª voz uma <b>3ª ou 6ª abaixo</b> da melodia, ajustando para notas do acorde. A 3 vozes: melodia + 3ª abaixo + nota restante do acorde (tríade fechada). Evite quintas e oitavas paralelas consecutivas.</p>
-      <p><b>Transpor hinários:</b> a maioria está em concerto (para coral e órgão). ${I.transp.s ? `Para você: ${I.id === 'alto' ? 'suba uma 6ª maior (armadura +3♯)' : 'suba um tom (armadura +2♯)'}. Hinários de orquestra trazem partes já transpostas para ${I.tom}.` : 'Você lê em sons reais na clave de Fá; se a parte vier em Si♭ na clave de Sol, leia uma 9ª abaixo.'}</p>
+      <p><b>Transpor hinários:</b> a maioria está em concerto (para coral e órgão). ${I.transp.s ? `Para você: ${I.id === 'alto' ? 'suba uma 6ª maior (armadura +3♯)' : I.id === 'tenor' ? 'suba um tom e uma oitava (armadura +2♯)' : 'suba um tom (armadura +2♯)'}. Hinários de orquestra trazem partes já transpostas para ${I.tom}.` : 'Você lê em sons reais na clave de Fá; se a parte vier em Si♭ na clave de Sol, leia uma 9ª abaixo.'}</p>
       <p><b>Com a banda:</b> o teclado e a guitarra definem a harmonia; o baixo, a fundamental; a bateria, o pulso. Fique fora da região da voz e do teclado (registro e ritmo diferentes). Combine sinais de mão para repetir, modular e terminar.</p>
       <p><b>Orquestras de igreja</b> (muito comuns no Brasil, com naipes de sax, clarinete, trompete, trombone, além de cordas): toque o seu papel no naipe (1ª, 2ª, 3ª voz), afine com a nota do grupo, combine respirações e articulações com o chefe de naipe.</p>`,
     pra: (I, H) => H.pauta({ tipo: 'mel', id: 'graca' }) + '<p>Projeto: escreva um arranjo de “Amazing Grace” (ou de um hino da sua igreja) para seu instrumento + teclado, no MuseScore, com: introdução, melodia, contracanto, modulação e final. Escreva também uma 2ª voz para um colega.</p>',
@@ -3482,6 +3492,17 @@ window.Curso.aula = function (a) {
     { p: 'alto', n: 'intAvancado', t: 'jazz', titulo: 'Solo de “Autumn Leaves” (álbum Somethin’ Else, 1958)', autor: 'Cannonball Adderley — para transcrever' },
     { p: 'alto', n: 'basico', t: 'jazz', titulo: 'Take Five (tema)', autor: 'Paul Desmond' },
 
+    { p: 'tenor', n: 'basico', t: 'jazz', titulo: 'St. Thomas (tema)', autor: 'Sonny Rollins' },
+    { p: 'tenor', n: 'intermediario', t: 'jazz', titulo: 'Tenor Madness (blues)', autor: 'Sonny Rollins' },
+    { p: 'tenor', n: 'intermediario', t: 'brasileira', titulo: 'The Girl from Ipanema (gravação Getz/Gilberto, 1964)', autor: 'Tom Jobim; solo de Stan Getz — referência de som e fraseado da bossa nova' },
+    { p: 'tenor', n: 'intermediario', t: 'brasileira', titulo: 'Contracantos de Pixinguinha ao sax tenor', autor: 'gravações de Pixinguinha e Benedito Lacerda (anos 1940) — o tenor fazendo a “baixaria” do choro' },
+    { p: 'tenor', n: 'intAvancado', t: 'jazz', titulo: 'Solo de “Blue Train” (1957)', autor: 'John Coltrane — para transcrever' },
+    { p: 'tenor', n: 'intAvancado', t: 'jazz', titulo: 'Baladas de Ben Webster', autor: 'referência de subtone e vibrato no tenor' },
+    { p: 'tenor', n: 'avancado', t: 'jazz', titulo: 'Giant Steps', autor: 'John Coltrane' },
+    { p: 'tenor', n: 'avancado', t: 'peça', titulo: 'Ballade para sax tenor e orquestra (1938)', autor: 'Frank Martin' },
+    { p: 'tenor', n: 'avancado', t: 'gospel', titulo: 'The Gospel According to Jazz (álbuns)', autor: 'Kirk Whalum — referência de sax tenor gospel' },
+    { p: 'tenor', n: 'profissional', t: 'jazz', titulo: 'Transcrições de Michael Brecker e Dexter Gordon', autor: 'linguagem moderna e clássica do tenor' },
+
     // ---------- CLARINETE ----------
     { p: 'clarinete', n: 'iniciante', t: 'método', titulo: 'Rubank Elementary Method — Clarinet', autor: 'N. W. Hovey' },
     { p: 'clarinete', n: 'iniciante', t: 'método', titulo: 'Essential Elements for Band — Clarinete, Livro 1', autor: 'Hal Leonard' },
@@ -3595,7 +3616,7 @@ window.Curso.aula = function (a) {
     primeiraEscala: 'C', bocal: 'cabeça',
   };
   // ordem dos botões de instrumento
-  const ord = ['alto', 'soprano', 'clarinete', 'flauta', 'trompete', 'trombone'];
+  const ord = ['alto', 'soprano', 'tenor', 'clarinete', 'flauta', 'trompete', 'trombone'];
   const novo = {}; ord.forEach((k) => { novo[k] = IN.INSTRUMENTOS[k]; });
   Object.keys(IN.INSTRUMENTOS).forEach((k) => delete IN.INSTRUMENTOS[k]);
   Object.assign(IN.INSTRUMENTOS, novo);
@@ -4477,6 +4498,7 @@ window.Curso.aula = function (a) {
   const TAGS = {
     alto: 'O som mais versátil dos sopros — do culto ao jazz, do choro à sala de concerto.',
     soprano: 'Brilho e doçura numa linha reta. Pede precisão e devolve beleza.',
+    tenor: 'A voz grave e quente do sax: baladas, jazz, soul, gospel e o contracanto do choro.',
     clarinete: 'Do grave aveludado ao agudo cristalino: o instrumento de Mozart e de Abel Ferreira.',
     flauta: 'O sopro mais antigo da música, com a técnica mais refinada.',
     trompete: 'A voz do anúncio e da celebração: brilho, potência e lirismo.',
@@ -4530,7 +4552,7 @@ window.Curso.aula = function (a) {
   };
 
   // ======================= GOSPEL =======================
-  const VOZ_SUG = { flauta: 's', soprano: 's', clarinete: 's', trompete: 's', alto: 'a', trombone: 't' };
+  const VOZ_SUG = { flauta: 's', soprano: 's', clarinete: 's', trompete: 's', alto: 'a', tenor: 't', trombone: 't' };
   Ferr.gospel = (el, { inst, E }) => {
     const I = inst;
     const aulas = C.modulos.find((m) => m.n === 13).aulas;

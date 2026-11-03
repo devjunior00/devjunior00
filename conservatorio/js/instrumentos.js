@@ -22,6 +22,15 @@
       afinar: { escrita: 'B4', obs: 'Afine no Si escrito (Lá de concerto) ou no Dó escrito (Si♭ de concerto). O soprano é muito sensível à embocadura: confira várias notas, não só uma.' },
       primeiraEscala: 'C', bocal: 'boquilha',
     },
+    tenor: {
+      id: 'tenor', nome: 'Saxofone tenor', nomeMin: 'saxofone tenor', curto: 'Sax tenor', tom: 'Si♭', tomInt: 'B♭', familia: 'palheta', sub: 'sax', timbre: 'sax',
+      transp: { l: 8, s: 14 }, clave: 'treble',
+      transpTexto: 'soa uma 9ª maior abaixo do que está escrito (um tom e uma oitava)',
+      exemploTransp: 'Dó escrito soa Si♭ de concerto, uma oitava e um tom abaixo',
+      faixa: ['Bb3', 'F#6'], conf: { iniciante: ['D4', 'C5'], basico: ['C4', 'C6'], intermediario: ['Bb3', 'F6'], avancado: ['Bb3', 'F#6'] },
+      afinar: { escrita: 'B4', obs: 'Muitos tenoristas afinam no Si escrito (Lá de concerto) ou no Dó escrito (Si♭ de concerto). Ajuste empurrando ou puxando a boquilha no tudel. O tenor tem muita coluna de ar: aqueça bem antes de afinar.' },
+      primeiraEscala: 'C', bocal: 'boquilha',
+    },
     clarinete: {
       id: 'clarinete', nome: 'Clarinete em Si♭', nomeMin: 'clarinete em Si♭', curto: 'Clarinete', tom: 'Si♭', tomInt: 'B♭', familia: 'palheta', sub: 'clarinete', timbre: 'clarinete',
       transp: { l: 1, s: 2 }, clave: 'treble',

@@ -1,6 +1,6 @@
 # Conservatório de Sopros
 
-Curso completo de **saxofone alto, saxofone soprano, clarinete, flauta transversal, trompete e trombone**, do iniciante ao profissional, em português. Abre no celular (Android e iOS) e no computador.
+Curso completo de **saxofone alto, saxofone soprano, saxofone tenor, clarinete, flauta transversal, trompete e trombone**, do iniciante ao profissional, em português. Abre no celular (Android e iOS) e no computador.
 
 ## O que tem
 
