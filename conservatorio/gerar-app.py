@@ -14,3 +14,18 @@ cab = '''<!doctype html>
 '''
 (aqui / 'app.html').write_text(cab + corpo + '\n</body>\n</html>\n', encoding='utf-8')
 print('app.html gerado')
+
+# app-completo.html: um arquivo só, com todos os scripts embutidos (abre em serviços que não carregam arquivos separados)
+import re
+html = (aqui / 'app.html').read_text(encoding='utf-8')
+def embute(m):
+    src = m.group(1)
+    if src.startswith('http'):
+        caminho = aqui / 'vendor' / src.rsplit('/', 1)[-1]
+    else:
+        caminho = aqui / src
+    codigo = caminho.read_text(encoding='utf-8').replace('</script', '<\\/script')
+    return '<script>\n' + codigo + '\n</script>'
+completo = re.sub(r'<script src="([^"]+)"></script>', embute, html)
+(aqui / 'app-completo.html').write_text(completo, encoding='utf-8')
+print('app-completo.html gerado')

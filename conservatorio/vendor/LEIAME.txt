@@ -1,0 +1,1 @@
+abcjs 6.4.4 (https://github.com/paulrosen/abcjs), licença MIT. Cópia local usada por app-completo.html.
